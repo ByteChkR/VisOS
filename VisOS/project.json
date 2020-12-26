@@ -1,0 +1,22 @@
+{
+  "ModuleName": "VisOS",
+  "ModuleVersion": "0.1",
+  "Dependencies": [
+    {
+      "ModuleName": "VisOS.Driver",
+      "ModuleVersion": "ANY"
+    },
+    {
+      "ModuleName": "VisOS.Utility",
+      "ModuleVersion": "ANY"
+    },
+    {
+      "ModuleName": "VisOS.Core",
+      "ModuleVersion": "ANY"
+    },
+    {
+      "ModuleName": "VisOS.Commands",
+      "ModuleVersion": "ANY"
+    }
+  ]
+}

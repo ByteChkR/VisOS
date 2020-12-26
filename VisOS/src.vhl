@@ -1,0 +1,26 @@
+#include "VisOS.Core/startup.vhl"
+#include "VisOS.Core/command_loop.vhl"
+#include "VisOS.Core/shutdown.vhl"
+#include "VisOS.Commands/help.vhl"
+#include "VisOS.Commands/test.vhl"
+
+private void RegisterCommands()
+{
+	
+	RegisterHelp();
+
+	RegisterTest();
+	
+	return;
+}
+
+public void RunOS()
+{
+	Startup();
+
+	RegisterCommands();
+
+	CommandLoop();
+	Shutdown();
+	return;
+}

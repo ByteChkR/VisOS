@@ -1,0 +1,7 @@
+#include "const_data.vhl"
+
+public void Startup()
+{
+	WriteOSHeader();
+	return;
+}

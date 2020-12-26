@@ -1,0 +1,10 @@
+{
+  "ModuleName": "VisOS.Commands",
+  "ModuleVersion": "0.1",
+  "Dependencies": [
+    {
+      "ModuleName": "VisOS.Tests",
+      "ModuleVersion": "ANY"
+    }
+  ]
+}

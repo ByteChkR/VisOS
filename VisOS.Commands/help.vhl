@@ -1,0 +1,38 @@
+#include "../VisOS.Core/command_list.vhl"
+#include "../VisOS.Core/const_data.vhl"
+
+
+string(cmd_help, "help");
+
+string(cmd_help_test, "test = Run Built in Tests");
+string(cmd_help_help, "help = Display this Help Text");
+string(cmd_help_exit, "exit = Exit VM");
+
+private var IsHelp(var ptrIn)
+{
+	return IsCommand(ptr_of(cmd_help), size_of(cmd_help), ptrIn);
+}
+
+private void WriteHelp()
+{
+	WriteLine(ptr_of(cmd_help_test), size_of(cmd_help_test));
+	WriteLine(ptr_of(cmd_help_help), size_of(cmd_help_help));
+	WriteLine(ptr_of(cmd_help_exit), size_of(cmd_help_exit));
+	return;
+}
+
+private void HelpCommand(var cmdPtr)
+{
+	var isHelp = IsHelp(cmdPtr);
+	if(isHelp)
+	{
+		WriteHelp();
+	}
+	return;
+}
+
+public void RegisterHelp()
+{
+	Insert(ptr_of(HelpCommand));
+	return;
+}

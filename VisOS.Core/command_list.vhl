@@ -1,0 +1,32 @@
+var funcList[255];
+
+public void Insert(var funcPtr)
+{
+	var current = 0;
+	while(current < 255)
+	{
+		var entry = funcList[current];
+		if(!entry)
+		{
+			funcList[current] = funcPtr;
+			return;
+		}
+		current = current + 1;
+	}
+	return;
+}
+
+public void Invoke(var cmdPtr)
+{
+	var current = 0;
+	while(current < 255)
+	{
+		var entry = funcList[current];
+		if(entry)
+		{
+			entry(cmdPtr);
+		}
+		current = current + 1;
+	}
+	return;
+}

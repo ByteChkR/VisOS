@@ -1,0 +1,69 @@
+#include "../VisOS.Driver/VisOS.Terminal/out.vhl"
+#include "../VisOS.Utility/memory.vhl"
+#include "../VisOS.Driver/VisOS.Terminal/in.vhl"
+
+string(str_version, "v0.1");
+string(str_name, "VisOS");
+string(str_term_prefix, "VisOS>>");
+string(str_header_sep, " @ ");
+string(str_fatal_error, "A fatal error occurred, the Virtual Machine has to be stopped.");
+
+string(cmd_exit, "exit");
+string(cmd_exit_mesg, "Exiting..");
+
+public void WriteOSHeader()
+{
+	WriteString(ptr_of(str_name), size_of(str_name));
+	WriteString(ptr_of(str_header_sep), size_of(str_header_sep));
+	WriteLine(ptr_of(str_version), size_of(str_version));
+	WriteNewLine();
+	return;
+}
+
+public void WriteOSName()
+{
+	WriteLine(ptr_of(str_name), size_of(str_name));
+	return;
+}
+
+public void WriteOSVersion()
+{
+	WriteLine(ptr_of(str_version), size_of(str_version));
+	return;
+}
+
+public void WriteTerminalPrefix()
+{
+	WriteString(ptr_of(str_term_prefix), size_of(str_term_prefix));
+	return;
+}
+
+
+public void WriteExitMessage()
+{
+	WriteLine(ptr_of(cmd_exit_mesg), size_of(cmd_exit_mesg));
+	return;
+}
+
+public var IsCommand(var ptrIn, var ptrInSize, var ptrCmd)
+{
+	return Compare(ptrIn, ptrInSize, ptrCmd);
+}
+
+public void ClearCommand(var ptrIn, var ptrInSize)
+{
+	Set(ptrIn, ptrInSize, 0);
+	return;
+}
+
+public var ReadCommand(var ptrIn, var ptrInSize)
+{
+	return ReadLine(ptrIn, ptrInSize);
+}
+
+public var IsExit(var ptrIn)
+{
+	return IsCommand(ptr_of(cmd_exit), size_of(cmd_exit), ptrIn);
+}
+
+

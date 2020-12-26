@@ -1,0 +1,26 @@
+#include "../VisOS.Core/command_list.vhl"
+#include "../VisOS.Core/const_data.vhl"
+#include "VisOS.Tests/tests.vhl"
+
+string(cmd_test, "test");
+
+private var IsTest(var ptrIn)
+{
+	return IsCommand(ptr_of(cmd_test), size_of(cmd_test), ptrIn);
+}
+
+private void TestCommand(var cmdPtr)
+{
+	var isTest = IsTest(cmdPtr);
+	if(isTest)
+	{
+		RunTests();
+	}
+	return;
+}
+
+public void RegisterTest()
+{
+	Insert(ptr_of(TestCommand));
+	return;
+}
