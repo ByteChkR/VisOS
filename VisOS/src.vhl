@@ -3,6 +3,7 @@
 #include "VisOS.Core/shutdown.vhl"
 #include "VisOS.Commands/help.vhl"
 #include "VisOS.Commands/test.vhl"
+#include "VisOS.Commands/count.vhl"
 
 private void RegisterCommands()
 {
@@ -11,6 +12,8 @@ private void RegisterCommands()
 
 	RegisterTest();
 	
+	RegisterCount();
+
 	return;
 }
 

@@ -1,0 +1,33 @@
+#include "../VisOS.Core/command_list.vhl"
+#include "../VisOS.Core/const_data.vhl"
+#include "VisOS.Tests/tests.vhl"
+#include "../VisOS.Driver/VisOS.Terminal/out.vhl"
+
+string(cmd_cnt, "cnt");
+
+private var IsCount(var ptrIn)
+{
+	return IsCommand(ptr_of(cmd_cnt), size_of(cmd_cnt), ptrIn);
+}
+
+private void CountCommand(var cmdPtr)
+{
+	var isTest = IsCount(cmdPtr);
+	if(isTest)
+	{
+		var c = 100;
+		while(c)
+		{
+			WriteNumber(c);
+			WriteNewLine();
+			c = c - 1;
+		}
+	}
+	return;
+}
+
+public void RegisterCount()
+{
+	Insert(ptr_of(CountCommand));
+	return;
+}
