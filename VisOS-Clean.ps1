@@ -1,0 +1,1 @@
+.\scripts\vis-sdk-uninstall.ps1 #Install VisSDK
