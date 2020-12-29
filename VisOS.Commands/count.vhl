@@ -3,7 +3,7 @@
 #include "VisOS.Tests/tests.vhl"
 #include "../VisOS.Driver/VisOS.Terminal/out.vhl"
 
-string(cmd_cnt, "cnt");
+string(cmd_cnt, "count");
 
 private var IsCount(var ptrIn)
 {

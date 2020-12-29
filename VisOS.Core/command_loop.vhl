@@ -3,7 +3,7 @@
 
 public void CommandLoop()
 {
-	var in_test[5];
+	var in_test[255];
 	var count;
 	var exitLoop = 0;
 	while(!exitLoop)
