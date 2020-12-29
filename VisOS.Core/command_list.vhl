@@ -1,32 +1,50 @@
-var funcList[255];
+var funcList[512];
+#include "../VisOS.Driver/VisOS.Terminal/out.vhl"
 
-public void Insert(var funcPtr)
+private var FindCommand(var cmdPtr)
 {
 	var current = 0;
-	while(current < 255)
+	var len = size_of(funcList);
+	while(current < len)
+	{
+		var checkPtr = funcList[current];
+
+		var found = checkPtr(cmdPtr);
+
+		if(found)
+		{
+			return current+1;
+		}
+		current = current + 2;
+	}
+	return 0;
+}
+
+public void InsertCommand(var funcPtr, var checkPtr)
+{
+	var current = 0;
+	while(current < size_of(funcList))
 	{
 		var entry = funcList[current];
 		if(!entry)
 		{
-			funcList[current] = funcPtr;
+			funcList[current] = checkPtr;
+			var funcIndex = current+1;
+			funcList[funcIndex] = funcPtr;
 			return;
 		}
-		current = current + 1;
+		current = current + 2;
 	}
 	return;
 }
 
-public void Invoke(var cmdPtr)
+public void InvokeCommand(var cmdPtr)
 {
-	var current = 0;
-	while(current < 255)
+	var cmdIndex = FindCommand(cmdPtr);
+	if(cmdIndex)
 	{
-		var entry = funcList[current];
-		if(entry)
-		{
-			entry(cmdPtr);
-		}
-		current = current + 1;
+		var ptr = funcList[cmdIndex];
+		ptr();
 	}
 	return;
 }

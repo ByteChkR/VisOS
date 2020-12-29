@@ -21,18 +21,8 @@ private void WriteHelp()
 	return;
 }
 
-private void HelpCommand(var cmdPtr)
-{
-	var isHelp = IsHelp(cmdPtr);
-	if(isHelp)
-	{
-		WriteHelp();
-	}
-	return;
-}
-
 public void RegisterHelp()
 {
-	Insert(ptr_of(HelpCommand));
+	InsertCommand(ptr_of(WriteHelp), ptr_of(IsHelp));
 	return;
 }

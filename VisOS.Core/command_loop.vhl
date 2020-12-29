@@ -18,7 +18,7 @@ public void CommandLoop()
 			return;
 		}
 
-		Invoke(ptr_of(in_test));
+		InvokeCommand(ptr_of(in_test));
 
 		ClearCommand(ptr_of(in_test), size_of(in_test));
 	}

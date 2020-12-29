@@ -9,18 +9,15 @@ private var IsTest(var ptrIn)
 	return IsCommand(ptr_of(cmd_test), size_of(cmd_test), ptrIn);
 }
 
-private void TestCommand(var cmdPtr)
+
+private void Run()
 {
-	var isTest = IsTest(cmdPtr);
-	if(isTest)
-	{
-		RunTests();
-	}
+	RunTests();
 	return;
 }
 
 public void RegisterTest()
 {
-	Insert(ptr_of(TestCommand));
+	InsertCommand(ptr_of(Run), ptr_of(IsTest));
 	return;
 }

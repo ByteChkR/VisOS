@@ -1,4 +1,21 @@
+public var IndexOf(var source, var start, var length, var num)
+{
+	var i = start;
+	while(i < length)
+	{
+		if(source[i] == num)
+		{
+			return i;
+		}
+		i = i + 1;
+	} 
+	return i;
+}
 
+public var FirstIndex(var source, var length, var num)
+{
+	return IndexOf(source, 0, length, num);
+}
 
 public var Compare(var source, var length, var destination)
 {	
