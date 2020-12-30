@@ -12,7 +12,7 @@ private var IsCount(var ptrIn)
 
 private void CountCommand(var argStart, var argLength)
 {
-	var c = 100;
+	var c = 8192;
 	while(c)
 	{
 		WriteNumber(c);
