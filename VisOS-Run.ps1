@@ -1,4 +1,9 @@
-.\scripts\vis-sdk-install.ps1 #Install VisSDK
+if (Test-Path vis-sdk) {
+    echo "------------- Found SDK -------------"
+}
+else {
+    .\scripts\vis-sdk-install.ps1 #Install VisSDK
+}
 .\scripts\vis-make.ps1 #Make this Console a VIS Console
 
 .\scripts\vis-update.ps1 VisOS.Utility

@@ -1,0 +1,36 @@
+#include "../VisOS.Core/command_list.vhl"
+#include "../VisOS.Core/const_data.vhl"
+#include "../VisOS.Driver/VisOS.Terminal/out.vhl"
+
+string(cmd_get, "get");
+string(cmd_set, "set");
+
+var safe[255]
+
+
+private var IsGet(var ptrIn)
+{
+	return IsCommand(ptr_of(cmd_get), size_of(cmd_get), ptrIn);
+}
+
+private var IsSet(var ptrIn)
+{
+	return IsCommand(ptr_of(cmd_set), size_of(cmd_set), ptrIn);
+}
+
+private void GetCommand(var argStart, var argLength)
+{
+	return;
+}
+
+private void SetCommand(var argStart, var argLength)
+{
+	return;
+}
+
+public void RegisterVarSafe()
+{
+	InsertCommand(ptr_of(SetCommand), ptr_of(IsSet));
+	InsertCommand(ptr_of(GetCommand), ptr_of(IsGet));
+	return;
+}

@@ -10,7 +10,7 @@ private var IsTest(var ptrIn)
 }
 
 
-private void Run()
+private void Run(var argStart, var argLength)
 {
 	RunTests();
 	return;

@@ -1,5 +1,6 @@
 var funcList[512];
 #include "../VisOS.Driver/VisOS.Terminal/out.vhl"
+#include "../VisOS.Utility/memory.vhl"
 
 private var FindCommand(var cmdPtr)
 {
@@ -44,7 +45,10 @@ public void InvokeCommand(var cmdPtr)
 	if(cmdIndex)
 	{
 		var ptr = funcList[cmdIndex];
-		ptr();
+
+		var argStart = FirstIndex(cmdPtr, 255, 0x20);
+		var end = IndexOf(cmdPtr, argStart, 255, 0x00);
+		ptr(cmdPtr+argStart+1, end-argStart-1);
 	}
 	return;
 }

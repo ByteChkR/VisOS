@@ -1,7 +1,14 @@
 const_var cOut = 0xFFFF1001; //Console Out => Write Character
 const_var cOutNum = 0xFFFF1002; //Console Out => Write Number
+const_var cClearNum = 0xFFFF1005; //Console Clear
 
 string(arr_sep, ", ");
+
+public void ClearConsole()
+{
+	cClearNum = 1;
+	return;
+}
 
 public void Write(var chr)
 {

@@ -13,7 +13,7 @@ private var IsHelp(var ptrIn)
 	return IsCommand(ptr_of(cmd_help), size_of(cmd_help), ptrIn);
 }
 
-private void WriteHelp()
+private void WriteHelp(var argStart, var argLength)
 {
 	WriteLine(ptr_of(cmd_help_test), size_of(cmd_help_test));
 	WriteLine(ptr_of(cmd_help_help), size_of(cmd_help_help));

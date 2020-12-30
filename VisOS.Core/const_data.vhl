@@ -45,9 +45,15 @@ public void WriteExitMessage()
 	return;
 }
 
+private var GetCommandPartEnd(var ptrIn, var ptrInSize, var ptrCmd)
+{
+	var space = 0x20;
+	return FirstIndex(ptrIn, ptrInSize, space);
+}
+
 public var IsCommand(var ptrIn, var ptrInSize, var ptrCmd)
 {
-	return Compare(ptrIn, ptrInSize, ptrCmd);
+	return Compare(ptrIn, GetCommandPartEnd(ptrIn, ptrInSize, ptrCmd), ptrCmd);
 }
 
 public void ClearCommand(var ptrIn, var ptrInSize)
