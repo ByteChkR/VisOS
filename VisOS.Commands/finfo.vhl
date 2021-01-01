@@ -1,0 +1,30 @@
+#include "../VisOS.Core/command_list.vhl"
+#include "../VisOS.Core/const_data.vhl"
+#include "VisOS.Tests/tests.vhl"
+#include "../VisOS.Driver/VisOS.Terminal/out.vhl"
+#include "../VisOS.Driver/VisOS.HostFS/host_read.vhl"
+#include "fprint.vhl"
+#include "fsize.vhl"
+
+string(cmd_finfo, "finfo");
+string(txt_finfo, "Path: ");
+
+public void PrintFileInfo(var argStart, var argLength)
+{
+	WriteString(ptr_of(txt_finfo), size_of(txt_finfo));
+	WriteLine(argStart, argLength);
+	WriteFileSize(argStart, argLength);
+	WriteFileContent(argStart, argLength);
+	return;
+}
+
+private var IsFInfo(var ptrIn)
+{
+	return IsCommand(ptr_of(cmd_finfo), size_of(cmd_finfo), ptrIn);
+}
+
+public void RegisterFInfo()
+{
+	InsertCommand(ptr_of(PrintFileInfo), ptr_of(IsFInfo));
+	return;
+}

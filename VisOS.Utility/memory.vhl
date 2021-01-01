@@ -39,8 +39,8 @@ public void Copy(var source, var length, var destination)
 	while(i)
 	{
 		i = i - 1;
-		var temp = destination[i];
-		source[i] = temp;
+		var temp = source[i];
+		destination[i] = temp;
 	}
 	return;
 }

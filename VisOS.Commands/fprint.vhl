@@ -1,0 +1,35 @@
+#include "../VisOS.Core/command_list.vhl"
+#include "../VisOS.Core/const_data.vhl"
+#include "VisOS.Tests/tests.vhl"
+#include "../VisOS.Driver/VisOS.Terminal/out.vhl"
+#include "../VisOS.Driver/VisOS.HostFS/host_read.vhl"
+
+
+string(cmd_fprint, "fprint");
+string(txt_fprint, "File Content:");
+
+public void WriteFileContent(var pathPtr, var pathLen)
+{
+	WriteString(ptr_of(txt_fprint), size_of(txt_fprint));
+	var size = GetFileSize(pathPtr, pathLen);
+	LoadPath(pathPtr, pathLen);
+	while(size)
+	{
+		Write(GetFileNextByte());
+		size = size - 1;
+	}
+	ResetHostFSDevice();
+	WriteNewLine();
+	return;
+}
+
+private var IsFPrint(var ptrIn)
+{
+	return IsCommand(ptr_of(cmd_fprint), size_of(cmd_fprint), ptrIn);
+}
+
+public void RegisterFPrint()
+{
+	InsertCommand(ptr_of(WriteFileContent), ptr_of(IsFPrint));
+	return;
+}

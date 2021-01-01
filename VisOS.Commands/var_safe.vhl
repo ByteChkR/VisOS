@@ -6,7 +6,7 @@ string(cmd_get, "get");
 string(cmd_set, "set");
 
 var safe[255]
-
+var safe_size=0;
 
 private var IsGet(var ptrIn)
 {
@@ -20,11 +20,15 @@ private var IsSet(var ptrIn)
 
 private void GetCommand(var argStart, var argLength)
 {
+	WriteLine(ptr_of(safe), safe_size);
 	return;
 }
 
 private void SetCommand(var argStart, var argLength)
 {
+	Set(ptr_of(safe), size_of(safe), 0);
+	Copy(argStart, argLength, ptr_of(safe));
+	safe_size = argLength;
 	return;
 }
 

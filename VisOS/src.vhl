@@ -7,6 +7,9 @@
 #include "VisOS.Commands/var_safe.vhl"
 #include "VisOS.Commands/echo.vhl"
 #include "VisOS.Commands/clear.vhl"
+#include "VisOS.Commands/fsize.vhl"
+#include "VisOS.Commands/fprint.vhl"
+#include "VisOS.Commands/finfo.vhl"
 
 
 private void RegisterCommands()
@@ -23,6 +26,12 @@ private void RegisterCommands()
 	RegisterEcho();
 
 	RegisterClear();
+
+	RegisterFSize();
+
+	RegisterFPrint();
+	
+	RegisterFInfo();
 	
 	return;
 }

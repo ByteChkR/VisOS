@@ -1,0 +1,39 @@
+const_var fsStatus = 0xFFFF3000;
+const_var fsSize = 0xFFFF3001;
+const_var fsOpen = 0xFFFF3002;
+const_var fsClose = 0xFFFF3003;
+const_var fsPath = 0xFFFF3004;
+const_var fsReset = 0xFFFF3005;
+const_var fsData = 0xFFFF3006;
+
+public var GetFileNextByte()
+{
+	return fsData;
+}
+
+public void ResetHostFSDevice()
+{
+	fsReset = 1;
+	return;
+}
+
+public void LoadPath(var str, var len)
+{
+	fsReset = 1; //Reset Path Pin
+	var i = 0;
+	while(i < len)
+	{
+		fsPath = str[i];
+		i = i + 1;
+	}
+	return;
+}
+
+
+public var GetFileSize(var pathPtr, var pathLen)
+{
+	LoadPath(pathPtr, pathLen);
+	var size = fsSize;
+	fsReset = 1;
+	return size;
+}
