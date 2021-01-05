@@ -1,0 +1,128 @@
+// Status IDS
+const_var HFS_STATUS_READY = 0x01;
+const_var HFS_STATUS_FILE_OPEN = 0x02;
+
+// ADDRESSES
+const_var HFS_ADDRESS_PRESENT = 0xFFFF3000;
+const_var HFS_ADDRESS_STATUS = 0xFFFF3001;
+const_var HFS_ADDRESS_DATA = 0xFFFF3002;
+const_var HFS_ADDRESS_CMD = 0xFFFF3003;
+
+// COMMANDS
+const_var HFS_DEVICE_RESET = 0x00;
+const_var HFS_OPEN_READ = 0x01;
+const_var HFS_OPEN_WRITE = 0x02;
+const_var HFS_CLOSE = 0x03;
+const_var HFS_FILE_SIZE = 0x04;
+
+
+private var GetStatus()
+{
+	var v = HFS_ADDRESS_PRESENT;
+	if(!v)
+	{
+		return 0;
+	}
+
+	return HFS_ADDRESS_STATUS;
+}
+
+public var FileReadByte()
+{
+	return HFS_ADDRESS_DATA;
+}
+
+public var FileWriteByte(var data)
+{
+	HFS_ADDRESS_DATA = data;
+	return;
+}
+
+private void SetCommand(var command)
+{
+	var v = GetStatus();
+	if(!v)
+	{
+		return;
+	}
+	HFS_ADDRESS_CMD = command;
+	return;
+}
+
+private void WriteData(var data, var length)
+{
+	var v = GetStatus();
+	if(!v)
+	{
+		return;
+	}
+	var i = 0;
+	while(i < length)
+	{
+		FileWriteByte(data[i]);
+		i = i + 1;
+	}
+	return;
+}
+
+private void ReadData(var data, var length)
+{
+	var v = GetStatus();
+	if(!v)
+	{
+		return;
+	}
+	var i = 0;
+	while(i < length)
+	{
+		data[i] = FileReadByte();
+		i = i + 1;
+	}
+	return;
+}
+
+
+public var GetFileSize(var path, var pathLen)
+{
+	WriteData(path, pathLen);
+	SetCommand(HFS_FILE_SIZE);
+	return FileReadByte();
+}
+
+public void FileOpenRead(var path, var pathLen)
+{
+	WriteData(path, pathLen);
+	SetCommand(HFS_OPEN_READ);
+	return;
+}
+
+public void FileOpenWrite(var path, var pathLen)
+{
+	WriteData(path, pathLen);
+	SetCommand(HFS_OPEN_WRITE);
+	return;
+}
+
+public void FileClose()
+{
+	SetCommand(HFS_CLOSE);
+	return;
+}
+
+public void WriteAllData(var path, var pathLen, var data, var dataLen)
+{
+	WriteData(path, pathLen);
+	SetCommand(HFS_OPEN_WRITE);
+	WriteData(data, dataLen);
+	SetCommand(HFS_CLOSE);
+	return;
+}
+
+public void ReadAllData(var path, var pathLen, var data, var dataLen)
+{
+	WriteData(path, pathLen);
+	SetCommand(HFS_OPEN_READ);
+	ReadData(data, dataLen);
+	SetCommand(HFS_CLOSE);
+	return;
+}
