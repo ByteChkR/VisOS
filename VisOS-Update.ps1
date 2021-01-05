@@ -6,6 +6,8 @@ else {
 }
 .\scripts\vis-make.ps1 #Make this Console a VIS Console
 
+.\scripts\vis-update.ps1 VisVM
+.\scripts\vis-update.ps1 VisBIOS
 .\scripts\vis-update.ps1 VisOS.Utility
 .\scripts\vis-update.ps1 VisOS.Driver
 .\scripts\vis-update.ps1 VisOS.Tests

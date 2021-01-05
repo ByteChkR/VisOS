@@ -5,6 +5,10 @@
     {
       "ModuleName": "VisOS.Tests",
       "ModuleVersion": "ANY"
+    },
+    {
+      "ModuleName": "VisVM",
+      "ModuleVersion": "ANY"
     }
   ]
 }

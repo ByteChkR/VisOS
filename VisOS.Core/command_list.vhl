@@ -39,7 +39,7 @@ public void InsertCommand(var funcPtr, var checkPtr)
 	return;
 }
 
-public void InvokeCommand(var cmdPtr)
+public void InvokeCommand(var cmdPtr, var cmdLen)
 {
 	var cmdIndex = FindCommand(cmdPtr);
 	if(cmdIndex)
@@ -47,8 +47,8 @@ public void InvokeCommand(var cmdPtr)
 		var ptr = funcList[cmdIndex];
 
 		var argStart = FirstIndex(cmdPtr, 255, 0x20);
-		var end = IndexOf(cmdPtr, argStart, 255, 0x00);
-		ptr(cmdPtr+argStart+1, end-argStart-1);
+		var sta = argStart+1;
+		ptr(cmdPtr+sta, cmdLen - sta);
 	}
 	return;
 }

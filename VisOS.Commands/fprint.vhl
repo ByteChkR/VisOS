@@ -2,23 +2,29 @@
 #include "../VisOS.Core/const_data.vhl"
 #include "VisOS.Tests/tests.vhl"
 #include "../VisOS.Driver/VisOS.Terminal/out.vhl"
-#include "../VisOS.Driver/VisOS.HostFS/hfs.vhl"
+#include "VisVM/hfs.vhl"
 
 
 string(cmd_fprint, "fprint");
+string(txt_file_size, "File Size:");
 string(txt_fprint, "File Content:");
 
 public void WriteFileContent(var pathPtr, var pathLen)
 {
+	WriteString(ptr_of(txt_file_size), size_of(txt_file_size));
+	var size = HFS_GetFileSize(pathPtr, pathLen);
+	WriteNumber(size)
+	WriteNewLine();
+
+
 	WriteLine(ptr_of(txt_fprint), size_of(txt_fprint));
-	var size = GetFileSize(pathPtr, pathLen);
-	FileOpenRead(pathPtr, pathLen);
+	HFS_FileOpenRead(pathPtr, pathLen);
 	while(size)
 	{
-		Write(FileReadByte());
+		Write(HFS_FileReadByte());
 		size = size - 1;
 	}
-	FileClose();
+	HFS_FileClose();
 	WriteNewLine();
 	return;
 }
