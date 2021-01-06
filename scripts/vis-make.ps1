@@ -1,1 +1,0 @@
-$env:Path += ";D:\Users\Tim\Documents\VisOS\vis-sdk\VisCPU.Console\bin\Release\net5.0\publish"
