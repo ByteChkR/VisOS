@@ -1,0 +1,19 @@
+#import "link ..\..\VisOS\Core.vbin"
+
+string(cmd_echo, "echo");
+
+private var IsEcho(var ptrIn)
+{
+	return CMD_IsCommand(ptr_of(cmd_echo), size_of(cmd_echo), ptrIn);
+}
+
+private void EchoCommand(var argStart, var argLength)
+{
+	COUT_WriteLine(argStart, argLength);
+}
+
+public void RegisterEcho()
+{
+	CMD_InsertCommand(ptr_of(EchoCommand), ptr_of(IsEcho));
+	return;
+}

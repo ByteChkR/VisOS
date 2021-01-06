@@ -1,0 +1,30 @@
+#include "command_utils.vhl"
+#include "command_list.vhl"
+#include "../const_data.vhl"
+#include "../utils/memory.vhl"
+
+public void CMD_CommandLoop()
+{
+	CMD_InitCommandList();
+	var in_test[255];
+	var count;
+	var exitLoop = 0;
+	while(!exitLoop)
+	{
+		DATA_WriteTerminalPrefix();
+		count = CMD_ReadCommand(ptr_of(in_test), size_of(in_test));
+
+		var isExit = CMD_IsExit(ptr_of(in_test));
+		if(isExit)
+		{
+			//exitLoop = 1;
+			return;
+		}
+
+		CMD_InvokeCommand(ptr_of(in_test), count);
+
+
+		CMD_ClearCommand(ptr_of(in_test), size_of(in_test));
+	}
+	return;
+}

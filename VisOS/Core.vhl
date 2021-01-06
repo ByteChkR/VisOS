@@ -1,0 +1,31 @@
+#include "commands/command_loop.vhl"
+#include "const_data.vhl"
+#include "utils/string.vhl"
+#include "hfs_loader.vhl"
+
+private void CORE_Startup()
+{
+	DATA_WriteOSHeader();
+	HFS_RegisterHFSRun();
+	return;
+}
+
+private void CORE_Shutdown()
+{
+	DATA_WriteExitMessage();
+	return;
+}
+
+public void CORE_RunOS()
+{
+	CORE_Startup();
+
+	CMD_CommandLoop();
+	
+	CORE_Shutdown();
+	
+	return;
+}
+
+CORE_RunOS();
+return;

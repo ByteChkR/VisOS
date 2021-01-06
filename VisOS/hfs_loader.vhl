@@ -1,0 +1,23 @@
+#include "VisOS.Driver/hfs.vhl"
+#include "commands/command_utils.vhl"
+#include "commands/command_loop.vhl"
+
+string(hfs_load, "hfs.run");
+
+private var HFS_IsLoad(var ptrIn)
+{
+	return CMD_IsCommand(ptr_of(hfs_load), size_of(hfs_load), ptrIn);
+}
+
+private void HFS_Load(var argStart, var argLength)
+{
+	var entry = HFS_LoadBinaryV1(argStart, argLength);
+	entry();
+	return;
+}
+
+public void HFS_RegisterHFSRun()
+{
+	CMD_InsertCommand(ptr_of(HFS_Load), ptr_of(HFS_IsLoad));
+	return;
+}

@@ -1,0 +1,20 @@
+#include "VisOS.Driver/hfs.vhl"
+#include "VisOS.Driver/cout.vhl"
+
+
+string(bootimage, "../VisOS/Core.vbin"); //Path to Boot Image
+string(txt_load, "Loading OS...");
+string(txt_entry, "OS Entry Address: ");
+
+private void LoadOS()
+{
+	COUT_WriteLine(ptr_of(txt_load), size_of(txt_load));
+	var entry = HFS_LoadBinaryV1(ptr_of(bootimage), size_of(bootimage)); //Load image into memory
+	COUT_WriteString(ptr_of(txt_entry), size_of(txt_entry));
+	COUT_WriteNumber(entry);
+	COUT_WriteNewLine();
+	COUT_WriteNewLine();
+	entry(); //Jump to Loaded Image
+	return;
+}
+LoadOS();

@@ -1,0 +1,10 @@
+#import "link ..\..\VisOS\Core.vbin"
+
+#include "Clear.vhl"
+#include "Echo.vhl"
+#include "HFSShowFile.vhl"
+
+RegisterClear();
+RegisterEcho();
+RegisterHFSShow();
+return;

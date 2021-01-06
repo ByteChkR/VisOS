@@ -1,0 +1,164 @@
+#import "vasm-bridge HLT"
+#import "vasm-bridge BRK"
+
+
+// Status IDS
+const_var HFS_STATUS_READY = 0x01;
+const_var HFS_STATUS_FILE_OPEN = 0x02;
+
+// ADDRESSES
+const_var HFS_ADDRESS_PRESENT = 0xFFFF3000;
+const_var HFS_ADDRESS_STATUS = 0xFFFF3001;
+const_var HFS_ADDRESS_DATA = 0xFFFF3002;
+const_var HFS_ADDRESS_CMD = 0xFFFF3003;
+
+// COMMANDS
+const_var HFS_DEVICE_RESET = 0x00;
+const_var HFS_OPEN_READ = 0x01;
+const_var HFS_OPEN_WRITE = 0x02;
+const_var HFS_CLOSE = 0x03;
+const_var HFS_FILE_SIZE = 0x04;
+
+
+public var HFS_GetStatus()
+{
+	var v = HFS_ADDRESS_PRESENT;
+	if(!v)
+	{
+		return 0;
+	}
+	v = HFS_ADDRESS_STATUS;
+	return v;
+}
+
+public var HFS_FileReadByte()
+{
+	var v = HFS_ADDRESS_DATA;
+	return v;
+}
+
+public var HFS_FileWriteByte(var data)
+{
+	HFS_ADDRESS_DATA = data;
+	return;
+}
+
+private void HFS_SetCommand(var command)
+{
+	var v = HFS_GetStatus();
+	if(!v)
+	{
+		return;
+	}
+	HFS_ADDRESS_CMD = command;
+	return;
+}
+
+private void HFS_WriteData(var data, var length)
+{
+	var v = HFS_GetStatus();
+	if(!v)
+	{
+		return;
+	}
+	var i = 0;
+	while(i < length)
+	{
+		var d = data[i];
+		HFS_FileWriteByte(d);
+		i = i + 1;
+	}
+	return;
+}
+
+private void HFS_ReadData(var data, var length)
+{
+	var v = HFS_GetStatus();
+	if(!v)
+	{
+		return;
+	}
+	var i = 0;
+	while(i < length)
+	{
+		data[i] = HFS_FileReadByte();
+		i = i + 1;
+	}
+	return;
+}
+
+
+public var HFS_GetFileSize(var path, var pathLen)
+{
+	HFS_WriteData(path, pathLen);
+	HFS_SetCommand(ptr_of(HFS_FILE_SIZE));
+	return HFS_FileReadByte();
+}
+
+public void HFS_FileOpenRead(var path, var pathLen)
+{
+	HFS_WriteData(path, pathLen);
+	HFS_SetCommand(ptr_of(HFS_OPEN_READ));
+	return;
+}
+
+public void HFS_FileOpenWrite(var path, var pathLen)
+{
+	HFS_WriteData(path, pathLen);
+	HFS_SetCommand(ptr_of(HFS_OPEN_WRITE));
+	return;
+}
+
+public void HFS_FileClose()
+{
+	HFS_SetCommand(ptr_of(HFS_CLOSE));
+	return;
+}
+
+public void HFS_WriteAllData(var path, var pathLen, var data, var dataLen)
+{
+	HFS_WriteData(path, pathLen);
+	HFS_SetCommand(ptr_of(HFS_OPEN_WRITE));
+	HFS_WriteData(data, dataLen);
+	HFS_SetCommand(ptr_of(HFS_CLOSE));
+	return;
+}
+
+public void HFS_ReadAllData(var path, var pathLen, var data, var dataLen)
+{
+	HFS_WriteData(path, pathLen);
+	HFS_SetCommand(ptr_of(HFS_OPEN_READ));
+	HFS_ReadData(data, dataLen);
+	HFS_SetCommand(ptr_of(HFS_CLOSE));
+	return;
+}
+
+public var HFS_LoadBinaryV1(var path, var pathLen)
+{
+	var status = HFS_GetStatus();
+	if(!status)
+	{
+		I0_BRK();
+		I0_HLT(); //Break Execution. Something has gone wrong
+	}
+
+	HFS_WriteData(path, pathLen);
+	HFS_SetCommand(ptr_of(HFS_FILE_SIZE));
+	var length = HFS_ADDRESS_DATA; //Get Size
+
+	HFS_WriteData(path, pathLen);
+	HFS_SetCommand(ptr_of(HFS_OPEN_READ));
+
+	var data = HFS_ADDRESS_DATA; //Read first value(the start pointer)
+
+	length = length - 1;
+
+	var i = 0;
+	while(i < length)
+	{
+		data[i] = HFS_ADDRESS_DATA;
+		i = i + 1;
+	}
+	HFS_SetCommand(ptr_of(HFS_CLOSE));
+	return data;
+}

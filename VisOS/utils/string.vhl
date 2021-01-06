@@ -1,0 +1,15 @@
+#import "vasm-bridge SHL"
+#import "vasm-bridge SHR"
+public var CHR_Unpack(var value, var count)
+{
+	var mask = 0xFF;
+	I3_SHR(ptr_of(value), ptr_of(count), ptr_of(value));
+	return value & mask;
+}
+
+public var CHR_Pack(var value, var count)
+{
+	var mask = 0xFF;
+	I3_SHR(ptr_of(value), ptr_of(count), ptr_of(value));
+	return value & mask;
+}

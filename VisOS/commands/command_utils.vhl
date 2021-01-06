@@ -1,0 +1,31 @@
+#include "../utils/memory.vhl"
+#include "../VisOS.Driver/cin.vhl"
+string(cmd_exit, "exit");
+
+private var GetCommandPartEnd(var ptrIn, var ptrInSize, var ptrCmd)
+{
+	var space = 0x20;
+	return MEM_FirstIndex(ptrIn, ptrInSize, space);
+}
+
+public var CMD_IsCommand(var ptrIn, var ptrInSize, var ptrCmd)
+{
+	return MEM_Compare(ptrIn, GetCommandPartEnd(ptrIn, ptrInSize, ptrCmd), ptrCmd);
+}
+
+public void CMD_ClearCommand(var ptrIn, var ptrInSize)
+{
+	MEM_Set(ptrIn, ptrInSize, 0);
+	return;
+}
+
+public var CMD_ReadCommand(var ptrIn, var ptrInSize)
+{
+	return CIN_ReadLine(ptrIn, ptrInSize);
+}
+
+public var CMD_IsExit(var ptrIn)
+{
+	return CMD_IsCommand(ptr_of(cmd_exit), size_of(cmd_exit), ptrIn);
+}
+

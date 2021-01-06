@@ -1,5 +1,5 @@
 {
-  "ModuleName": "VisOS",
+  "ModuleName": "VisOS.UnitTests",
   "ModuleVersion": "0.1.0.0",
   "Dependencies": [
     {

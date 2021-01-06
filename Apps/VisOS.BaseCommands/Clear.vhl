@@ -1,0 +1,20 @@
+#import "link ..\..\VisOS\Core.vbin"
+
+string(cmd_clear, "clear");
+
+private var IsClear(var ptrIn)
+{
+	return CMD_IsCommand(ptr_of(cmd_clear), size_of(cmd_clear), ptrIn);
+}
+
+private void ClearCommand(var argStart, var argLength)
+{
+	COUT_ClearConsole();
+	return;
+}
+
+public void RegisterClear()
+{
+	CMD_InsertCommand(ptr_of(ClearCommand), ptr_of(IsClear));
+	return;
+}

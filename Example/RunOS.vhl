@@ -1,4 +1,0 @@
-#include "VisOS/src.vhl"
-
-RunOS();
-return 0;

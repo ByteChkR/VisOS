@@ -1,0 +1,43 @@
+const_var cIn = 0xFFFF1004;
+
+
+public var CIN_Read()
+{
+	return cIn;
+}
+
+public var CIN_ReadBuffer(var buf, var len)
+{
+	var counter = 0;
+	while(counter < len)
+	{
+		var char = CIN_Read();
+		buf[counter] = char;
+		counter = counter + 1;
+	}
+	return;
+}
+
+
+public var CIN_ReadLine(var buf, var len)
+{
+	var counter = 0;
+
+	while(counter < len)
+	{
+		var char = CIN_Read();
+		while(char == 0xD)
+		{
+			char = CIN_Read();
+		}
+
+		if(char == 0xA)
+		{
+			return counter;
+		}
+		
+		buf[counter]  = char;
+		counter = counter + 1;
+	}
+	return counter;
+}

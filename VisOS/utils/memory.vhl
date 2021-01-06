@@ -1,0 +1,57 @@
+public var MEM_IndexOf(var source, var start, var length, var num)
+{
+	var i = start;
+	while(i < length)
+	{
+		if(source[i] == num)
+		{
+			return i;
+		}
+		i = i + 1;
+	} 
+	return i;
+}
+
+public var MEM_FirstIndex(var source, var length, var num)
+{
+	return MEM_IndexOf(source, 0, length, num);
+}
+
+public var MEM_Compare(var source, var length, var destination)
+{	
+	var i = length;
+	while(i)
+	{
+		i = i - 1;
+		var tmpdst = destination[i];
+		if(tmpdst != source[i])
+		{	
+			return 0;
+		}
+	}
+	return 1;
+}
+
+
+public void MEM_Copy(var source, var length, var destination)
+{
+	var i = length;
+	while(i)
+	{
+		i = i - 1;
+		var temp = source[i];
+		destination[i] = temp;
+	}
+	return;
+}
+
+public void MEM_Set(var source, var length, var value)
+{
+	var i = length;
+	while(i)
+	{
+		i = i - 1;
+		source[i] = value;
+	}
+	return;
+}

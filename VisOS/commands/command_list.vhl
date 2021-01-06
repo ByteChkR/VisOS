@@ -1,0 +1,75 @@
+var funcList[512];
+#include "../VisOS.Driver/cout.vhl"
+#include "../utils/memory.vhl"
+
+string(txt_init, "Initializing Command System..");
+string(txt_invoke, "Running Command: ");
+string(txt_found, "Found Command: ");
+string(txt_not_found, "Could not find Command.");
+
+public void CMD_InitCommandList()
+{
+	COUT_WriteLine(ptr_of(txt_init), size_of(txt_init));
+	MEM_Set(ptr_of(funcList), size_of(funcList), 0);
+	return;
+}
+
+private var FindCommand(var cmdPtr)
+{
+	
+	var current = 0;
+	var len = size_of(funcList);
+	while(current < len)
+	{
+		var checkPtr = funcList[current];
+		if(checkPtr)
+		{
+			var found = checkPtr(cmdPtr);
+
+			if(found)
+			{
+				return current+1;
+			}
+		}
+		current = current + 2;
+	}
+	COUT_WriteLine(ptr_of(txt_not_found), size_of(txt_not_found));
+	return 0;
+}
+
+public void CMD_InsertCommand(var funcPtr, var checkPtr)
+{
+	var current = 0;
+	while(current < size_of(funcList))
+	{
+		var entry = funcList[current];
+		if(!entry)
+		{
+			funcList[current] = checkPtr;
+			var funcIndex = current+1;
+			funcList[funcIndex] = funcPtr;
+			return;
+		}
+		current = current + 2;
+	}
+	return;
+}
+
+public void CMD_InvokeCommand(var cmdPtr, var cmdLen)
+{
+	var cmdIndex = FindCommand(cmdPtr);
+	if(cmdIndex)
+	{
+		var ptr = funcList[cmdIndex];
+
+		COUT_WriteString(ptr_of(txt_invoke), size_of(txt_invoke));
+		COUT_WriteNumber(ptr);
+		COUT_WriteNewLine();
+
+		var argStart = MEM_FirstIndex(cmdPtr, 255, 0x20);
+		var sta = argStart+1;
+
+		ptr(cmdPtr+sta, cmdLen - sta);
+	}
+	return;
+}

@@ -1,0 +1,41 @@
+#import "link ..\..\VisOS\Core.vbin"
+#import "vasm-bridge SHR"
+
+string(cmd_fprint, "hfs.show");
+string(txt_file_size, "File Size:");
+string(txt_fprint, "File Content:");
+
+private void WriteFileContent(var pathPtr, var pathLen)
+{
+	COUT_WriteString(ptr_of(txt_file_size), size_of(txt_file_size));
+	var size = HFS_GetFileSize(pathPtr, pathLen);
+	COUT_WriteNumber(size)
+	COUT_WriteNewLine();
+
+
+	COUT_WriteLine(ptr_of(txt_fprint), size_of(txt_fprint));
+	HFS_FileOpenRead(pathPtr, pathLen);
+	while(size)
+	{
+		var data = HFS_FileReadByte();
+		COUT_Write(CHR_Unpack(data, 0));
+		COUT_Write(CHR_Unpack(data, 8));
+		COUT_Write(CHR_Unpack(data, 16));
+		COUT_Write(CHR_Unpack(data, 24));
+		size = size - 1;
+	}
+	HFS_FileClose();
+	COUT_WriteNewLine();
+	return;
+}
+
+private var IsFPrint(var ptrIn)
+{
+	return CMD_IsCommand(ptr_of(cmd_fprint), size_of(cmd_fprint), ptrIn);
+}
+
+public void RegisterHFSShow()
+{
+	CMD_InsertCommand(ptr_of(WriteFileContent), ptr_of(IsFPrint));
+	return;
+}
