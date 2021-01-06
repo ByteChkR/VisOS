@@ -2,9 +2,7 @@
 
 #include "Clear.vhl"
 #include "Echo.vhl"
-#include "HFSShowFile.vhl"
 
 RegisterClear();
 RegisterEcho();
-RegisterHFSShow();
 return;

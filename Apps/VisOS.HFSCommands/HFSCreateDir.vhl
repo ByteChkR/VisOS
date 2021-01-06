@@ -1,0 +1,23 @@
+#import "link ..\..\VisOS\Core.vbin"
+
+string(cmd_fprint, "hfs.mkdir");
+string(txt_cd, "Created Directory: ");
+
+private void CreateDirectory(var pathPtr, var pathLen)
+{
+	HFS_CreateDirectory(pathPtr, pathLen);
+	COUT_WriteString(ptr_of(txt_cd), size_of(txt_cd));
+	COUT_WriteLine(pathPtr, pathLen);
+	return;
+}
+
+private var IsMKDIR(var ptrIn)
+{
+	return CMD_IsCommand(ptr_of(cmd_fprint), size_of(cmd_fprint), ptrIn);
+}
+
+public void RegisterHFSCreateDir()
+{
+	CMD_InsertCommand(ptr_of(CreateDirectory), ptr_of(IsMKDIR));
+	return;
+}

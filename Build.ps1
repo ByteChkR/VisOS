@@ -11,14 +11,14 @@ vis project clean
 vis project pack
 vis project update
 vis project restore
-vis build -build:i Loader.vhl -build:steps HL-expr bin -build:clean -assembler:offset.global 0 -assembler:offset.trim -linker:export
+vis build -build:i Loader.vhl -build:steps HL-expr bin -build:clean false -assembler:offset.global 0 -linker:export
 
 cd ..\VisOS
 vis project clean
 vis project pack
 vis project update
 vis project restore
-vis build -build:i Core.vhl -build:steps HL-expr bin -build:clean -assembler:offset.global 16384 -assembler:offset.trim -linker:export
+vis build -build:i Core.vhl -build:steps HL-expr bin -build:clean false -assembler:offset.global 16384 -linker:export
 cd ..
 
 cd Apps

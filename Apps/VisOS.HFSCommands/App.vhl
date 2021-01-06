@@ -1,0 +1,9 @@
+#include "HFSShowFile.vhl"
+#include "HFSChangeDir.vhl"
+#include "HFSCreateDir.vhl"
+
+
+RegisterHFSChangeDir();
+RegisterHFSShow();
+RegisterHFSCreateDir();
+return;

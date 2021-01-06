@@ -1,5 +1,4 @@
 #import "link ..\..\VisOS\Core.vbin"
-#import "vasm-bridge SHR"
 
 string(cmd_fprint, "hfs.show");
 string(txt_file_size, "File Size:");

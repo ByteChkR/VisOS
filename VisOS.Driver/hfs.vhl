@@ -18,6 +18,13 @@ const_var HFS_OPEN_READ = 0x01;
 const_var HFS_OPEN_WRITE = 0x02;
 const_var HFS_CLOSE = 0x03;
 const_var HFS_FILE_SIZE = 0x04;
+const_var HFS_CHANGE_DIR = 0x05;
+const_var HFS_CURRENT_DIR = 0x06;
+const_var HFS_MAKE_DIR = 0x07;
+const_var HFS_FILE_DELETE = 0x08;
+const_var HFS_GET_FILES_NUM = 0x09;
+const_var HFS_GET_FILES = 0x0A;
+
 
 
 public var HFS_GetStatus()
@@ -37,7 +44,7 @@ public var HFS_FileReadByte()
 	return v;
 }
 
-public var HFS_FileWriteByte(var data)
+public void HFS_FileWriteByte(var data)
 {
 	HFS_ADDRESS_DATA = data;
 	return;
@@ -124,6 +131,27 @@ public void HFS_WriteAllData(var path, var pathLen, var data, var dataLen)
 	return;
 }
 
+public void HFS_ChangeDirectory(var path, var pathLen)
+{
+	HFS_WriteData(path, pathLen);
+	HFS_SetCommand(ptr_of(HFS_CHANGE_DIR));
+	return;
+}
+
+public void HFS_CreateDirectory(var path, var pathLen)
+{
+	HFS_WriteData(path, pathLen);
+	HFS_SetCommand(ptr_of(HFS_MAKE_DIR));
+	return;
+}
+
+public void HFS_DeleteFile(var path, var pathLen)
+{
+	HFS_WriteData(path, pathLen);
+	HFS_SetCommand(ptr_of(HFS_FILE_DELETE));
+	return;
+}
+
 public void HFS_ReadAllData(var path, var pathLen, var data, var dataLen)
 {
 	HFS_WriteData(path, pathLen);
@@ -148,10 +176,16 @@ public var HFS_LoadBinaryV1(var path, var pathLen)
 
 	HFS_WriteData(path, pathLen);
 	HFS_SetCommand(ptr_of(HFS_OPEN_READ));
+	
+	var temp = HFS_ADDRESS_DATA; //Read First Byte (Allways 0)
+
+	temp = HFS_ADDRESS_DATA; //Read Version Byte (V1 = 1)
 
 	var data = HFS_ADDRESS_DATA; //Read first value(the start pointer)
 
-	length = length - 1;
+	temp = HFS_ADDRESS_DATA; //Read Unused Byte (Should be 0)
+
+	length = length - 4;
 
 	var i = 0;
 	while(i < length)
