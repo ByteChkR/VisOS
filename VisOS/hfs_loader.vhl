@@ -3,6 +3,7 @@
 #include "commands/command_loop.vhl"
 
 string(hfs_load, "hfs.run");
+string(txt_reg, "Registering Command: ");
 
 private var HFS_IsLoad(var ptrIn)
 {
@@ -18,6 +19,9 @@ private void HFS_Load(var argStart, var argLength)
 
 public void HFS_RegisterHFSRun()
 {
+	COUT_WriteString(ptr_of(txt_reg), size_of(txt_reg));
+	COUT_WriteLine(ptr_of(hfs_load), size_of(hfs_load));
+
 	CMD_InsertCommand(ptr_of(HFS_Load), ptr_of(HFS_IsLoad));
 	return;
 }

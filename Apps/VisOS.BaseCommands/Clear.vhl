@@ -1,6 +1,7 @@
 #import "link ..\..\VisOS\Core.vbin"
 
 string(cmd_clear, "clear");
+string(txt_reg, "Registering Command: ");
 
 private var IsClear(var ptrIn)
 {
@@ -15,6 +16,8 @@ private void ClearCommand(var argStart, var argLength)
 
 public void RegisterClear()
 {
+	COUT_WriteString(ptr_of(txt_reg), size_of(txt_reg));
+	COUT_WriteLine(ptr_of(cmd_clear), size_of(cmd_clear));
 	CMD_InsertCommand(ptr_of(ClearCommand), ptr_of(IsClear));
 	return;
 }

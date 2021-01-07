@@ -5,7 +5,6 @@
 
 public void CMD_CommandLoop()
 {
-	CMD_InitCommandList();
 	var in_test[255];
 	var count;
 	var exitLoop = 0;

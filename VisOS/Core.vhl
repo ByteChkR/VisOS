@@ -3,15 +3,18 @@
 #include "utils/string.vhl"
 #include "hfs_loader.vhl"
 
+string(txt_startup, "Starting..");
 private void CORE_Startup()
 {
 	DATA_WriteOSHeader();
+	COUT_WriteLine(ptr_of(txt_startup), size_of(txt_startup));
+	CMD_InitCommandList();
 	HFS_RegisterHFSRun();
 	return;
 }
 
 private void CORE_Shutdown()
-{
+{	
 	DATA_WriteExitMessage();
 	return;
 }

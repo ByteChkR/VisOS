@@ -1,5 +1,6 @@
 #import "link ..\..\VisOS\Core.vbin"
 
+string(txt_reg, "Registering Command: ");
 string(cmd_fprint, "hfs.cd");
 string(txt_cd, "New Directory: ");
 
@@ -18,6 +19,8 @@ private var IsCD(var ptrIn)
 
 public void RegisterHFSChangeDir()
 {
+	COUT_WriteString(ptr_of(txt_reg), size_of(txt_reg));
+	COUT_WriteLine(ptr_of(cmd_fprint), size_of(cmd_fprint));
 	CMD_InsertCommand(ptr_of(ChangeDirectory), ptr_of(IsCD));
 	return;
 }

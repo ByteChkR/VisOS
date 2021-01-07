@@ -5,7 +5,6 @@
 string(str_version, "v0.1");
 string(str_name, "VisOS");
 string(str_term_prefix, "VisOS>>");
-string(str_header_sep, " @ ");
 string(str_fatal_error, "A fatal error occurred, the Virtual Machine has to be stopped.");
 
 string(cmd_exit_mesg, "Exiting..");
@@ -13,7 +12,7 @@ string(cmd_exit_mesg, "Exiting..");
 public void DATA_WriteOSHeader()
 {
 	COUT_WriteString(ptr_of(str_name), size_of(str_name));
-	COUT_WriteString(ptr_of(str_header_sep), size_of(str_header_sep));
+	COUT_Write(0x20);
 	COUT_WriteLine(ptr_of(str_version), size_of(str_version));
 	COUT_WriteNewLine();
 	return;

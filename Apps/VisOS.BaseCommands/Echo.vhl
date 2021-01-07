@@ -1,6 +1,7 @@
 #import "link ..\..\VisOS\Core.vbin"
 
 string(cmd_echo, "echo");
+string(txt_reg, "Registering Command: ");
 
 private var IsEcho(var ptrIn)
 {
@@ -14,6 +15,8 @@ private void EchoCommand(var argStart, var argLength)
 
 public void RegisterEcho()
 {
+	COUT_WriteString(ptr_of(txt_reg), size_of(txt_reg));
+	COUT_WriteLine(ptr_of(cmd_echo), size_of(cmd_echo));
 	CMD_InsertCommand(ptr_of(EchoCommand), ptr_of(IsEcho));
 	return;
 }

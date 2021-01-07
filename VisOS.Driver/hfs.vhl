@@ -24,6 +24,7 @@ const_var HFS_MAKE_DIR = 0x07;
 const_var HFS_FILE_DELETE = 0x08;
 const_var HFS_GET_FILES_NUM = 0x09;
 const_var HFS_GET_FILES = 0x0A;
+const_var HFS_FILE_EXIST = 0x0B;
 
 
 
@@ -99,6 +100,13 @@ public var HFS_GetFileSize(var path, var pathLen)
 {
 	HFS_WriteData(path, pathLen);
 	HFS_SetCommand(ptr_of(HFS_FILE_SIZE));
+	return HFS_FileReadByte();
+}
+
+public var HFS_FileExists(var path, var pathLen)
+{
+	HFS_WriteData(path, pathLen);
+	HFS_SetCommand(ptr_of(HFS_FILE_EXIST));
 	return HFS_FileReadByte();
 }
 

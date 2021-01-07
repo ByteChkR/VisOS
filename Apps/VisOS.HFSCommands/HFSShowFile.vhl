@@ -1,6 +1,7 @@
 #import "link ..\..\VisOS\Core.vbin"
 
 string(cmd_fprint, "hfs.show");
+string(txt_reg, "Registering Command: ");
 string(txt_file_size, "File Size:");
 string(txt_fprint, "File Content:");
 
@@ -35,6 +36,8 @@ private var IsFPrint(var ptrIn)
 
 public void RegisterHFSShow()
 {
+	COUT_WriteString(ptr_of(txt_reg), size_of(txt_reg));
+	COUT_WriteLine(ptr_of(cmd_fprint), size_of(cmd_fprint));
 	CMD_InsertCommand(ptr_of(WriteFileContent), ptr_of(IsFPrint));
 	return;
 }
