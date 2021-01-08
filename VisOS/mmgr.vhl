@@ -1,0 +1,179 @@
+#import "vasm-bridge HLT"
+#import "vasm-bridge BRK"
+#include "VisOS.Driver/cout.vhl"
+
+var MANAGED_END;
+var MAX_ALLOCATIONS;
+var MANAGED_START;
+
+var CUR_ALLOCS;
+const_var CUR_ALLOC_TABLE_START = 0x1FFFE;
+var CUR_START;
+
+//Debug Strings
+var ENABLE_DEBUG = 0;
+string(TXT_CURRENT_ALLOCS, "Current Allocations: ");
+string(TXT_DEALLOC, "Deallocating: ");
+string(TXT_ALLOC, "Allocating: ");
+string(TXT_ALLOC_SIZE, "Size: ");
+
+string(INIT_MSTART, "Managed Start: ");
+string(INIT_MEND, "Managed End: ");
+string(INIT_MAXALLOC, "Max Allocations: ");
+string(INIT_TSTART, "Allocation Table Start: ");
+string(INIT_CUR_START, "Allocation Store Start: ");
+
+
+public void MMGR_ToggleDebug(var enable)
+{
+	ENABLE_DEBUG = enable;
+	return;
+}
+
+public var MMGR_AllocCount()
+{
+	return CUR_ALLOCS;
+}
+
+
+private void WriteDebugString(var ptr, var size)
+{
+	if(ENABLE_DEBUG)
+	{
+		COUT_WriteString(ptr, size);
+	}
+	return;
+}
+
+private void WriteDebugLine(var ptr, var size)
+{
+	if(ENABLE_DEBUG)
+	{
+		COUT_WriteLine(ptr, size);
+	}
+	return;
+}
+
+private void WriteDebugNum(var num)
+{
+	if(ENABLE_DEBUG)
+	{
+		COUT_WriteNumber(num);
+	}
+	return;
+}
+
+private void WriteDebugNewLine()
+{
+	if(ENABLE_DEBUG)
+	{
+		COUT_WriteNewLine();
+	}
+	return;
+}
+private void WriteDebugAllocCount()
+{
+	WriteDebugString(ptr_of(TXT_CURRENT_ALLOCS), size_of(TXT_CURRENT_ALLOCS));
+	WriteDebugNum(CUR_ALLOCS);
+	WriteDebugNewLine();
+	return;
+}
+
+private void WriteAllocData(var index, var ptr, var len)
+{
+	var idxPtr = index * 2;
+	var lenPtr = idxPtr + 1;
+	CUR_ALLOC_TABLE_START[idxPtr] = ptr;
+	CUR_ALLOC_TABLE_START[lenPtr] = len;
+	return;
+}
+
+public void MMGR_Free(var ptr)
+{
+	if(!ptr)
+	{
+		return;
+	}
+	var i = 0;
+	while(i < MAX_ALLOCATIONS)
+	{
+		var idx = i * 2;
+		var entry = CUR_ALLOC_TABLE_START[idx];
+
+		if(ptr == entry)
+		{
+			WriteDebugString(ptr_of(TXT_DEALLOC), size_of(TXT_DEALLOC));
+			WriteDebugNum(entry);
+			WriteDebugNewLine();
+			WriteDebugString(ptr_of(TXT_ALLOC_SIZE), size_of(TXT_ALLOC_SIZE));
+			
+			var size=CUR_ALLOC_TABLE_START[idx+1];
+			WriteDebugNum(size);
+			WriteDebugNewLine();
+			WriteAllocData(i, 0, 0);
+
+			CUR_ALLOCS = CUR_ALLOCS - 1;
+			return;
+		}
+		i = i + 1;
+	}
+	return;
+}
+
+public var MMGR_Alloc(var size)
+{
+	var cur = CUR_START;
+	var end = cur + size;
+	if(end > MANAGED_END)
+	{
+		WriteDebugNum(MANAGED_END);
+		WriteDebugNewLine();
+		WriteDebugNum(end);
+		WriteDebugNewLine();
+		I0_HLT();
+		return;
+	}
+	WriteAllocData(CUR_ALLOCS, cur, size);
+	CUR_ALLOCS = CUR_ALLOCS + 1;
+
+	WriteDebugString(ptr_of(TXT_ALLOC), size_of(TXT_ALLOC));
+	WriteDebugNum(cur);
+	WriteDebugNewLine();
+	WriteDebugString(ptr_of(TXT_ALLOC_SIZE), size_of(TXT_ALLOC_SIZE));
+	WriteDebugNum(size);
+	WriteDebugNewLine();
+	WriteDebugAllocCount();
+
+	CUR_START = CUR_START + size;
+	return cur;
+}
+
+
+public void MMGR_Initialize()
+{
+	MANAGED_END = 0x3FFFC;
+	MAX_ALLOCATIONS = 0x1000;
+	MANAGED_START = 0x1FFFE;
+	CUR_ALLOCS = 0;
+	//CUR_ALLOC_TABLE_START = MANAGED_START;
+	CUR_START = MANAGED_START + MAX_ALLOCATIONS * 2;
+
+	WriteDebugString(ptr_of(INIT_MSTART), size_of(INIT_MSTART));
+	WriteDebugNum(MANAGED_START);
+	WriteDebugNewLine();
+	WriteDebugString(ptr_of(INIT_MEND), size_of(INIT_MEND));
+	WriteDebugNum(MANAGED_END);
+	WriteDebugNewLine();
+	WriteDebugString(ptr_of(INIT_MAXALLOC), size_of(INIT_MAXALLOC));
+	WriteDebugNum(MAX_ALLOCATIONS);
+	WriteDebugNewLine();
+	WriteDebugString(ptr_of(INIT_TSTART), size_of(INIT_TSTART));
+	WriteDebugNum(CUR_ALLOC_TABLE_START);
+	WriteDebugNewLine();
+	WriteDebugString(ptr_of(INIT_CUR_START), size_of(INIT_CUR_START));
+	WriteDebugNum(CUR_START);
+	WriteDebugNewLine();
+
+	
+	return;
+}
