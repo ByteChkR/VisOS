@@ -2,6 +2,7 @@
 #include "utils/memory.vhl"
 #include "VisOS.Driver/cin.vhl"
 
+string(DEBUG_TAG, "[CORE] ");
 string(str_version, "v0.1");
 string(str_name, "VisOS");
 string(str_term_prefix, "VisOS>>");
@@ -11,6 +12,7 @@ string(cmd_exit_mesg, "Exiting..");
 
 public void DATA_WriteOSHeader()
 {
+	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
 	COUT_WriteString(ptr_of(str_name), size_of(str_name));
 	COUT_Write(0x20);
 	COUT_WriteLine(ptr_of(str_version), size_of(str_version));
@@ -20,12 +22,14 @@ public void DATA_WriteOSHeader()
 
 public void DATA_WriteOSName()
 {
+	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
 	COUT_WriteLine(ptr_of(str_name), size_of(str_name));
 	return;
 }
 
 public void DATA_WriteOSVersion()
 {
+	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
 	COUT_WriteLine(ptr_of(str_version), size_of(str_version));
 	return;
 }
@@ -39,6 +43,7 @@ public void DATA_WriteTerminalPrefix()
 
 public void DATA_WriteExitMessage()
 {
+	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
 	COUT_WriteLine(ptr_of(cmd_exit_mesg), size_of(cmd_exit_mesg));
 	return;
 }

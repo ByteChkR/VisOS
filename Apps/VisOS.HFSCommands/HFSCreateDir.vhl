@@ -1,5 +1,6 @@
 #import "link ..\..\VisOS\Core.vbin"
 
+string(DEBUG_TAG, "[HFS.MKDIR] ")
 string(txt_reg, "Registering Command: ");
 string(cmd_fprint, "hfs.mkdir");
 string(txt_cd, "Created Directory: ");
@@ -19,6 +20,7 @@ private var IsMKDIR(var ptrIn)
 
 public void RegisterHFSCreateDir()
 {
+	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
 	COUT_WriteString(ptr_of(txt_reg), size_of(txt_reg));
 	COUT_WriteLine(ptr_of(cmd_fprint), size_of(cmd_fprint));
 	CMD_InsertCommand(ptr_of(CreateDirectory), ptr_of(IsMKDIR));

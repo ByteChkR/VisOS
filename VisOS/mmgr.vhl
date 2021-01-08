@@ -7,11 +7,13 @@ var MAX_ALLOCATIONS;
 var MANAGED_START;
 
 var CUR_ALLOCS;
-const_var CUR_ALLOC_TABLE_START = 0x1FFFE;
+var CUR_ALLOC_TABLE_START = 0x1FFFE;
 var CUR_START;
+
 
 //Debug Strings
 var ENABLE_DEBUG = 0;
+string(TXT_DEBUG_TAG, "[MMGR] ");
 string(TXT_CURRENT_ALLOCS, "Current Allocations: ");
 string(TXT_DEALLOC, "Deallocating: ");
 string(TXT_ALLOC, "Allocating: ");
@@ -73,6 +75,7 @@ private void WriteDebugNewLine()
 }
 private void WriteDebugAllocCount()
 {
+	WriteDebugString(ptr_of(TXT_DEBUG_TAG), size_of(TXT_DEBUG_TAG));
 	WriteDebugString(ptr_of(TXT_CURRENT_ALLOCS), size_of(TXT_CURRENT_ALLOCS));
 	WriteDebugNum(CUR_ALLOCS);
 	WriteDebugNewLine();
@@ -80,11 +83,12 @@ private void WriteDebugAllocCount()
 }
 
 private void WriteAllocData(var index, var ptr, var len)
-{
+{	
 	var idxPtr = index * 2;
-	var lenPtr = idxPtr + 1;
-	CUR_ALLOC_TABLE_START[idxPtr] = ptr;
-	CUR_ALLOC_TABLE_START[lenPtr] = len;
+	idxPtr = idxPtr + CUR_ALLOC_TABLE_START;
+	ptr_write(idxPtr, ptr);
+	ptr_write(idxPtr+1, len);
+
 	return;
 }
 
@@ -98,16 +102,19 @@ public void MMGR_Free(var ptr)
 	while(i < MAX_ALLOCATIONS)
 	{
 		var idx = i * 2;
-		var entry = CUR_ALLOC_TABLE_START[idx];
+		var entry = val_of(CUR_ALLOC_TABLE_START+idx);
 
 		if(ptr == entry)
 		{
+			WriteDebugString(ptr_of(TXT_DEBUG_TAG), size_of(TXT_DEBUG_TAG));
 			WriteDebugString(ptr_of(TXT_DEALLOC), size_of(TXT_DEALLOC));
 			WriteDebugNum(entry);
 			WriteDebugNewLine();
+
+			WriteDebugString(ptr_of(TXT_DEBUG_TAG), size_of(TXT_DEBUG_TAG));
 			WriteDebugString(ptr_of(TXT_ALLOC_SIZE), size_of(TXT_ALLOC_SIZE));
 			
-			var size=CUR_ALLOC_TABLE_START[idx+1];
+			var size=val_of(CUR_ALLOC_TABLE_START+idx+1);
 			WriteDebugNum(size);
 			WriteDebugNewLine();
 			WriteAllocData(i, 0, 0);
@@ -136,9 +143,12 @@ public var MMGR_Alloc(var size)
 	WriteAllocData(CUR_ALLOCS, cur, size);
 	CUR_ALLOCS = CUR_ALLOCS + 1;
 
+	WriteDebugString(ptr_of(TXT_DEBUG_TAG), size_of(TXT_DEBUG_TAG));
 	WriteDebugString(ptr_of(TXT_ALLOC), size_of(TXT_ALLOC));
 	WriteDebugNum(cur);
 	WriteDebugNewLine();
+	
+	WriteDebugString(ptr_of(TXT_DEBUG_TAG), size_of(TXT_DEBUG_TAG));
 	WriteDebugString(ptr_of(TXT_ALLOC_SIZE), size_of(TXT_ALLOC_SIZE));
 	WriteDebugNum(size);
 	WriteDebugNewLine();
@@ -155,21 +165,30 @@ public void MMGR_Initialize()
 	MAX_ALLOCATIONS = 0x1000;
 	MANAGED_START = 0x1FFFE;
 	CUR_ALLOCS = 0;
-	//CUR_ALLOC_TABLE_START = MANAGED_START;
+	CUR_ALLOC_TABLE_START = MANAGED_START;
 	CUR_START = MANAGED_START + MAX_ALLOCATIONS * 2;
 
+	WriteDebugString(ptr_of(TXT_DEBUG_TAG), size_of(TXT_DEBUG_TAG));
 	WriteDebugString(ptr_of(INIT_MSTART), size_of(INIT_MSTART));
 	WriteDebugNum(MANAGED_START);
 	WriteDebugNewLine();
+
+	WriteDebugString(ptr_of(TXT_DEBUG_TAG), size_of(TXT_DEBUG_TAG));
 	WriteDebugString(ptr_of(INIT_MEND), size_of(INIT_MEND));
 	WriteDebugNum(MANAGED_END);
 	WriteDebugNewLine();
+
+	WriteDebugString(ptr_of(TXT_DEBUG_TAG), size_of(TXT_DEBUG_TAG));
 	WriteDebugString(ptr_of(INIT_MAXALLOC), size_of(INIT_MAXALLOC));
 	WriteDebugNum(MAX_ALLOCATIONS);
 	WriteDebugNewLine();
+
+	WriteDebugString(ptr_of(TXT_DEBUG_TAG), size_of(TXT_DEBUG_TAG));
 	WriteDebugString(ptr_of(INIT_TSTART), size_of(INIT_TSTART));
 	WriteDebugNum(CUR_ALLOC_TABLE_START);
 	WriteDebugNewLine();
+
+	WriteDebugString(ptr_of(TXT_DEBUG_TAG), size_of(TXT_DEBUG_TAG));
 	WriteDebugString(ptr_of(INIT_CUR_START), size_of(INIT_CUR_START));
 	WriteDebugNum(CUR_START);
 	WriteDebugNewLine();

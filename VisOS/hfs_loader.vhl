@@ -2,6 +2,7 @@
 #include "commands/command_utils.vhl"
 #include "commands/command_loop.vhl"
 
+string(DEBUG_TAG, "[HFS.RUN] ")
 string(hfs_load, "hfs.run");
 string(txt_reg, "Registering Command: ");
 
@@ -19,6 +20,7 @@ private void HFS_Load(var argStart, var argLength)
 
 public void HFS_RegisterHFSRun()
 {
+	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
 	COUT_WriteString(ptr_of(txt_reg), size_of(txt_reg));
 	COUT_WriteLine(ptr_of(hfs_load), size_of(hfs_load));
 

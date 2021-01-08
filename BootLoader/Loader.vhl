@@ -7,6 +7,7 @@ string(bootimage, "../VisOS/Core.vbin"); //Path to Boot Image
 //Boot Loader Strings
 string(ldr_version, "v0.1");
 string(ldr_name, "BootLoader");
+string(DEBUG_TAG, "[BLDR] ");
 
 
 string(txt_pre_load, "Preparing to load Image: ");
@@ -18,6 +19,7 @@ string(txt_starting, "Starting Image...");
 
 private void PrintHeader()
 {
+	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
 	COUT_WriteString(ptr_of(ldr_name), size_of(ldr_name));
 	COUT_Write(0x20);
 	COUT_WriteLine(ptr_of(ldr_version), size_of(ldr_version));
@@ -26,6 +28,7 @@ private void PrintHeader()
 
 private void WritePreLoadText()
 {
+	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
 	COUT_WriteString(ptr_of(txt_pre_load), size_of(txt_pre_load));
 	COUT_WriteLine(ptr_of(bootimage), size_of(bootimage));
 	return;
@@ -40,6 +43,7 @@ private var LoadImage()
 {
 	WritePreLoadText();
 	var size = GetSize();
+	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
 	COUT_WriteString(ptr_of(txt_loading), size_of(txt_loading));
 	COUT_Write(0x20);
 	COUT_WriteNumber(size);
@@ -48,6 +52,7 @@ private var LoadImage()
 
 	var entryPtr = HFS_LoadBinaryV1(ptr_of(bootimage), size_of(bootimage));
 	
+	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
 	COUT_WriteString(ptr_of(txt_loading), size_of(txt_loading));
 	COUT_Write(0x20);
 	COUT_WriteLine(ptr_of(txt_complete), size_of(txt_complete));
@@ -61,11 +66,13 @@ private void Entry()
 	if(exists)
 	{
 		var ptr = LoadImage();
+		COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
 		COUT_WriteLine(ptr_of(txt_starting), size_of(txt_starting));
 		ptr();
 		return;
 	}
-	COUT_WriteString(ptr_of(txt_error), size_of(txt_error));
+	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
+	COUT_WriteLine(ptr_of(txt_error), size_of(txt_error));
 	return;
 }
 

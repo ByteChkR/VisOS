@@ -2,11 +2,17 @@
 #include "const_data.vhl"
 #include "utils/string.vhl"
 #include "hfs_loader.vhl"
+#include "mmgr.vhl"
 
 string(txt_startup, "Starting..");
+string(DEBUG_TAG, "[CORE] ");
 private void CORE_Startup()
 {
+	MMGR_ToggleDebug(1);
+	MMGR_Initialize();
+
 	DATA_WriteOSHeader();
+	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
 	COUT_WriteLine(ptr_of(txt_startup), size_of(txt_startup));
 	CMD_InitCommandList();
 	HFS_RegisterHFSRun();
