@@ -23,7 +23,10 @@ private void CORE_Startup()
 
 private void CORE_Shutdown()
 {	
+	CMD_UnloadCommandList();
+
 	DATA_WriteExitMessage();
+
 	return;
 }
 

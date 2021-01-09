@@ -1,6 +1,9 @@
-var funcList[512];
+var funcList;
+var funcListSize;
+
 #include "../VisOS.Driver/cout.vhl"
 #include "../utils/memory.vhl"
+#include "../mmgr.vhl"
 
 string(txt_init, "Initializing Command System..");
 string(DEBUG_TAG, "[CMD] ");
@@ -10,9 +13,22 @@ string(txt_not_found, "Could not find Command.");
 
 public void CMD_InitCommandList()
 {
+	funcListSize = 512;
 	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	COUT_WriteLine( &txt_init, size_of(txt_init));
-	MEM_Set( &funcList, size_of(funcList), 0);
+	if(funcList)
+	{
+		MMGR_Free(funcList);
+	}
+	funcList = MMGR_Alloc(funcListSize);
+	MEM_Set( funcList, funcListSize, 0);
+	return;
+}
+
+public void CMD_UnloadCommandList()
+{
+	MMGR_Free(funcList);
+	funcList = 0;
 	return;
 }
 
@@ -20,7 +36,7 @@ private var FindCommand(var cmdPtr)
 {
 	
 	var current = 0;
-	var len = size_of(funcList);
+	var len = funcListSize;
 	while(current < len)
 	{
 		var checkPtr = funcList[current];
@@ -43,7 +59,7 @@ private var FindCommand(var cmdPtr)
 public void CMD_InsertCommand(var funcPtr, var checkPtr)
 {
 	var current = 0;
-	while(current < size_of(funcList))
+	while(current < funcListSize)
 	{
 		var entry = funcList[current];
 		if(!entry)

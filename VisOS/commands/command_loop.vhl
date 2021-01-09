@@ -2,28 +2,37 @@
 #include "command_list.vhl"
 #include "../const_data.vhl"
 #include "../utils/memory.vhl"
+#include "../mmgr.vhl"
 
 public void CMD_CommandLoop()
 {
-	var in_test[255];
+	var in_test_size = 255;
+	var in_test = MMGR_Alloc(in_test_size);
 	var count;
 	var exitLoop = 0;
 	while(!exitLoop)
 	{
 		DATA_WriteTerminalPrefix();
-		count = CMD_ReadCommand(&in_test, size_of(in_test));
+		count = CMD_ReadCommand(in_test, in_test_size);
 
-		var isExit = CMD_IsExit(&in_test);
+		var isExit = CMD_IsExit(in_test);
 		if(isExit)
 		{
 			//exitLoop = 1;
+			MMGR_Free(in_test);
+			in_test = 0;
 			return;
 		}
 
-		CMD_InvokeCommand(&in_test, count);
+		CMD_InvokeCommand(in_test, count);
 
 
-		CMD_ClearCommand(&in_test, size_of(in_test));
+		CMD_ClearCommand(in_test, in_test_size);
+	}
+	if(in_test)
+	{
+		MMGR_Free(in_test);
+		in_test = 0;
 	}
 	return;
 }

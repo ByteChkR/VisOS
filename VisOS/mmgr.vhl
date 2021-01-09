@@ -88,7 +88,7 @@ private void WriteAllocData(var index, var ptr, var len)
 
 	//idxPtr = idxPtr + CUR_ALLOC_TABLE_START;
 	CUR_ALLOC_TABLE_START[idxPtr] = ptr;
-	CUR_ALLOC_TABLE_START[idxPtr+1] = ptr;
+	CUR_ALLOC_TABLE_START[idxPtr+1] = len;
 
 	//ptr_write(idxPtr, ptr);
 	//ptr_write(idxPtr+1, len);
