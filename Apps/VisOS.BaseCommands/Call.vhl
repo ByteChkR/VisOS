@@ -1,0 +1,29 @@
+#import "link ..\..\VisOS\Core.vbin"
+#import "vasm-bridge JSREF"
+
+string(cmd_call, "call");
+string(txt_reg, "Registering Command: ");
+string(DEBUG_TAG, "[CALL] ");
+
+private var IsCall(var ptrIn)
+{
+	return CMD_IsCommand(&cmd_call, size_of(cmd_call), ptrIn);
+}
+
+private void CallCommand(var argStart, var argLength)
+{
+	var addr = STR_ParseNumber(argStart, argLength);
+
+	addr();
+
+	return;
+}
+
+public void RegisterCall()
+{
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteString(&txt_reg, size_of(txt_reg));
+	COUT_WriteLine(&cmd_call, size_of(cmd_call));
+	CMD_InsertCommand(&CallCommand, &IsCall);
+	return;
+}

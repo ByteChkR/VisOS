@@ -1,0 +1,42 @@
+#import "link ..\..\VisOS\Core.vbin"
+
+string(cmd_primes, "primes");
+string(txt_reg, "Registering Command: ");
+string(txt, "Number ");
+string(txt_prime, " is Prime!");
+string(txt_not_prime, " is not Prime!");
+string(DEBUG_TAG, "[PRIMES] ");
+
+private var IsPrimes(var ptrIn)
+{
+	return CMD_IsCommand(&cmd_primes, size_of(cmd_primes), ptrIn);
+}
+
+private void PrimesCommand(var argStart, var argLength)
+{
+	var val = STR_ParseNumber(argStart, argLength);
+	COUT_WriteString(&txt, size_of(txt));
+	COUT_WriteNumber(val);
+
+	var result = IsPrime(val);
+
+	if(result)
+	{
+		COUT_WriteLine(&txt_prime, size_of(txt_prime));
+	}
+	else
+	{
+		COUT_WriteLine(&txt_not_prime, size_of(txt_not_prime));
+	}
+
+	return;
+}
+
+public void RegisterPrimes()
+{
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteString(&txt_reg, size_of(txt_reg));
+	COUT_WriteLine(&cmd_primes, size_of(cmd_primes));
+	CMD_InsertCommand(&PrimesCommand, &IsPrimes);
+	return;
+}

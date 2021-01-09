@@ -2,7 +2,11 @@
 
 #include "Clear.vhl"
 #include "Echo.vhl"
+#include "Call.vhl"
+#include "Primes.vhl"
 
 RegisterClear();
 RegisterEcho();
+RegisterCall();
+RegisterPrimes();
 return;

@@ -1,11 +1,13 @@
 #include "commands/command_loop.vhl"
 #include "const_data.vhl"
 #include "utils/string.vhl"
+#include "utils/math.vhl"
 #include "hfs_loader.vhl"
 #include "mmgr.vhl"
 
 string(txt_startup, "Starting..");
 string(DEBUG_TAG, "[CORE] ");
+
 private void CORE_Startup()
 {
 	MMGR_ToggleDebug(1);

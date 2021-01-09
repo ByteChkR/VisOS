@@ -1,0 +1,53 @@
+#import "vasm-bridge HLT"
+#import "vasm-bridge BRK"
+#include "../VisOS.Driver/cout.vhl"
+
+string(txt_error_c, "Encountered Error Code: ");
+string(DEBUG_TAG, "[ERR] ");
+string(txt_error_t, "Encountered Error: ");
+var halt_on_error;
+var break_on_error;
+
+public void _ERROR_BREAK_ENABLE(var enable)
+{
+	break_on_error = enable;
+	return;
+}
+public void _ERROR_HALT_ENABLE(var enable)
+{
+	halt_on_error = enable;
+	return;
+}
+
+public void _ERROR_C(var code)
+{
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteString(&txt_error_c, size_of(txt_error_c));
+	COUT_WriteNumber(code);
+	COUT_WriteNewLine();
+	if(break_on_error)
+	{
+		I0_BRK();
+	}
+	if(halt_on_error)
+	{
+		I0_HLT();
+	}
+	return;
+}
+
+public void _ERROR_T(var msg, var len)
+{
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteString(&txt_error_t, size_of(txt_error_t));
+	COUT_WriteLine(msg, len);
+	if(break_on_error)
+	{
+		I0_BRK();
+	}
+	if(halt_on_error)
+	{
+		I0_HLT();
+	}
+	return;
+}

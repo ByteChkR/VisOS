@@ -1,6 +1,7 @@
 const_var cOut = 0xFFFF1001; //Console Out => Write Character
 const_var cOutNum = 0xFFFF1002; //Console Out => Write Number
 const_var cClearNum = 0xFFFF1005; //Console Clear
+#import "vasm-bridge BRK"
 
 string(arr_sep, ", ");
 
@@ -20,7 +21,7 @@ public void COUT_WriteString(var str, var len)
 {
 	var i = 0;
 	while(i < len)
-	{
+	{	
 		cOut = str[i];
 		i++;
 	}

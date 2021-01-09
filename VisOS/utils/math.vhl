@@ -1,3 +1,4 @@
+#include "../VisOS.Driver/cout.vhl"
 public var Pow(var a, var exp)
 {
 	var ret = 1;
@@ -13,27 +14,25 @@ public var Pow(var a, var exp)
 
 public var IsPrime(var num)
 {
-        if (num <= 1)
+    var ret = 0; //Workaround for a bug(when returning values directly e.g. "return 1" the tmp variable that gets returned is not properly emptied.)
+    if (num <= 1)
+    {
+      	return ret;
+    }
+    var i = 2;
+    var end = num / 2;
+    while(i <= end)
+    {
+    	var val = num % i;
+    	if (!val)
         {
-        	return 0;
+        	return ret;
         }
-        if (num == 2)
-        {
-        	return 1;
-        }
-        var i = 3;
-        var end = num / 2;
-        while(i <= end)
-        {
-        	var val = num % i;
-        	if (val == 0)
-            {
-            	return 0;
-            }
-            i += 2;
-        }
+        i += 2;
+    }
 
-        return 1;        
+    ret = 1;
+    return ret;        
 }
 
 public var Clamp(var a, var min, var max)

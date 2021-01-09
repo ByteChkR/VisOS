@@ -1,5 +1,6 @@
 #include "VisOS.Driver/hfs.vhl"
 #include "VisOS.Driver/cout.vhl"
+#import "vasm-bridge BRK"
 
 //The Boot Image to Load
 string(bootimage, "../VisOS/Core.vbin"); //Path to Boot Image

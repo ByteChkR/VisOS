@@ -1,7 +1,40 @@
+#include "error_handler.vhl"
+
+string(STR_PARSE_INVALID_INPUT_L, "Invalid Input in STR_ParseNumber input, the value is lower than expected");
+string(STR_PARSE_INVALID_INPUT_H, "Invalid Input in STR_ParseNumber input, the value is lower than expected");
 
 public var CHR_Unpack(var value, var count)
 {
 	var mask = 0xFF;
 	value = value >> count;
 	return value & mask;
+}
+
+public var STR_ParseNumber(var ptr, var len)
+{
+	var i = len;
+	var charOffset = 0x30;
+	var charMax = 0x39;
+	var result = 0;
+	var position = 1;
+	var mul = 10;
+	while(i)
+	{
+		i--;
+
+		var rawValue = ptr[i];
+		if(rawValue < charOffset)
+		{
+			_ERROR_T(&STR_PARSE_INVALID_INPUT_L, size_of(STR_PARSE_INVALID_INPUT_L));
+		}
+		if(rawValue > charMax)
+		{
+			_ERROR_T(&STR_PARSE_INVALID_INPUT_H, size_of(STR_PARSE_INVALID_INPUT_H));
+		}
+		var current = rawValue - charOffset;
+	
+		result += current * position;
+		position *= mul;
+	}
+	return result;
 }
