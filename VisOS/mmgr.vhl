@@ -85,9 +85,13 @@ private void WriteDebugAllocCount()
 private void WriteAllocData(var index, var ptr, var len)
 {	
 	var idxPtr = index * 2;
-	idxPtr = idxPtr + CUR_ALLOC_TABLE_START;
-	ptr_write(idxPtr, ptr);
-	ptr_write(idxPtr+1, len);
+
+	//idxPtr = idxPtr + CUR_ALLOC_TABLE_START;
+	CUR_ALLOC_TABLE_START[idxPtr] = ptr;
+	CUR_ALLOC_TABLE_START[idxPtr+1] = ptr;
+
+	//ptr_write(idxPtr, ptr);
+	//ptr_write(idxPtr+1, len);
 
 	return;
 }
@@ -102,7 +106,7 @@ public void MMGR_Free(var ptr)
 	while(i < MAX_ALLOCATIONS)
 	{
 		var idx = i * 2;
-		var entry = val_of(CUR_ALLOC_TABLE_START+idx);
+		var entry = CUR_ALLOC_TABLE_START[idx];
 
 		if(ptr == entry)
 		{
@@ -114,7 +118,7 @@ public void MMGR_Free(var ptr)
 			WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
 			WriteDebugString(&TXT_ALLOC_SIZE, size_of(TXT_ALLOC_SIZE));
 			
-			var size=val_of(CUR_ALLOC_TABLE_START+idx+1);
+			var size=CUR_ALLOC_TABLE_START[idx+1];
 			WriteDebugNum(size);
 			WriteDebugNewLine();
 			WriteAllocData(i, 0, 0);
