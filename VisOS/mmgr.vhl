@@ -86,12 +86,19 @@ private void WriteAllocData(var index, var ptr, var len)
 {	
 	var idxPtr = index * 2;
 
-	//idxPtr = idxPtr + CUR_ALLOC_TABLE_START;
 	CUR_ALLOC_TABLE_START[idxPtr] = ptr;
 	CUR_ALLOC_TABLE_START[idxPtr+1] = len;
 
-	//ptr_write(idxPtr, ptr);
-	//ptr_write(idxPtr+1, len);
+	return;
+}
+
+private void EraseAllocData(var index)
+{	
+	var idxPtr = index * 2;
+
+	CUR_ALLOC_TABLE_START[idxPtr] = 0;
+	CUR_ALLOC_TABLE_START[idxPtr+1] = 0;
+
 
 	return;
 }
@@ -121,7 +128,7 @@ public void MMGR_Free(var ptr)
 			var size=CUR_ALLOC_TABLE_START[idx+1];
 			WriteDebugNum(size);
 			WriteDebugNewLine();
-			WriteAllocData(i, 0, 0);
+			EraseAllocData(i);
 
 			CUR_ALLOCS--;
 			return;
@@ -129,6 +136,49 @@ public void MMGR_Free(var ptr)
 		i++;
 	}
 	return;
+}
+
+
+public var MMGR_GetPtrSize(var ptr)
+{
+	if(!ptr)
+	{
+		return 0;
+	}
+	var i = 0;
+	while(i < MAX_ALLOCATIONS)
+	{
+		var idx = i * 2;
+		var entry = CUR_ALLOC_TABLE_START[idx];
+
+		if(ptr == entry)
+		{
+			return CUR_ALLOC_TABLE_START[idx+1];
+		}
+		i++;
+	}
+	return 0;
+}
+
+public var MMGR_IsPtr(var ptr)
+{
+	if(!ptr)
+	{
+		return 0;
+	}
+	var i = 0;
+	while(i < MAX_ALLOCATIONS)
+	{
+		var idx = i * 2;
+		var entry = CUR_ALLOC_TABLE_START[idx];
+
+		if(ptr == entry)
+		{
+			return 1;
+		}
+		i++;
+	}
+	return 0;
 }
 
 public var MMGR_Alloc(var size)
