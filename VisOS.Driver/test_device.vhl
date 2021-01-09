@@ -16,10 +16,10 @@ public void BeginTest(var namePtr, var len)
 {
 	if(!test_device_present)
 	{
-		COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-		COUT_WriteString(ptr_of(str_test_started), size_of(str_test_started));
+		COUT_WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
+		COUT_WriteString( &str_test_started, size_of(str_test_started));
 		COUT_WriteString(namePtr, len);
-		COUT_WriteString(ptr_of(str_test_started_2), size_of(str_test_started_2));
+		COUT_WriteString( &str_test_started_2, size_of(str_test_started_2));
 
 		return;
 	}
@@ -38,9 +38,9 @@ public void FailTest(var reasonPtr, var len)
 {
 	if(!test_device_present)
 	{
-		COUT_WriteLine(ptr_of(str_test_failed), size_of(str_test_failed));
+		COUT_WriteLine( &str_test_failed, size_of(str_test_failed));
 
-		COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
+		COUT_WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
 		COUT_WriteLine(reasonPtr, len);
 		return;
 	}
@@ -59,8 +59,7 @@ public void PassTest()
 {
 	if(!test_device_present)
 	{
-		COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-		COUT_WriteLine(ptr_of(str_test_passed), size_of(str_test_passed));
+		COUT_WriteLine( &str_test_passed, size_of(str_test_passed));
 		return;
 	}
 	

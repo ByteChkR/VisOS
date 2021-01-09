@@ -8,21 +8,21 @@ string(txt_cd, "Created Directory: ");
 private void CreateDirectory(var pathPtr, var pathLen)
 {
 	HFS_CreateDirectory(pathPtr, pathLen);
-	COUT_WriteString(ptr_of(txt_cd), size_of(txt_cd));
+	COUT_WriteString(&txt_cd, size_of(txt_cd));
 	COUT_WriteLine(pathPtr, pathLen);
 	return;
 }
 
 private var IsMKDIR(var ptrIn)
 {
-	return CMD_IsCommand(ptr_of(cmd_fprint), size_of(cmd_fprint), ptrIn);
+	return CMD_IsCommand(&cmd_fprint, size_of(cmd_fprint), ptrIn);
 }
 
 public void RegisterHFSCreateDir()
 {
-	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-	COUT_WriteString(ptr_of(txt_reg), size_of(txt_reg));
-	COUT_WriteLine(ptr_of(cmd_fprint), size_of(cmd_fprint));
-	CMD_InsertCommand(ptr_of(CreateDirectory), ptr_of(IsMKDIR));
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteString(&txt_reg, size_of(txt_reg));
+	COUT_WriteLine(&cmd_fprint, size_of(cmd_fprint));
+	CMD_InsertCommand(&CreateDirectory, &IsMKDIR);
 	return;
 }

@@ -12,8 +12,8 @@ private void CORE_Startup()
 	MMGR_Initialize();
 
 	DATA_WriteOSHeader();
-	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-	COUT_WriteLine(ptr_of(txt_startup), size_of(txt_startup));
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteLine(&txt_startup, size_of(txt_startup));
 	CMD_InitCommandList();
 	HFS_RegisterHFSRun();
 	return;

@@ -19,60 +19,60 @@ string(txt_starting, "Starting Image...");
 
 private void PrintHeader()
 {
-	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-	COUT_WriteString(ptr_of(ldr_name), size_of(ldr_name));
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteString(&ldr_name, size_of(ldr_name));
 	COUT_Write(0x20);
-	COUT_WriteLine(ptr_of(ldr_version), size_of(ldr_version));
+	COUT_WriteLine( &ldr_version, size_of(ldr_version));
 	return;
 }
 
 private void WritePreLoadText()
 {
-	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-	COUT_WriteString(ptr_of(txt_pre_load), size_of(txt_pre_load));
-	COUT_WriteLine(ptr_of(bootimage), size_of(bootimage));
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteString( &txt_pre_load, size_of(txt_pre_load));
+	COUT_WriteLine( &bootimage, size_of(bootimage));
 	return;
 }
 
 private var GetSize()
 {
-	return HFS_GetFileSize(ptr_of(bootimage), size_of(bootimage));
+	return HFS_GetFileSize( &bootimage, size_of(bootimage));
 }
 
 private var LoadImage()
 {
 	WritePreLoadText();
 	var size = GetSize();
-	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-	COUT_WriteString(ptr_of(txt_loading), size_of(txt_loading));
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteString( &txt_loading , size_of(txt_loading));
 	COUT_Write(0x20);
-	COUT_WriteNumber(size);
+	COUT_WriteNumber(size * 4);
 	COUT_Write(0x20);
-	COUT_WriteLine(ptr_of(txt_bytes), size_of(txt_bytes));
+	COUT_WriteLine( &txt_bytes, size_of(txt_bytes));
 
-	var entryPtr = HFS_LoadBinaryV1(ptr_of(bootimage), size_of(bootimage));
+	var entryPtr = HFS_LoadBinaryV1(&bootimage, size_of(bootimage));
 	
-	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-	COUT_WriteString(ptr_of(txt_loading), size_of(txt_loading));
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteString( &txt_loading, size_of(txt_loading));
 	COUT_Write(0x20);
-	COUT_WriteLine(ptr_of(txt_complete), size_of(txt_complete));
+	COUT_WriteLine(&txt_complete, size_of(txt_complete));
 	return entryPtr;
 }
 
 private void Entry()
 {
 	PrintHeader();
-	var exists = HFS_FileExists(ptr_of(bootimage), size_of(bootimage));
+	var exists = HFS_FileExists( &bootimage, size_of(bootimage));
 	if(exists)
 	{
 		var ptr = LoadImage();
-		COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-		COUT_WriteLine(ptr_of(txt_starting), size_of(txt_starting));
+		COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		COUT_WriteLine( &txt_starting, size_of(txt_starting));
 		ptr();
 		return;
 	}
-	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-	COUT_WriteLine(ptr_of(txt_error), size_of(txt_error));
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteLine( txt_error, size_of(txt_error));
 	return;
 }
 

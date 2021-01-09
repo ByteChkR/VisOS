@@ -99,73 +99,73 @@ private void HFS_ReadData(var data, var length)
 public var HFS_GetFileSize(var path, var pathLen)
 {
 	HFS_WriteData(path, pathLen);
-	HFS_SetCommand(ptr_of(HFS_FILE_SIZE));
+	HFS_SetCommand( &HFS_FILE_SIZE );
 	return HFS_FileReadByte();
 }
 
 public var HFS_FileExists(var path, var pathLen)
 {
 	HFS_WriteData(path, pathLen);
-	HFS_SetCommand(ptr_of(HFS_FILE_EXIST));
+	HFS_SetCommand( &HFS_FILE_EXIST);
 	return HFS_FileReadByte();
 }
 
 public void HFS_FileOpenRead(var path, var pathLen)
 {
 	HFS_WriteData(path, pathLen);
-	HFS_SetCommand(ptr_of(HFS_OPEN_READ));
+	HFS_SetCommand( &HFS_OPEN_READ );
 	return;
 }
 
 public void HFS_FileOpenWrite(var path, var pathLen)
 {
 	HFS_WriteData(path, pathLen);
-	HFS_SetCommand(ptr_of(HFS_OPEN_WRITE));
+	HFS_SetCommand( &HFS_OPEN_WRITE );
 	return;
 }
 
 public void HFS_FileClose()
 {
-	HFS_SetCommand(ptr_of(HFS_CLOSE));
+	HFS_SetCommand( &HFS_CLOSE );
 	return;
 }
 
 public void HFS_WriteAllData(var path, var pathLen, var data, var dataLen)
 {
 	HFS_WriteData(path, pathLen);
-	HFS_SetCommand(ptr_of(HFS_OPEN_WRITE));
+	HFS_SetCommand( &HFS_OPEN_WRITE );
 	HFS_WriteData(data, dataLen);
-	HFS_SetCommand(ptr_of(HFS_CLOSE));
+	HFS_SetCommand( &HFS_CLOSE );
 	return;
 }
 
 public void HFS_ChangeDirectory(var path, var pathLen)
 {
 	HFS_WriteData(path, pathLen);
-	HFS_SetCommand(ptr_of(HFS_CHANGE_DIR));
+	HFS_SetCommand( &HFS_CHANGE_DIR);
 	return;
 }
 
 public void HFS_CreateDirectory(var path, var pathLen)
 {
 	HFS_WriteData(path, pathLen);
-	HFS_SetCommand(ptr_of(HFS_MAKE_DIR));
+	HFS_SetCommand( &HFS_MAKE_DIR);
 	return;
 }
 
 public void HFS_DeleteFile(var path, var pathLen)
 {
 	HFS_WriteData(path, pathLen);
-	HFS_SetCommand(ptr_of(HFS_FILE_DELETE));
+	HFS_SetCommand( &HFS_FILE_DELETE );
 	return;
 }
 
 public void HFS_ReadAllData(var path, var pathLen, var data, var dataLen)
 {
 	HFS_WriteData(path, pathLen);
-	HFS_SetCommand(ptr_of(HFS_OPEN_READ));
+	HFS_SetCommand( &HFS_OPEN_READ );
 	HFS_ReadData(data, dataLen);
-	HFS_SetCommand(ptr_of(HFS_CLOSE));
+	HFS_SetCommand( &HFS_CLOSE );
 	return;
 }
 
@@ -179,11 +179,11 @@ public var HFS_LoadBinaryV1(var path, var pathLen)
 	}
 
 	HFS_WriteData(path, pathLen);
-	HFS_SetCommand(ptr_of(HFS_FILE_SIZE));
+	HFS_SetCommand( &HFS_FILE_SIZE );
 	var length = HFS_ADDRESS_DATA; //Get Size
 
 	HFS_WriteData(path, pathLen);
-	HFS_SetCommand(ptr_of(HFS_OPEN_READ));
+	HFS_SetCommand( &HFS_OPEN_READ );
 	
 	var temp = HFS_ADDRESS_DATA; //Read First Byte (Allways 0)
 
@@ -201,6 +201,6 @@ public var HFS_LoadBinaryV1(var path, var pathLen)
 		data[i] = HFS_ADDRESS_DATA;
 		i = i + 1;
 	}
-	HFS_SetCommand(ptr_of(HFS_CLOSE));
+	HFS_SetCommand( &HFS_CLOSE );
 	return data;
 }

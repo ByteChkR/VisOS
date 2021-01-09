@@ -26,6 +26,6 @@ public var CMD_ReadCommand(var ptrIn, var ptrInSize)
 
 public var CMD_IsExit(var ptrIn)
 {
-	return CMD_IsCommand(ptr_of(cmd_exit), size_of(cmd_exit), ptrIn);
+	return CMD_IsCommand(&cmd_exit, size_of(cmd_exit), ptrIn);
 }
 

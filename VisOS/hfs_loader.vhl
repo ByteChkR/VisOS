@@ -8,7 +8,7 @@ string(txt_reg, "Registering Command: ");
 
 private var HFS_IsLoad(var ptrIn)
 {
-	return CMD_IsCommand(ptr_of(hfs_load), size_of(hfs_load), ptrIn);
+	return CMD_IsCommand(&hfs_load, size_of(hfs_load), ptrIn);
 }
 
 private void HFS_Load(var argStart, var argLength)
@@ -20,10 +20,10 @@ private void HFS_Load(var argStart, var argLength)
 
 public void HFS_RegisterHFSRun()
 {
-	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-	COUT_WriteString(ptr_of(txt_reg), size_of(txt_reg));
-	COUT_WriteLine(ptr_of(hfs_load), size_of(hfs_load));
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteString(&txt_reg, size_of(txt_reg));
+	COUT_WriteLine(&hfs_load, size_of(hfs_load));
 
-	CMD_InsertCommand(ptr_of(HFS_Load), ptr_of(HFS_IsLoad));
+	CMD_InsertCommand(&HFS_Load, &HFS_IsLoad);
 	return;
 }

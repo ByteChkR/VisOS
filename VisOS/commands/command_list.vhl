@@ -10,9 +10,9 @@ string(txt_not_found, "Could not find Command.");
 
 public void CMD_InitCommandList()
 {
-	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-	COUT_WriteLine(ptr_of(txt_init), size_of(txt_init));
-	MEM_Set(ptr_of(funcList), size_of(funcList), 0);
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteLine( &txt_init, size_of(txt_init));
+	MEM_Set( &funcList, size_of(funcList), 0);
 	return;
 }
 
@@ -35,8 +35,8 @@ private var FindCommand(var cmdPtr)
 		}
 		current = current + 2;
 	}
-	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-	COUT_WriteLine(ptr_of(txt_not_found), size_of(txt_not_found));
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteLine( &txt_not_found, size_of(txt_not_found));
 	return 0;
 }
 
@@ -65,8 +65,8 @@ public void CMD_InvokeCommand(var cmdPtr, var cmdLen)
 	{
 		var ptr = funcList[cmdIndex];
 
-		COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-		COUT_WriteString(ptr_of(txt_invoke), size_of(txt_invoke));
+		COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		COUT_WriteString( &txt_invoke, size_of(txt_invoke));
 		COUT_WriteNumber(ptr);
 		COUT_WriteNewLine();
 

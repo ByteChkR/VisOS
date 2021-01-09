@@ -6,7 +6,7 @@ string(DEBUG_TAG, "[ECHO] ");
 
 private var IsEcho(var ptrIn)
 {
-	return CMD_IsCommand(ptr_of(cmd_echo), size_of(cmd_echo), ptrIn);
+	return CMD_IsCommand(&cmd_echo, size_of(cmd_echo), ptrIn);
 }
 
 private void EchoCommand(var argStart, var argLength)
@@ -16,9 +16,9 @@ private void EchoCommand(var argStart, var argLength)
 
 public void RegisterEcho()
 {
-	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-	COUT_WriteString(ptr_of(txt_reg), size_of(txt_reg));
-	COUT_WriteLine(ptr_of(cmd_echo), size_of(cmd_echo));
-	CMD_InsertCommand(ptr_of(EchoCommand), ptr_of(IsEcho));
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteString(&txt_reg, size_of(txt_reg));
+	COUT_WriteLine(&cmd_echo, size_of(cmd_echo));
+	CMD_InsertCommand(&EchoCommand, &IsEcho);
 	return;
 }

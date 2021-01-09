@@ -6,7 +6,7 @@ string(DEBUG_TAG, "[CLEAR] ");
 
 private var IsClear(var ptrIn)
 {
-	return CMD_IsCommand(ptr_of(cmd_clear), size_of(cmd_clear), ptrIn);
+	return CMD_IsCommand(&cmd_clear, size_of(cmd_clear), ptrIn);
 }
 
 private void ClearCommand(var argStart, var argLength)
@@ -17,9 +17,9 @@ private void ClearCommand(var argStart, var argLength)
 
 public void RegisterClear()
 {
-	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-	COUT_WriteString(ptr_of(txt_reg), size_of(txt_reg));
-	COUT_WriteLine(ptr_of(cmd_clear), size_of(cmd_clear));
-	CMD_InsertCommand(ptr_of(ClearCommand), ptr_of(IsClear));
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteString(&txt_reg, size_of(txt_reg));
+	COUT_WriteLine(&cmd_clear, size_of(cmd_clear));
+	CMD_InsertCommand(&ClearCommand, &IsClear);
 	return;
 }

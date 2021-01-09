@@ -8,13 +8,13 @@ string(txt_fprint, "File Content:");
 
 private void WriteFileContent(var pathPtr, var pathLen)
 {
-	COUT_WriteString(ptr_of(txt_file_size), size_of(txt_file_size));
+	COUT_WriteString(&txt_file_size, size_of(txt_file_size));
 	var size = HFS_GetFileSize(pathPtr, pathLen);
 	COUT_WriteNumber(size)
 	COUT_WriteNewLine();
 
 
-	COUT_WriteLine(ptr_of(txt_fprint), size_of(txt_fprint));
+	COUT_WriteLine(&txt_fprint, size_of(txt_fprint));
 	HFS_FileOpenRead(pathPtr, pathLen);
 	while(size)
 	{
@@ -32,14 +32,14 @@ private void WriteFileContent(var pathPtr, var pathLen)
 
 private var IsFPrint(var ptrIn)
 {
-	return CMD_IsCommand(ptr_of(cmd_fprint), size_of(cmd_fprint), ptrIn);
+	return CMD_IsCommand(&cmd_fprint, size_of(cmd_fprint), ptrIn);
 }
 
 public void RegisterHFSShow()
 {
-	COUT_WriteString(ptr_of(DEBUG_TAG), size_of(DEBUG_TAG));
-	COUT_WriteString(ptr_of(txt_reg), size_of(txt_reg));
-	COUT_WriteLine(ptr_of(cmd_fprint), size_of(cmd_fprint));
-	CMD_InsertCommand(ptr_of(WriteFileContent), ptr_of(IsFPrint));
+	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	COUT_WriteString(&txt_reg, size_of(txt_reg));
+	COUT_WriteLine(&cmd_fprint, size_of(cmd_fprint));
+	CMD_InsertCommand(&WriteFileContent, &IsFPrint);
 	return;
 }
