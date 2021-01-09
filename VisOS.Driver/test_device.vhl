@@ -28,7 +28,7 @@ public void BeginTest(var namePtr, var len)
 	while(i < len)
 	{
 		test_begin = namePtr[i];
-		i = i + 1;
+		i++;
 	}
 	test_begin = 0x0; //Send Null Byte
 	return;
@@ -49,7 +49,7 @@ public void FailTest(var reasonPtr, var len)
 	while(i < len)
 	{
 		test_fail = reasonPtr[i];
-		i = i + 1;
+		i++;
 	}
 	test_fail = 0x0; //Send Null Byte
 	return;

@@ -13,7 +13,7 @@ public var CIN_ReadBuffer(var buf, var len)
 	{
 		var char = CIN_Read();
 		buf[counter] = char;
-		counter = counter + 1;
+		counter++;
 	}
 	return;
 }
@@ -37,7 +37,7 @@ public var CIN_ReadLine(var buf, var len)
 		}
 		
 		buf[counter]  = char;
-		counter = counter + 1;
+		counter = counter++;
 	}
 	return counter;
 }

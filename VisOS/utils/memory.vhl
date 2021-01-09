@@ -7,7 +7,7 @@ public var MEM_IndexOf(var source, var start, var length, var num)
 		{
 			return i;
 		}
-		i = i + 1;
+		i++
 	} 
 	return i;
 }
@@ -22,7 +22,7 @@ public var MEM_Compare(var source, var length, var destination)
 	var i = length;
 	while(i)
 	{
-		i = i - 1;
+		i--;
 		var tmpdst = destination[i];
 		if(tmpdst != source[i])
 		{	
@@ -38,7 +38,7 @@ public void MEM_Copy(var source, var length, var destination)
 	var i = length;
 	while(i)
 	{
-		i = i - 1;
+		i--;
 		var temp = source[i];
 		destination[i] = temp;
 	}
@@ -50,7 +50,7 @@ public void MEM_Set(var source, var length, var value)
 	var i = length;
 	while(i)
 	{
-		i = i - 1;
+		i--;
 		source[i] = value;
 	}
 	return;

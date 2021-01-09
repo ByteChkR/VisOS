@@ -74,7 +74,7 @@ private void HFS_WriteData(var data, var length)
 	{
 		var d = data[i];
 		HFS_FileWriteByte(d);
-		i = i + 1;
+		i++;
 	}
 	return;
 }
@@ -90,7 +90,7 @@ private void HFS_ReadData(var data, var length)
 	while(i < length)
 	{
 		data[i] = HFS_FileReadByte();
-		i = i + 1;
+		i++;
 	}
 	return;
 }
@@ -199,7 +199,7 @@ public var HFS_LoadBinaryV1(var path, var pathLen)
 	while(i < length)
 	{
 		data[i] = HFS_ADDRESS_DATA;
-		i = i + 1;
+		i++;
 	}
 	HFS_SetCommand( &HFS_CLOSE );
 	return data;

@@ -119,10 +119,10 @@ public void MMGR_Free(var ptr)
 			WriteDebugNewLine();
 			WriteAllocData(i, 0, 0);
 
-			CUR_ALLOCS = CUR_ALLOCS - 1;
+			CUR_ALLOCS--;
 			return;
 		}
-		i = i + 1;
+		i++;
 	}
 	return;
 }
@@ -141,7 +141,7 @@ public var MMGR_Alloc(var size)
 		return;
 	}
 	WriteAllocData(CUR_ALLOCS, cur, size);
-	CUR_ALLOCS = CUR_ALLOCS + 1;
+	CUR_ALLOCS++;
 
 	WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
 	WriteDebugString(&TXT_ALLOC, size_of(TXT_ALLOC));
@@ -154,7 +154,7 @@ public var MMGR_Alloc(var size)
 	WriteDebugNewLine();
 	WriteDebugAllocCount();
 
-	CUR_START = CUR_START + size;
+	CUR_START += size;
 	return cur;
 }
 

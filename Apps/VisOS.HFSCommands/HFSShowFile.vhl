@@ -23,7 +23,7 @@ private void WriteFileContent(var pathPtr, var pathLen)
 		COUT_Write(CHR_Unpack(data, 8));
 		COUT_Write(CHR_Unpack(data, 16));
 		COUT_Write(CHR_Unpack(data, 24));
-		size = size - 1;
+		size--;
 	}
 	HFS_FileClose();
 	COUT_WriteNewLine();

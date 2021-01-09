@@ -4,8 +4,8 @@ public var Pow(var a, var exp)
 	var count = exp;
 	while(count)
 	{
-		ret = ret * a;
-		count = count - 1;
+		ret *= a;
+		count--;
 	}
 
 	return ret;
@@ -30,7 +30,7 @@ public var IsPrime(var num)
             {
             	return 0;
             }
-            i = i + 2;
+            i += 2;
         }
 
         return 1;        
