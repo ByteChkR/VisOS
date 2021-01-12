@@ -1,1 +1,0 @@
-$env:Path += ";D:\Users\Tim\Documents\VisCPU\VisCPU.Console\bin\Debug\net5.0"

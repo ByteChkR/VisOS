@@ -1,1 +1,0 @@
-invoke-expression 'cmd /c call powershell -NoExit -Command {D:\Users\Tim\Documents\VisOS\scripts\vis-make.ps1}'
