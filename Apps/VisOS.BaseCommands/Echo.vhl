@@ -1,4 +1,4 @@
-#import "link ..\..\VisOS\Core.vbin"
+#import "link ../../VisOS/Core.vbin"
 
 string(cmd_echo, "echo");
 string(txt_reg, "Registering Command: ");

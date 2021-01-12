@@ -1,4 +1,4 @@
-#import "link ..\..\VisOS\Core.vbin"
+#import "link ../../VisOS/Core.vbin"
 
 string(DEBUG_TAG, "[HFS.MKDIR] ")
 string(txt_reg, "Registering Command: ");

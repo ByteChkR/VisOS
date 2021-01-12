@@ -1,4 +1,4 @@
-#import "link ..\..\VisOS\Core.vbin"
+#import "link ../../VisOS/Core.vbin"
 
 string(DEBUG_TAG, "[HFS.SHOW] ");
 string(cmd_fprint, "hfs.show");
