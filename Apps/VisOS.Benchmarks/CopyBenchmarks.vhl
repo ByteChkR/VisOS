@@ -1,0 +1,74 @@
+#include "VisOS.Driver/benchmark_device.vhl"
+
+string(bench_name, "CopyTest_");
+string(bench_100, "100");
+string(bench_1000, "1000");
+string(bench_10000, "10000");
+string(bench_100000, "100000");
+var test_src_array[100000];
+var test_dst_array[100000];
+
+private void CopyTo(var max)
+{
+	var i = 0;
+	while ( i < max )
+	{
+		test_dst_array[i] = test_src_array[i];
+		i++;
+	}
+	return;
+}
+
+private void Copy100()
+{
+	BENCH_ClearName();
+	BENCH_SetName(&bench_name, size_of(bench_name));
+	BENCH_SetName(&bench_100, size_of(bench_100));
+	BENCH_Run();
+	CopyTo(100);
+	BENCH_End();
+	return;
+}
+
+private void Copy1000()
+{
+	BENCH_ClearName();
+	BENCH_SetName(&bench_name, size_of(bench_name));
+	BENCH_SetName(&bench_1000, size_of(bench_1000));
+	BENCH_Run();
+	CopyTo(1000);
+	BENCH_End();
+	return;
+}
+
+private void Copy10000()
+{
+	BENCH_ClearName();
+	BENCH_SetName(&bench_name, size_of(bench_name));
+	BENCH_SetName(&bench_10000, size_of(bench_10000));
+	BENCH_Run();
+	CopyTo(10000);
+	BENCH_End();
+	return;
+}
+
+private void Copy100000()
+{
+	BENCH_ClearName();
+	BENCH_SetName(&bench_name, size_of(bench_name));
+	BENCH_SetName(&bench_100000, size_of(bench_100000));
+	BENCH_Run();
+	CopyTo(100000);
+	BENCH_End();
+	return;
+}
+
+
+public void RunCopyBenchmarks()
+{
+	Copy100();
+	Copy1000();
+	Copy10000();
+	Copy100000();
+	return;
+}

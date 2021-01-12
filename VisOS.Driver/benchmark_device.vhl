@@ -1,0 +1,68 @@
+#include "cout.vhl"
+#import "vasm-bridge HLT"
+#import "vasm-bridge BRK"
+const_var benchmark_device_present = 0xFFFF4000;
+const_var run_begin = 0xFFFF4001;
+const_var run_end = 0xFFFF4002;
+const_var run_clear_name = 0xFFFF4003;
+const_var run_set_name = 0xFFFF4004;
+
+string(DEBUG_TAG, "[BENCH_DEV] ");
+string(str_dev_not_found, "Benchmark Device not Detected. Pin: ");
+
+private void CheckDevice()
+{
+	if(!benchmark_device_present)
+	{
+		COUT_WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
+		COUT_WriteString( &str_dev_not_found, size_of(str_dev_not_found));
+		COUT_WriteNumber( &benchmark_device_present);
+		COUT_WriteNewLine();
+		I0_BRK();
+		I0_HLT();
+		return;
+	}
+	return;
+}
+
+public void BENCH_SetName(var namePtr, var len)
+{
+	CheckDevice();
+	var i = 0;
+	while(i < len)
+	{
+		run_set_name = namePtr[i];
+		i++;
+	}
+	return;
+}
+
+public void BENCH_ClearName()
+{
+	CheckDevice();
+	run_clear_name = 1;
+	return;
+}
+
+public void BENCH_Run()
+{
+	CheckDevice();
+	run_begin = 1;
+	return;
+}
+
+public void BENCH_Begin(var namePtr, var len)
+{
+	CheckDevice();
+	BENCH_ClearName();
+	BENCH_SetName(namePtr, len);
+	BENCH_Run();
+	return;
+}
+
+public void BENCH_End()
+{
+	CheckDevice();
+	run_end = 1;
+	return;
+}

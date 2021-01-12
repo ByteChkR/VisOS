@@ -1,0 +1,5 @@
+#include "CounterBenchmarks.vhl"
+#include "CopyBenchmarks.vhl"
+
+RunCopyBenchmarks();
+RunCounterBenchmarks();
