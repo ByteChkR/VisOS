@@ -1,7 +1,7 @@
 cd VisOS.BaseCommands
 $vis project clean
 $vis project pack
-$vis project publish local
+$vis project publish $UPLOAD_REPO
 $vis project clean
 $vis project restore
 
@@ -10,7 +10,7 @@ $vis build -build:i App.vhl -build:steps HL-expr bin -build:clean false -assembl
 cd ../VisOS.UnitTests
 $vis project clean
 $vis project pack
-$vis project publish local
+$vis project publish $UPLOAD_REPO
 $vis project clean
 $vis project restore
 
@@ -19,7 +19,7 @@ $vis build -build:i UnitTests.vhl -build:steps HL-expr bin -build:clean false -a
 cd ../VisOS.HFSCommands
 $vis project clean
 $vis project pack
-$vis project publish local
+$vis project publish $UPLOAD_REPO
 $vis project clean
 $vis project restore
 
@@ -28,7 +28,7 @@ $vis build -build:i App.vhl -build:steps HL-expr bin -build:clean false -assembl
 cd ../VisOS.Benchmarks
 $vis project clean
 $vis project pack
-$vis project publish local
+$vis project publish $UPLOAD_REPO
 $vis project clean
 $vis project restore
 
