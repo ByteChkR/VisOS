@@ -21,7 +21,7 @@ dotnet publish -c Release >/dev/null 2>&1
 echo "------------- Setting up SDK Session Script -------------"
 ConsoleRoot=$PWD/bin/Release/net5.0/publish/vis
 
-echo "vis=$ConsoleRoot">$ConsoleInstall/vis-console.sh
+echo "alias vis=$ConsoleRoot">$ConsoleInstall/vis-console.sh
 chmod +x $ConsoleInstall/vis-console.sh
 
 echo "Installation Completed."
