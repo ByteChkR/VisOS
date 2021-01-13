@@ -1,9 +1,9 @@
 #include "cout.vhl"
 
-const_var test_begin = 0xFFFF2000;
-const_var test_fail = 0xFFFF2001;
-const_var test_pass = 0xFFFF2002;
-const_var test_device_present = 0xFFFF2003;
+const var test_begin = 0xFFFF2000;
+const var test_fail = 0xFFFF2001;
+const var test_pass = 0xFFFF2002;
+const var test_device_present = 0xFFFF2003;
 
 string(DEBUG_TAG, "[TEST_DEV] ");
 string(str_test_passed, "PASSED!");
