@@ -1,4 +1,4 @@
-./scripts/vis-make.sh
+. ./scripts/vis-make.sh
 cd VisOS
 $vis project clean
 cd ../BootLoader

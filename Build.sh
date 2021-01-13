@@ -1,4 +1,4 @@
-./scripts/vis-make.sh
+. ./scripts/vis-make.sh
 
 $UPLOAD_REPO = 'local'
 $DOWNLOAD_REPO = 'local'
