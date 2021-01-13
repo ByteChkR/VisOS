@@ -6,8 +6,8 @@ private static string str_generic_error= "Generic Error";
 
 class TestClass
 {
-	var a;
-	var b;
+	public var a;
+	public var b;
 }
 
 TestClass const_ar;

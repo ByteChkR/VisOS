@@ -8,7 +8,7 @@ private static string test_generic_fail= "Type System Error.";
 
 class TestClass
 {
-	var field;
+	public var field;
 }
 
 public void TestSingleField()

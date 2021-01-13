@@ -7,8 +7,8 @@ private static string test_ptr_fail= "Pointers of fields do not match pattern fi
 
 class TestClass
 {
-	var fieldA;
-	var fieldB;
+	public var fieldA;
+	public var fieldB;
 }
 
 public void TestMultiField()

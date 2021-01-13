@@ -8,14 +8,14 @@ private static string test_size_of_fail= "size_of(TestClass) is not equal 3.";
 
 class TestClass
 {
-	var fieldA;
-	TestNestedMultiClass fieldB;
+	public var fieldA;
+	public TestNestedMultiClass fieldB;
 }
 
 class TestNestedMultiClass
 {
-	var fieldC;
-	var fieldD;
+	public var fieldC;
+	public var fieldD;
 }
 
 public void TestNestedMultiField()
