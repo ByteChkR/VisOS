@@ -5,5 +5,5 @@ cd ../BootLoader
 $vis project clean
 cd ../Apps
 
-./CleanApps.sh
+. ./CleanApps.sh
 cd ..

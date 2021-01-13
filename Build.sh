@@ -1,7 +1,7 @@
 . ./scripts/vis-make.sh
 
-$UPLOAD_REPO = 'local'
-$DOWNLOAD_REPO = 'local'
+UPLOAD_REPO="local"
+DOWNLOAD_REPO="local"
 
 cd VisOS.Driver
 $vis project clean
@@ -25,5 +25,5 @@ $vis build -build:i Core.vhl -build:steps HL-expr bin -build:clean false -assemb
 cd ..
 
 cd Apps
-./BuildApps.sh
+. ./BuildApps.sh
 cd ..
