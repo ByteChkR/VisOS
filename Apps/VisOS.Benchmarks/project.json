@@ -1,6 +1,6 @@
 {
   "ModuleName": "VisOS.Benchmarks",
-  "ModuleVersion": "0.1.0.2",
+  "ModuleVersion": "0.1.0.3",
   "Dependencies": [
     {
       "ModuleName": "VisOS.Driver",
