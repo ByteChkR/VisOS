@@ -1,6 +1,6 @@
 {
   "ModuleName": "VisOS",
-  "ModuleVersion": "0.1.0.12",
+  "ModuleVersion": "0.1.0.13",
   "Dependencies": [
     {
       "ModuleName": "VisOS.Driver",
