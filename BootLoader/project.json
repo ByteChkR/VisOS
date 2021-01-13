@@ -1,6 +1,6 @@
 {
   "ModuleName": "BootLoader",
-  "ModuleVersion": "0.1.0.28",
+  "ModuleVersion": "0.1.0.29",
   "Dependencies": [
     {
       "ModuleName": "VisOS.Driver",
