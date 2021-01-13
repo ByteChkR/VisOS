@@ -1,12 +1,11 @@
 
-echo $UPLOAD_REPO
 
 cd VisOS.BaseCommands
 vis project clean
 vis project pack
 vis project publish $UPLOAD_REPO
 vis project clean
-vis project restore
+vis project restore $DOWNLOAD_REPO
 
 vis build -build:i App.vhl -build:steps HL-expr bin -build:clean false -assembler:offset.global 8192 -linker:export
 
@@ -15,7 +14,7 @@ vis project clean
 vis project pack
 vis project publish $UPLOAD_REPO
 vis project clean
-vis project restore
+vis project restore $DOWNLOAD_REPO
 
 vis build -build:i UnitTests.vhl -build:steps HL-expr bin -build:clean false -assembler:offset.global 32768 -linker:export
 
@@ -24,7 +23,7 @@ vis project clean
 vis project pack
 vis project publish $UPLOAD_REPO
 vis project clean
-vis project restore
+vis project restore $DOWNLOAD_REPO
 
 vis build -build:i App.vhl -build:steps HL-expr bin -build:clean false -assembler:offset.global 4096 -linker:export
 
@@ -33,7 +32,7 @@ vis project clean
 vis project pack
 vis project publish $UPLOAD_REPO
 vis project clean
-vis project restore
+vis project restore $DOWNLOAD_REPO
 
 vis build -build:i RunBenchmarks.vhl -build:steps HL-expr bin -build:clean false -assembler:offset.global 0 -linker:export
 
