@@ -1,11 +1,11 @@
 #include "VisOS.Driver/benchmark_device.vhl"
 
-string(bench_name, "CounterTest_");
-string(bench_100, "100");
-string(bench_1000, "1000");
-string(bench_10000, "10000");
-string(bench_100000, "100000");
-string(bench_1000000, "1000000");
+private static string bench_name= "CounterTest_";
+private static string bench_100= "100";
+private static string bench_1000= "1000";
+private static string bench_10000= "10000";
+private static string bench_100000= "100000";
+private static string bench_1000000= "1000000";
 
 private void CountTo(var max)
 {

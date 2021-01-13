@@ -1,11 +1,11 @@
 #include "../VisOS.Driver/test_device.vhl"
 
-string(test_div_cc, "DIV_CC_Simple_Test");
-string(test_div_cv, "DIV_CV_Simple_Test");
-string(test_div_vv, "DIV_VV_Simple_Test");
-string(test_div_vc, "DIV_VC_Simple_Test");
+private static string test_div_cc= "DIV_CC_Simple_Test";
+private static string test_div_cv= "DIV_CV_Simple_Test";
+private static string test_div_vv= "DIV_VV_Simple_Test";
+private static string test_div_vc= "DIV_VC_Simple_Test";
 
-string(test_generic_math_fail, "Calculation Failed.");
+private static string test_generic_math_fail= "Calculation Failed.";
 
 private void DIV_VV_Simple_Test()
 {

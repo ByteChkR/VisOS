@@ -1,15 +1,15 @@
 #include "cout.vhl"
 
-const var test_begin = 0xFFFF2000;
-const var test_fail = 0xFFFF2001;
-const var test_pass = 0xFFFF2002;
-const var test_device_present = 0xFFFF2003;
+private const var test_begin = 0xFFFF2000;
+private const var test_fail = 0xFFFF2001;
+private const var test_pass = 0xFFFF2002;
+private const var test_device_present = 0xFFFF2003;
 
-string(DEBUG_TAG, "[TEST_DEV] ");
-string(str_test_passed, "PASSED!");
-string(str_test_failed, "FAILED!");
-string(str_test_started, "Starting Test: ");
-string(str_test_started_2, ".....");
+private static string DEBUG_TAG= "[TEST_DEV] ";
+private static string str_test_passed= "PASSED!";
+private static string str_test_failed= "FAILED!";
+private static string str_test_started= "Starting Test: ";
+private static string str_test_started_2= ".....";
 
 
 public void BeginTest(var namePtr, var len)

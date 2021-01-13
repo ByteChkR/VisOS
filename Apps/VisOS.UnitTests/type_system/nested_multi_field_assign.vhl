@@ -1,9 +1,9 @@
 #include "../VisOS.Driver/test_device.vhl"
-string(test_single_field_type, "NESTED_MULTI_FIELD_TYPE_TEST");
+private static string test_single_field_type= "NESTED_MULTI_FIELD_TYPE_TEST";
 
-string(test_generic_fail, "Type System Error.");
-string(test_ptr_fail, "Pointers of fields do not match pattern fieldA == fieldB - 1.");
-string(test_size_of_fail, "size_of(TestClass) is not equal 3.");
+private static string test_generic_fail= "Type System Error.";
+private static string test_ptr_fail= "Pointers of fields do not match pattern fieldA == fieldB - 1.";
+private static string test_size_of_fail= "size_of(TestClass) is not equal 3.";
 
 
 class TestClass

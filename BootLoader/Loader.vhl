@@ -3,20 +3,20 @@
 #import "vasm-bridge BRK"
 
 //The Boot Image to Load
-string(bootimage, "../VisOS/Core.vbin"); //Path to Boot Image
+private static string bootimage = "../VisOS/Core.vbin"; //Path to Boot Image
 
 //Boot Loader Strings
-string(ldr_version, "v0.1");
-string(ldr_name, "BootLoader");
-string(DEBUG_TAG, "[BLDR] ");
 
+private static string ldr_version = "v0.1";
+private static string ldr_name = "BootLoader";
+private static string DEBUG_TAG = "[BLDR] ";
 
-string(txt_pre_load, "Preparing to load Image: ");
-string(txt_loading, "Loading");
-string(txt_bytes, "Bytes");
-string(txt_complete, "Complete");
-string(txt_error, "Error: File not Found");
-string(txt_starting, "Starting Image...");
+private static string txt_pre_load = "Preparing to load Image: ";
+private static string txt_loading = "Loading";
+private static string txt_bytes= "Bytes";
+private static string txt_complete= "Complete";
+private static string txt_error= "Error: File not Found";
+private static string txt_starting= "Starting Image...";
 
 private void PrintHeader()
 {

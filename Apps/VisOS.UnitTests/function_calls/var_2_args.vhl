@@ -1,7 +1,6 @@
 #include "../VisOS.Driver/test_device.vhl"
-
-string(str_test_name, "Var2ArgsTest");
-string(str_ret_val_fail, "Return value is not 5");
+private static string str_ret_val_fail= "Return value is not 5";
+private static string str_test_name=  "Var2ArgsTest";
 
 private var TestC(var arg1, var arg2)
 {

@@ -6,13 +6,13 @@
 #include "type_system_tests.vhl"
 #include "VisOS.Driver/cout.vhl"
 
-string(str_instr, "Instruction Tests");
-string(str_func, "Function Tests");
-string(str_ptr, "Pointer Tests");
-string(str_assign, "Assignment Tests");
-string(str_branch, "Branch Tests");
-string(str_ts, "Type System Tests");
-string(str_sep, "-------------------------");
+private static string str_instr= "Instruction Tests";
+private static string str_func= "Function Tests";
+private static string str_ptr= "Pointer Tests";
+private static string str_assign= "Assignment Tests";
+private static string str_branch= "Branch Tests";
+private static string str_ts= "Type System Tests";
+private static string str_sep= "-------------------------";
 
 private void PrintHeader(var testName, var testSize)
 {

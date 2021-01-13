@@ -1,9 +1,9 @@
 #import "link ../../VisOS/Core.vbin"
 
-string(DEBUG_TAG, "[HFS.CD] ");
-string(txt_reg, "Registering Command: ");
-string(cmd_fprint, "hfs.cd");
-string(txt_cd, "New Directory: ");
+private static string DEBUG_TAG= "[HFS.CD] ";
+private static string txt_reg= "Registering Command: ";
+private static string cmd_fprint= "hfs.cd";
+private static string txt_cd= "New Directory: ";
 
 private void ChangeDirectory(var pathPtr, var pathLen)
 {

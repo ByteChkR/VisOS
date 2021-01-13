@@ -1,11 +1,11 @@
 #import "link ../../VisOS/Core.vbin"
 
-string(cmd_primes, "primes");
-string(txt_reg, "Registering Command: ");
-string(txt, "Number ");
-string(txt_prime, " is Prime!");
-string(txt_not_prime, " is not Prime!");
-string(DEBUG_TAG, "[PRIMES] ");
+private static string cmd_primes= "primes";
+private static string txt_reg= "Registering Command: ";
+private static string txt= "Number ";
+private static string txt_prime= " is Prime!";
+private static string txt_not_prime= " is not Prime!";
+private static string DEBUG_TAG= "[PRIMES] ";
 
 private var IsPrimes(var ptrIn)
 {

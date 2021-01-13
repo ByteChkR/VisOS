@@ -1,8 +1,8 @@
 #include "../VisOS.Driver/test_device.vhl"
 
-string(str_test_name, "EqIfVar2ArgsTest");
-string(str_ret_v_val_fail, "V:Return value is not 5");
-string(str_ret_c_val_fail, "C:Return value is not 5");
+private static string str_ret_v_val_fail= "V:Return value is not 5";
+private static string str_ret_c_val_fail= "C:Return value is not 5";
+private static string str_test_name= "EqIfVar2ArgsTest";
 
 private var TestC(var arg1, var arg2)
 {

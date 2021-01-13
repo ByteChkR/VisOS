@@ -1,14 +1,14 @@
 #include "cout.vhl"
 #import "vasm-bridge HLT"
 #import "vasm-bridge BRK"
-const var benchmark_device_present = 0xFFFF4000;
-const var run_begin = 0xFFFF4001;
-const var run_end = 0xFFFF4002;
-const var run_clear_name = 0xFFFF4003;
-const var run_set_name = 0xFFFF4004;
+private const var benchmark_device_present = 0xFFFF4000;
+private const var run_begin = 0xFFFF4001;
+private const var run_end = 0xFFFF4002;
+private const var run_clear_name = 0xFFFF4003;
+private const var run_set_name = 0xFFFF4004;
 
-string(DEBUG_TAG, "[BENCH_DEV] ");
-string(str_dev_not_found, "Benchmark Device not Detected. Pin: ");
+private static string DEBUG_TAG= "[BENCH_DEV] ";
+private static string str_dev_not_found= "Benchmark Device not Detected. Pin: ";
 
 private void CheckDevice()
 {

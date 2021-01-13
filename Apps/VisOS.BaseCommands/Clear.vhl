@@ -1,8 +1,8 @@
 #import "link ../../VisOS/Core.vbin"
 
-string(cmd_clear, "clear");
-string(txt_reg, "Registering Command: ");
-string(DEBUG_TAG, "[CLEAR] ");
+private static string cmd_clear= "clear";
+private static string txt_reg= "Registering Command: ";
+private static string DEBUG_TAG= "[CLEAR] ";
 
 private var IsClear(var ptrIn)
 {

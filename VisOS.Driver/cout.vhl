@@ -1,9 +1,9 @@
-const var cOut = 0xFFFF1001; //Console Out => Write Character
-const var cOutNum = 0xFFFF1002; //Console Out => Write Number
-const var cClearNum = 0xFFFF1005; //Console Clear
+private const var cOut = 0xFFFF1001; //Console Out => Write Character
+private const var cOutNum = 0xFFFF1002; //Console Out => Write Number
+private const var cClearNum = 0xFFFF1005; //Console Clear
 #import "vasm-bridge BRK"
 
-string(arr_sep, ", ");
+private static string arr_sep = ", ";
 
 public void COUT_ClearConsole()
 {

@@ -1,7 +1,9 @@
 #include "../VisOS.Driver/test_device.vhl"
-string(test_single_field_type, "SINGLE_FIELD_TYPE_TEST");
 
-string(test_generic_fail, "Type System Error.");
+private static string test_single_field_type= "SINGLE_FIELD_TYPE_TEST";
+
+
+private static string test_generic_fail= "Type System Error.";
 
 
 class TestClass

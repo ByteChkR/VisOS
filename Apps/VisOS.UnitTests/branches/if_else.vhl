@@ -1,14 +1,14 @@
 #include "../VisOS.Driver/test_device.vhl"
 
 
-string(test_if_else_v, "IF_ELSE_V_Test");
-string(test_if_else_c, "IF_ELSE_C_Test");
-string(test_if_else_vc, "IF_ELSE_VC_Test");
-string(test_if_else_cv, "IF_ELSE_CV_Test");
-string(test_if_else_vv, "IF_ELSE_VV_Test");
-string(test_if_else_cc, "IF_ELSE_CC_Test");
+private static string test_if_else_v="IF_ELSE_V_Test";
+private static string test_if_else_c="IF_ELSE_C_Test";
+private static string test_if_else_vc="IF_ELSE_VC_Test";
+private static string test_if_else_cv="IF_ELSE_CV_Test";
+private static string test_if_else_vv="IF_ELSE_VV_Test";
+private static string test_if_else_cc="IF_ELSE_CC_Test";
 
-string(test_eval_fail, "Evaluation is wrong.");
+private static string test_eval_fail="Evaluation is wrong.";
 
 private void TestIfElse_V()
 {

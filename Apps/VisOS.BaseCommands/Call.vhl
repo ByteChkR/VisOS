@@ -1,9 +1,9 @@
 #import "link ../../VisOS/Core.vbin"
 #import "vasm-bridge JSREF"
 
-string(cmd_call, "call");
-string(txt_reg, "Registering Command: ");
-string(DEBUG_TAG, "[CALL] ");
+private static string cmd_call= "call";
+private static string txt_reg= "Registering Command: ";
+private static string DEBUG_TAG= "[CALL] ";
 
 private var IsCall(var ptrIn)
 {

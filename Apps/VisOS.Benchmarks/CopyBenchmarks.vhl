@@ -1,12 +1,12 @@
 #include "VisOS.Driver/benchmark_device.vhl"
 
-string(bench_name, "CopyTest_");
-string(bench_100, "100");
-string(bench_1000, "1000");
-string(bench_10000, "10000");
-string(bench_100000, "100000");
-var test_src_array[100000];
-var test_dst_array[100000];
+private static string bench_name= "CopyTest_";
+private static string bench_100= "100";
+private static string bench_1000= "1000";
+private static string bench_10000= "10000";
+private static string bench_100000= "100000";
+private var test_src_array[100000];
+private var test_dst_array[100000];
 
 private void CopyTo(var max)
 {

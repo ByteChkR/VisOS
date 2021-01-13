@@ -1,6 +1,6 @@
 #include "../VisOS.Driver/test_device.vhl"
-string(test_assignment_fail, "Assignment b[a] = d[5] Failed.");
-string(test_arrayV_add_arrayC, "Assignment_ArrayV_ArrayC_Simple_Test");
+private static string test_assignment_fail= "Assignment b[a] = d[5] Failed.";
+private static string test_arrayV_add_arrayC= "Assignment_ArrayV_ArrayC_Simple_Test";
 
 var bArray[10];
 var dArray[10];

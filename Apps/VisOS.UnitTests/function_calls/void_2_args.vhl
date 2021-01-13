@@ -1,7 +1,7 @@
 #include "../VisOS.Driver/test_device.vhl"
 
-string(str_test_name, "Void2ArgsTest");
-string(str_ret_val_fail, "Value is not 5");
+private static string str_test_name= "Void2ArgsTest";
+private static string str_ret_val_fail= "Value is not 5";
 
 private void Test(var arg1, var arg2)
 {

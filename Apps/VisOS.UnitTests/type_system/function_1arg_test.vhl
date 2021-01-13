@@ -1,8 +1,8 @@
 #include "../VisOS.Driver/test_device.vhl"
 
-string(str_var_test_name, "CTYPE_1VAR_ARGS_Test");
-string(str_const_test_name, "CTYPE_1CONST_ARGS_Test");
-string(str_generic_error, "Generic Error");
+private static string str_var_test_name= "CTYPE_1VAR_ARGS_Test";
+private static string str_const_test_name= "CTYPE_1CONST_ARGS_Test";
+private static string str_generic_error= "Generic Error";
 
 class TestClass
 {
@@ -30,7 +30,7 @@ private void CustomTypeV1ArgsTest()
 	ar.b = 5;
 
 	BeginTest(ptr_of(str_var_test_name), size_of(str_var_test_name));
-	TestXY(&ar);
+	TestXY(ar);
 	return;
 }
 
@@ -38,7 +38,7 @@ private void CustomTypeC1ArgsTest()
 {
 	const_ar.b = 5;
 	BeginTest(ptr_of(str_const_test_name), size_of(str_const_test_name));
-	TestXY(&const_ar);
+	TestXY(const_ar);
 	return;
 }
 

@@ -1,6 +1,6 @@
 #include "../VisOS.Driver/test_device.vhl"
 
-string(str_test_name, "VoidNoArgsTest");
+private static string str_test_name= "VoidNoArgsTest";
 
 private void TestC()
 {

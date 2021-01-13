@@ -1,6 +1,6 @@
 #include "../VisOS.Driver/test_device.vhl"
-string(test_assignment_fail, "Assignment Failed.");
-string(test_arrayV_add_arrayV, "Assignment_ArrayV_ArrayV_Simple_Test");
+private static string test_assignment_fail= "Assignment Failed.";
+private static string test_arrayV_add_arrayV= "Assignment_ArrayV_ArrayV_Simple_Test";
 
 public void Assign_ArrayV_ArrayV_Simple_Test()
 {

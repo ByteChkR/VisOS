@@ -1,4 +1,4 @@
-const var cIn = 0xFFFF1004;
+private const var cIn = 0xFFFF1004;
 
 
 public var CIN_Read()
