@@ -1,5 +1,7 @@
 #include "CounterBenchmarks.vhl"
 #include "CopyBenchmarks.vhl"
+#include "PrimeBenchmarks.vhl"
 
 RunCopyBenchmarks();
 RunCounterBenchmarks();
+RunIsPrimeBenchmark();

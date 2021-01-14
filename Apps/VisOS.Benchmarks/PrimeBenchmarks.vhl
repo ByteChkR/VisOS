@@ -1,0 +1,41 @@
+#include "VisOS.Driver/benchmark_device.vhl"
+
+private static string bench_is_prime= " is Prime!";
+
+public var IsPrimeTest(var num)
+{
+    if (num <= 1)
+    {
+      	return 0;
+    }
+    var i = 2;
+    var end = num / 2;
+    while(i <= end)
+    {
+    	var val = num % i;
+    	if (!val)
+        {
+        	return 0;
+        }
+        i++;
+    }
+
+    return 1;        
+}
+
+public void RunIsPrimeBenchmark()
+{
+	var i = 0;
+	var max = 10000;
+	while(i<max)
+	{
+		var prime = IsPrimeTest(i);
+		if(prime)
+		{
+			COUT_WriteNumber(i);
+			COUT_WriteLine(&bench_is_prime, size_of(bench_is_prime));
+		}
+		i++;
+	}
+	return;
+}
