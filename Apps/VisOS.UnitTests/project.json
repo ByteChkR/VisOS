@@ -1,6 +1,6 @@
 {
   "ModuleName": "VisOS.UnitTests",
-  "ModuleVersion": "0.1.0.24",
+  "ModuleVersion": "0.1.0.25",
   "Dependencies": [
     {
       "ModuleName": "VisOS.Driver",
