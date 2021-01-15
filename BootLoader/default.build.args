@@ -1,5 +1,0 @@
--build:i Loader.vhl
--build:steps HL-expr bin
--build:clean false
--assembler:offset.global 0
--linker:export

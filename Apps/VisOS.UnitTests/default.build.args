@@ -1,5 +1,0 @@
--build:i UnitTests.vhl
--build:steps HL-expr bin
--build:clean false
--assembler:offset.global 32768
--linker:export

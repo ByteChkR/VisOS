@@ -1,5 +1,0 @@
--build:i App.vhl
--build:steps HL-expr bin
--build:clean false
--assembler:offset.global 4096
--linker:export

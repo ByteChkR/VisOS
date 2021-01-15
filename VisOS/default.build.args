@@ -1,5 +1,0 @@
--build:i Core.vhl
--build:steps HL-expr bin
--build:clean false
--assembler:offset.global 16384
--linker:export
