@@ -3,7 +3,7 @@
 #import "vasm-bridge BRK"
 
 //The Boot Image to Load
-private static string bootimage = "../VisOS/Core.vbin"; //Path to Boot Image
+private static string bootimage = "../VisOS/Core.vbin";
 
 //Boot Loader Strings
 
@@ -73,7 +73,7 @@ private void Entry()
 		return;
 	}
 	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteLine( txt_error, size_of(txt_error));
+	COUT_WriteLine( &txt_error, size_of(txt_error));
 	return;
 }
 

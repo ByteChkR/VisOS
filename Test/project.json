@@ -8,6 +8,19 @@
       ],
       "Jobs": []
     },
+    "Publish": {
+      "TargetName": "Publish",
+      "DependsOn": [],
+      "Jobs": [
+        {
+          "JobName": "Publish Project",
+          "BuildJobRunner": "merged",
+          "Arguments": {
+            "merge:include": "%VISDIR%common/jobs/newVersion.json"
+          }
+        }
+      ]
+    },
     "DebugRun": {
       "TargetName": "DebugRun",
       "DependsOn": [
@@ -31,6 +44,11 @@
     }
   },
   "ProjectName": "Test",
-  "ProjectVersion": "0.0.0.1",
-  "Dependencies": []
+  "ProjectVersion": "0.0.0.2",
+  "Dependencies": [
+    {
+      "ProjectName": "VisOS.Driver",
+      "ProjectVersion": "ANY"
+    }
+  ]
 }

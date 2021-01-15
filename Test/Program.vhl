@@ -1,1 +1,17 @@
-var b = 2 + 2 * 5 + 4;
+#include "VisOS.Driver/hfs.vhl"
+#include "VisOS.Driver/cout.vhl"
+private static string TestFile = "./test.txt";
+private static string Exists = "File Exists";
+private static string NotExists = "File not found";
+
+
+var exists = HFS_FileExists(&TestFile, size_of(TestFile));
+
+if(exists)
+{
+	COUT_WriteLine(&Exists, size_of(Exists));
+}
+else
+{
+	COUT_WriteLine(&NotExists, size_of(NotExists));
+}
