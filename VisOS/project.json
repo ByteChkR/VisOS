@@ -33,7 +33,7 @@
     }
   },
   "ProjectName": "VisOS",
-  "ProjectVersion": "0.1.0.40",
+  "ProjectVersion": "0.1.0.41",
   "Dependencies": [
     {
       "ProjectName": "VisOS.Driver",
