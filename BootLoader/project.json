@@ -1,19 +1,6 @@
 {
   "DefaultTarget": "Debug",
   "BuildTargets": {
-    "Run": {
-      "TargetName": "Run",
-      "DependsOn": ["Debug"],
-      "Jobs": [
-        {
-          "JobName": "Run BootLoader",
-          "BuildJobRunner": "run",
-          "Arguments": {
-            "run:input": "%PROJDIR%Loader.vbin"
-          }
-        }
-      ]
-    },
     "Debug": {
       "TargetName": "Debug",
       "DependsOn": [],
@@ -29,7 +16,7 @@
           "JobName": "Build %NAME%@%VERSION%",
           "BuildJobRunner": "build",
           "Arguments": {
-            "build:input": "Loader.vhl",
+            "build:input": "%PROJDIR%Loader.vhl",
             "build:steps": "HL-expr bin",
             "build:clean": "false",
             "assembler:offset.global": "0",
@@ -39,10 +26,25 @@
           }
         }
       ]
+    },
+    "Run": {
+      "TargetName": "Run",
+      "DependsOn": [
+        "Debug"
+      ],
+      "Jobs": [
+        {
+          "JobName": "Run BootLoader%PROJDIR%",
+          "BuildJobRunner": "run",
+          "Arguments": {
+            "run:input": "%PROJDIR%Loader.vbin"
+          }
+        }
+      ]
     }
   },
   "ProjectName": "BootLoader",
-  "ProjectVersion": "0.1.0.53",
+  "ProjectVersion": "0.1.0.66",
   "Dependencies": [
     {
       "ProjectName": "VisOS.Driver",

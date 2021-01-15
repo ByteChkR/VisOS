@@ -27,7 +27,7 @@
     }
   },
   "ProjectName": "VisOS.UnitTests",
-  "ProjectVersion": "0.1.0.40",
+  "ProjectVersion": "0.1.0.44",
   "Dependencies": [
     {
       "ProjectName": "VisOS.Driver",
