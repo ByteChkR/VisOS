@@ -1,0 +1,36 @@
+{
+  "DefaultTarget": "Debug",
+  "BuildTargets": {
+    "Debug": {
+      "TargetName": "Debug",
+      "DependsOn": [
+        "%VISDIR%common/targets/debug.json"
+      ],
+      "Jobs": []
+    },
+    "DebugRun": {
+      "TargetName": "DebugRun",
+      "DependsOn": [
+        "%VISDIR%common/targets/debugRun.json"
+      ],
+      "Jobs": []
+    },
+    "Release": {
+      "TargetName": "Release",
+      "DependsOn": [
+        "%VISDIR%common/targets/release.json"
+      ],
+      "Jobs": []
+    },
+    "ReleaseRun": {
+      "TargetName": "ReleaseRun",
+      "DependsOn": [
+        "%VISDIR%common/targets/releaseRun.json"
+      ],
+      "Jobs": []
+    }
+  },
+  "ProjectName": "Test",
+  "ProjectVersion": "0.0.0.1",
+  "Dependencies": []
+}
