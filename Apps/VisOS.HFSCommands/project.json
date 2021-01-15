@@ -3,23 +3,17 @@
   "BuildTargets": {
     "Debug": {
       "TargetName": "Debug",
+      "DependsOn": [],
       "Jobs": [
         {
-          "JobName": "Publish Project",
-          "BuildJobRunner": "publish",
+          "JobName": "Create New Version",
+          "BuildJobRunner": "combined",
           "Arguments": {
-            "repo": "local"
+            "newVersion": "%VISDIR%common/jobs/newVersion.json"
           }
         },
         {
-          "JobName": "Restore Project",
-          "BuildJobRunner": "restore",
-          "Arguments": {
-            "repo": "local"
-          }
-        },
-        {
-          "JobName": "Build Project",
+          "JobName": "Build %NAME%@%VERSION%",
           "BuildJobRunner": "build",
           "Arguments": {
             "build:input": "App.vhl",
@@ -33,6 +27,6 @@
     }
   },
   "ProjectName": "VisOS.HFSCommands",
-  "ProjectVersion": "0.1.0.31",
+  "ProjectVersion": "0.1.0.35",
   "Dependencies": []
 }

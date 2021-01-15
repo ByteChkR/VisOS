@@ -3,18 +3,19 @@
   "BuildTargets": {
     "Debug": {
       "TargetName": "Debug",
+      "DependsOn": [],
       "Jobs": [
         {
-          "JobName": "Publish Project",
-          "BuildJobRunner": "publish",
+          "JobName": "Create New Version",
+          "BuildJobRunner": "combined",
           "Arguments": {
-            "repo": "local"
+            "newVersion": "%VISDIR%common/jobs/newVersion.json"
           }
         }
       ]
     }
   },
   "ProjectName": "VisOS.Driver",
-  "ProjectVersion": "0.1.0.43",
+  "ProjectVersion": "0.1.0.51",
   "Dependencies": []
 }
