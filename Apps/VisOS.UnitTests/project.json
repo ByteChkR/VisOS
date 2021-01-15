@@ -16,7 +16,7 @@
           "JobName": "Build %NAME%@%VERSION%",
           "BuildJobRunner": "build",
           "Arguments": {
-            "build:input": "UnitTests.vhl",
+            "build:input": "%PROJDIR%UnitTests.vhl",
             "build:steps": "HL-expr bin",
             "build:clean": "false",
             "assembler:offset.global": "32768",

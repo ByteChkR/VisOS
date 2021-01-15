@@ -16,7 +16,7 @@
           "JobName": "Build %NAME%@%VERSION%",
           "BuildJobRunner": "build",
           "Arguments": {
-            "build:input": "Core.vhl",
+            "build:input": "%PROJDIR%Core.vhl",
             "build:steps": "HL-expr bin",
             "build:clean": "false",
             "assembler:offset.global": "16384",

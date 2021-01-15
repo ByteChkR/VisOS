@@ -16,7 +16,7 @@
           "JobName": "Build %NAME%@%VERSION%",
           "BuildJobRunner": "build",
           "Arguments": {
-            "build:input": "RunBenchmarks.vhl",
+            "build:input": "%PROJDIR%RunBenchmarks.vhl",
             "build:steps": "HL-expr bin",
             "build:clean": "false",
             "assembler:offset.global": "0",
