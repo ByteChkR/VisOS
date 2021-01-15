@@ -1,10 +1,43 @@
 {
-  "ModuleName": "VisOS.Benchmarks",
-  "ModuleVersion": "0.1.0.22",
+  "DefaultTarget": "Debug",
+  "BuildTargets": {
+    "Debug": {
+      "TargetName": "Debug",
+      "Jobs": [
+        {
+          "JobName": "Publish Project",
+          "BuildJobRunner": "publish",
+          "Arguments": {
+            "repo": "local"
+          }
+        },
+        {
+          "JobName": "Restore Project",
+          "BuildJobRunner": "restore",
+          "Arguments": {
+            "repo": "local"
+          }
+        },
+        {
+          "JobName": "Build Project",
+          "BuildJobRunner": "build",
+          "Arguments": {
+            "build:input": "RunBenchmarks.vhl",
+            "build:steps": "HL-expr bin",
+            "build:clean": "false",
+            "assembler:offset.global": "0",
+            "linker:export": "true"
+          }
+        }
+      ]
+    }
+  },
+  "ProjectName": "VisOS.Benchmarks",
+  "ProjectVersion": "0.1.0.29",
   "Dependencies": [
     {
-      "ModuleName": "VisOS.Driver",
-      "ModuleVersion": "ANY"
+      "ProjectName": "VisOS.Driver",
+      "ProjectVersion": "ANY"
     }
   ]
 }

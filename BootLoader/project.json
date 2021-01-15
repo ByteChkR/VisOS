@@ -1,10 +1,43 @@
 {
-  "ModuleName": "BootLoader",
-  "ModuleVersion": "0.1.0.31",
+  "DefaultTarget": "Debug",
+  "BuildTargets": {
+    "Debug": {
+      "TargetName": "Debug",
+      "Jobs": [
+        {
+          "JobName": "Publish Project",
+          "BuildJobRunner": "publish",
+          "Arguments": {
+            "repo": "local"
+          }
+        },
+        {
+          "JobName": "Restore Project",
+          "BuildJobRunner": "restore",
+          "Arguments": {
+            "repo": "local"
+          }
+        },
+        {
+          "JobName": "Build Project",
+          "BuildJobRunner": "build",
+          "Arguments": {
+            "build:input": "Loader.vhl",
+            "build:steps": "HL-expr bin",
+            "build:clean": "false",
+            "assembler:offset.global": "0",
+            "linker:export": "true"
+          }
+        }
+      ]
+    }
+  },
+  "ProjectName": "BootLoader",
+  "ProjectVersion": "0.1.0.41",
   "Dependencies": [
     {
-      "ModuleName": "VisOS.Driver",
-      "ModuleVersion": "ANY"
+      "ProjectName": "VisOS.Driver",
+      "ProjectVersion": "ANY"
     }
   ]
 }

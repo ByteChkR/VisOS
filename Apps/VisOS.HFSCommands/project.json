@@ -1,5 +1,38 @@
 {
-  "ModuleName": "VisOS.HFSCommands",
-  "ModuleVersion": "0.1.0.24",
+  "DefaultTarget": "Debug",
+  "BuildTargets": {
+    "Debug": {
+      "TargetName": "Debug",
+      "Jobs": [
+        {
+          "JobName": "Publish Project",
+          "BuildJobRunner": "publish",
+          "Arguments": {
+            "repo": "local"
+          }
+        },
+        {
+          "JobName": "Restore Project",
+          "BuildJobRunner": "restore",
+          "Arguments": {
+            "repo": "local"
+          }
+        },
+        {
+          "JobName": "Build Project",
+          "BuildJobRunner": "build",
+          "Arguments": {
+            "build:input": "App.vhl",
+            "build:steps": "HL-expr bin",
+            "build:clean": "false",
+            "assembler:offset.global": "4096",
+            "linker:export": "true"
+          }
+        }
+      ]
+    }
+  },
+  "ProjectName": "VisOS.HFSCommands",
+  "ProjectVersion": "0.1.0.30",
   "Dependencies": []
 }

@@ -1,10 +1,43 @@
 {
-  "ModuleName": "VisOS.UnitTests",
-  "ModuleVersion": "0.1.0.25",
+  "DefaultTarget": "Debug",
+  "BuildTargets": {
+    "Debug": {
+      "TargetName": "Debug",
+      "Jobs": [
+        {
+          "JobName": "Publish Project",
+          "BuildJobRunner": "publish",
+          "Arguments": {
+            "repo": "local"
+          }
+        },
+        {
+          "JobName": "Restore Project",
+          "BuildJobRunner": "restore",
+          "Arguments": {
+            "repo": "local"
+          }
+        },
+        {
+          "JobName": "Build Project",
+          "BuildJobRunner": "build",
+          "Arguments": {
+            "build:input": "UnitTests.vhl",
+            "build:steps": "HL-expr bin",
+            "build:clean": "false",
+            "assembler:offset.global": "32768",
+            "linker:export": "true"
+          }
+        }
+      ]
+    }
+  },
+  "ProjectName": "VisOS.UnitTests",
+  "ProjectVersion": "0.1.0.32",
   "Dependencies": [
     {
-      "ModuleName": "VisOS.Driver",
-      "ModuleVersion": "ANY"
+      "ProjectName": "VisOS.Driver",
+      "ProjectVersion": "ANY"
     }
   ]
 }

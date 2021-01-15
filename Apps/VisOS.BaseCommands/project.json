@@ -1,5 +1,38 @@
 {
-  "ModuleName": "VisOS.BaseCommands",
-  "ModuleVersion": "0.1.0.26",
+  "DefaultTarget": "Debug",
+  "BuildTargets": {
+    "Debug": {
+      "TargetName": "Debug",
+      "Jobs": [
+        {
+          "JobName": "Publish Project",
+          "BuildJobRunner": "publish",
+          "Arguments": {
+            "repo": "local"
+          }
+        },
+        {
+          "JobName": "Restore Project",
+          "BuildJobRunner": "restore",
+          "Arguments": {
+            "repo": "local"
+          }
+        },
+        {
+          "JobName": "Build Project",
+          "BuildJobRunner": "build",
+          "Arguments": {
+            "build:input": "App.vhl",
+            "build:steps": "HL-expr bin",
+            "build:clean": "false",
+            "assembler:offset.global": "8192",
+            "linker:export": "true"
+          }
+        }
+      ]
+    }
+  },
+  "ProjectName": "VisOS.BaseCommands",
+  "ProjectVersion": "0.1.0.34",
   "Dependencies": []
 }

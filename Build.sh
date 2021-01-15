@@ -4,17 +4,13 @@ UPLOAD_REPO="local"
 DOWNLOAD_REPO="local"
 
 cd VisOS.Driver
-$vis project publish $UPLOAD_REPO
+$vis project make
 
 cd ../BootLoader
-$vis project publish $UPLOAD_REPO
-$vis project restore
-$vis build -cli:configs default.build.args
+$vis project make
 
 cd ../VisOS
-$vis project publish $UPLOAD_REPO
-$vis project restore
-$vis build -cli:configs default.build.args
+$vis project make
 cd ..
 
 cd Apps
