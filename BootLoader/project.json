@@ -1,6 +1,19 @@
 {
   "DefaultTarget": "Debug",
   "BuildTargets": {
+    "Run": {
+      "TargetName": "Run",
+      "DependsOn": ["Debug"],
+      "Jobs": [
+        {
+          "JobName": "Run BootLoader",
+          "BuildJobRunner": "run",
+          "Arguments": {
+            "run:input": "%PROJDIR%Loader.vbin"
+          }
+        }
+      ]
+    },
     "Debug": {
       "TargetName": "Debug",
       "DependsOn": [],
@@ -20,6 +33,8 @@
             "build:steps": "HL-expr bin",
             "build:clean": "false",
             "assembler:offset.global": "0",
+            "compiler:optimize-temp-vars": "true",
+            "compiler:optimize-const-expr": "true",
             "linker:export": "true"
           }
         }

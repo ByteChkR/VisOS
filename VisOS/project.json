@@ -20,6 +20,8 @@
             "build:steps": "HL-expr bin",
             "build:clean": "false",
             "assembler:offset.global": "16384",
+            "compiler:optimize-temp-vars": "true",
+            "compiler:optimize-const-expr": "true",
             "linker:export": "true"
           }
         }
