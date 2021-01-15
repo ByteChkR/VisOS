@@ -34,10 +34,11 @@
       ],
       "Jobs": [
         {
-          "JobName": "Run BootLoader%PROJDIR%",
+          "JobName": "Run BootLoader",
           "BuildJobRunner": "run",
           "Arguments": {
-            "run:input": "%PROJDIR%Loader.vbin"
+            "run:input": "%PROJDIR%Loader.vbin",
+            "run:working-dir": "%PROJDIR%"
           }
         }
       ]
