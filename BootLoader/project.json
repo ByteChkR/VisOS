@@ -1,6 +1,6 @@
 {
   "ProjectName": "BootLoader",
-  "ProjectVersion": "0.1.0.84",
+  "ProjectVersion": "0.1.0.85",
   "Dependencies": [
     {
       "ProjectName": "VisOS.Driver",

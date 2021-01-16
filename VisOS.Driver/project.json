@@ -1,6 +1,6 @@
 {
   "ProjectName": "VisOS.Driver",
-  "ProjectVersion": "0.1.0.73",
+  "ProjectVersion": "0.1.0.74",
   "Dependencies": [],
   "DefaultTarget": "Debug",
   "BuildTargets": {
