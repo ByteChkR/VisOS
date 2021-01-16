@@ -1,4 +1,12 @@
 {
+  "ProjectName": "VisOS.UnitTests",
+  "ProjectVersion": "0.1.0.58",
+  "Dependencies": [
+    {
+      "ProjectName": "VisOS.Driver",
+      "ProjectVersion": "ANY"
+    }
+  ],
   "DefaultTarget": "Debug",
   "BuildTargets": {
     "Debug": {
@@ -25,13 +33,5 @@
         }
       ]
     }
-  },
-  "ProjectName": "VisOS.UnitTests",
-  "ProjectVersion": "0.1.0.56",
-  "Dependencies": [
-    {
-      "ProjectName": "VisOS.Driver",
-      "ProjectVersion": "ANY"
-    }
-  ]
+  }
 }

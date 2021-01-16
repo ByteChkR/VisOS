@@ -1,4 +1,12 @@
 {
+  "ProjectName": "VisOS.Benchmarks",
+  "ProjectVersion": "0.1.0.55",
+  "Dependencies": [
+    {
+      "ProjectName": "VisOS.Driver",
+      "ProjectVersion": "ANY"
+    }
+  ],
   "DefaultTarget": "Debug",
   "BuildTargets": {
     "Debug": {
@@ -25,13 +33,5 @@
         }
       ]
     }
-  },
-  "ProjectName": "VisOS.Benchmarks",
-  "ProjectVersion": "0.1.0.53",
-  "Dependencies": [
-    {
-      "ProjectName": "VisOS.Driver",
-      "ProjectVersion": "ANY"
-    }
-  ]
+  }
 }
