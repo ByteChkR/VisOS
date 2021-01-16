@@ -1,6 +1,6 @@
 {
   "ProjectName": "VisOS.Benchmarks",
-  "ProjectVersion": "0.1.0.56",
+  "ProjectVersion": "0.1.0.58",
   "Dependencies": [
     {
       "ProjectName": "VisOS.Driver",
@@ -14,21 +14,84 @@
       "DependsOn": [],
       "Jobs": [
         {
-          "JobName": "Create New Version",
-          "BuildJobRunner": "combined",
+          "JobName": "Restore %NAME%@%VERSION%",
+          "BuildJobRunner": "restore",
           "Arguments": {
-            "newVersion": "%VISDIR%common/jobs/newVersion.json"
+            "origin": "local"
           }
         },
         {
-          "JobName": "Build %NAME%@%VERSION%",
-          "BuildJobRunner": "build",
+          "JobName": "Merged Debug Build",
+          "BuildJobRunner": "merged",
           "Arguments": {
-            "build:input": "%PROJDIR%RunBenchmarks.vhl",
-            "build:steps": "HL-expr bin",
-            "build:clean": "false",
-            "assembler:offset.global": "0",
-            "linker:export": "true"
+            "merge:include": "%VISDIR%common/jobs/debug_build.json",
+            "build:input": "RunBenchmarks.vhl"
+          }
+        }
+      ]
+    },
+    "Publish": {
+      "TargetName": "Publish",
+      "DependsOn": [],
+      "Jobs": [
+        {
+          "JobName": "Publish Project",
+          "BuildJobRunner": "merged",
+          "Arguments": {
+            "merge:include": "%VISDIR%common/jobs/newVersion.json"
+          }
+        }
+      ]
+    },
+    "DebugRun": {
+      "TargetName": "DebugRun",
+      "DependsOn": [
+        "Debug"
+      ],
+      "Jobs": [
+        {
+          "JobName": "Merged Debug Run",
+          "BuildJobRunner": "merged",
+          "Arguments": {
+            "merge:include": "%VISDIR%common/jobs/debug_run.json",
+            "run:input": "RunBenchmarks.vbin"
+          }
+        }
+      ]
+    },
+    "Release": {
+      "TargetName": "Release",
+      "DependsOn": [],
+      "Jobs": [
+        {
+          "JobName": "Restore %NAME%@%VERSION%",
+          "BuildJobRunner": "restore",
+          "Arguments": {
+            "origin": "local"
+          }
+        },
+        {
+          "JobName": "Merged Release Build",
+          "BuildJobRunner": "merged",
+          "Arguments": {
+            "merge:include": "%VISDIR%common/jobs/release_build.json",
+            "build:input": "RunBenchmarks.vhl"
+          }
+        }
+      ]
+    },
+    "ReleaseRun": {
+      "TargetName": "ReleaseRun",
+      "DependsOn": [
+        "Release"
+      ],
+      "Jobs": [
+        {
+          "JobName": "Merged Release Run",
+          "BuildJobRunner": "merged",
+          "Arguments": {
+            "merge:include": "%VISDIR%common/jobs/release_run.json",
+            "run:input": "RunBenchmarks.vbin"
           }
         }
       ]

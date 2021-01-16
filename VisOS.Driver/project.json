@@ -1,6 +1,6 @@
 {
   "ProjectName": "VisOS.Driver",
-  "ProjectVersion": "0.1.0.74",
+  "ProjectVersion": "0.1.0.85",
   "Dependencies": [],
   "DefaultTarget": "Debug",
   "BuildTargets": {
@@ -9,10 +9,21 @@
       "DependsOn": [],
       "Jobs": [
         {
-          "JobName": "Create New Version",
-          "BuildJobRunner": "combined",
+          "JobName": "Clean Project Folder",
+          "BuildJobRunner": "clean",
+          "Arguments": {}
+        }
+      ]
+    },
+    "Publish": {
+      "TargetName": "Publish",
+      "DependsOn": [],
+      "Jobs": [
+        {
+          "JobName": "Publish Project",
+          "BuildJobRunner": "merged",
           "Arguments": {
-            "newVersion": "%VISDIR%common/jobs/newVersion.json"
+            "merge:include": "%VISDIR%common/jobs/newVersion.json"
           }
         }
       ]

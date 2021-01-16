@@ -1,6 +1,6 @@
 {
   "ProjectName": "BootLoader",
-  "ProjectVersion": "0.1.0.85",
+  "ProjectVersion": "0.1.0.89",
   "Dependencies": [
     {
       "ProjectName": "VisOS.Driver",
@@ -14,39 +14,86 @@
       "DependsOn": [],
       "Jobs": [
         {
-          "JobName": "Create New Version",
-          "BuildJobRunner": "combined",
+          "JobName": "Restore %NAME%@%VERSION%",
+          "BuildJobRunner": "restore",
           "Arguments": {
-            "newVersion": "%VISDIR%common/jobs/newVersion.json"
+            "origin": "local"
           }
         },
         {
-          "JobName": "Build %NAME%@%VERSION%",
-          "BuildJobRunner": "build",
+          "JobName": "Merged Debug Build",
+          "BuildJobRunner": "merged",
           "Arguments": {
-            "build:input": "%PROJDIR%Loader.vhl",
-            "build:steps": "HL-expr bin",
-            "build:clean": "false",
-            "assembler:offset.global": "0",
-            "compiler:optimize-temp-vars": "true",
-            "compiler:optimize-const-expr": "true",
-            "linker:export": "true"
+            "merge:include": "%VISDIR%common/jobs/debug_build.json",
+            "build:input": "Loader.vhl",
+            "assembler:offset.global": "0"
           }
         }
       ]
     },
-    "Run": {
-      "TargetName": "Run",
+    "Publish": {
+      "TargetName": "Publish",
+      "DependsOn": [],
+      "Jobs": [
+        {
+          "JobName": "Publish Project",
+          "BuildJobRunner": "merged",
+          "Arguments": {
+            "merge:include": "%VISDIR%common/jobs/newVersion.json"
+          }
+        }
+      ]
+    },
+    "DebugRun": {
+      "TargetName": "DebugRun",
       "DependsOn": [
         "Debug"
       ],
       "Jobs": [
         {
-          "JobName": "Run BootLoader",
-          "BuildJobRunner": "run",
+          "JobName": "Merged Debug Run",
+          "BuildJobRunner": "merged",
           "Arguments": {
-            "run:input": "%PROJDIR%Loader.vbin",
-            "run:working-dir": "%PROJDIR%"
+            "merge:include": "%VISDIR%common/jobs/debug_run.json",
+            "run:input": "Loader.vbin"
+          }
+        }
+      ]
+    },
+    "Release": {
+      "TargetName": "Release",
+      "DependsOn": [],
+      "Jobs": [
+        {
+          "JobName": "Restore %NAME%@%VERSION%",
+          "BuildJobRunner": "restore",
+          "Arguments": {
+            "origin": "local"
+          }
+        },
+        {
+          "JobName": "Merged Release Build",
+          "BuildJobRunner": "merged",
+          "Arguments": {
+            "merge:include": "%VISDIR%common/jobs/release_build.json",
+            "build:input": "Loader.vhl",
+            "assembler:offset.global": "0"
+          }
+        }
+      ]
+    },
+    "ReleaseRun": {
+      "TargetName": "ReleaseRun",
+      "DependsOn": [
+        "Release"
+      ],
+      "Jobs": [
+        {
+          "JobName": "Merged Release Run",
+          "BuildJobRunner": "merged",
+          "Arguments": {
+            "merge:include": "%VISDIR%common/jobs/release_run.json",
+            "run:input": "Loader.vbin"
           }
         }
       ]

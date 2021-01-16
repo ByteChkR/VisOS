@@ -5,6 +5,8 @@ cd ..\BootLoader
 vis project clean
 cd ..\Test
 vis project clean
+cd ..\VisOS.Driver
+vis project clean
 cd ..\Apps
 
 .\CleanApps.ps1

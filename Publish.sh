@@ -1,18 +1,18 @@
-. ./scripts/vis-make.sh
+. ./Build.sh
 
 UPLOAD_REPO="local"
 DOWNLOAD_REPO="local"
+
+cd Apps
+. ./PublishApps.sh
+cd ..
 
 cd VisOS.Driver
 $vis project make . Publish
 
 cd ../BootLoader
-$vis project make . Release
+$vis project make . Publish
 
 cd ../VisOS
-$vis project make . Release
-cd ..
-
-cd Apps
-. ./BuildApps.sh
+$vis project make . Publish
 cd ..
