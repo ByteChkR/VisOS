@@ -9,11 +9,11 @@ git clone https://github.com/ByteChkR/viscpu vis-sdk
 cd vis-sdk\VisCPU.Console
 
 echo "------------- Building Console -------------"
-dotnet publish -c Release >$null 2>&1
+dotnet publish -c Debug >$null 2>&1
 
 echo "------------- Setting up SDK Session Script -------------"
 $ConsoleRoot = Get-Location
-$ConsoleRoot = [System.IO.Path]::Combine($ConsoleRoot, "bin/Release/net5.0/publish")
+$ConsoleRoot = [System.IO.Path]::Combine($ConsoleRoot, "bin/Debug/net5.0/publish")
 $ConsoleRoot = [System.IO.Path]::GetFullPath($ConsoleRoot)
 
 Add-Content -Path $ConsoleInstall\vis-console.ps1 -Value 'invoke-expression' -NoNewline

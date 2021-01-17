@@ -16,10 +16,10 @@ git clone https://github.com/ByteChkR/viscpu vis-sdk
 cd vis-sdk/VisCPU.Console
 
 echo "------------- Building Console -------------"
-dotnet publish -c Release >/dev/null 2>&1
+dotnet publish -c Debug >/dev/null 2>&1
 
 echo "------------- Setting up SDK Session Script -------------"
-ConsoleRoot=$PWD/bin/Release/net5.0/publish/vis
+ConsoleRoot=$PWD/bin/Debug/net5.0/publish/vis
 echo "vis=\"$ConsoleRoot\"">$ConsoleInstall/vis-make.sh
 chmod +x $ConsoleInstall/vis-make.sh
 
