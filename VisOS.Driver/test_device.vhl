@@ -42,6 +42,7 @@ public void FailTest(var reasonPtr, var len)
 
 		COUT_WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
 		COUT_WriteLine(reasonPtr, len);
+		interrupt(1);
 		return;
 	}
 
@@ -52,6 +53,7 @@ public void FailTest(var reasonPtr, var len)
 		i++;
 	}
 	test_fail = 0x0; //Send Null Byte
+	interrupt(0)
 	return;
 }
 

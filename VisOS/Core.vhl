@@ -4,6 +4,7 @@
 #include "utils/math.vhl"
 #include "hfs_loader.vhl"
 #include "mmgr.vhl"
+#include "utils/error_handler.vhl"
 
 string(txt_startup, "Starting..");
 string(DEBUG_TAG, "[CORE] ");
@@ -32,6 +33,10 @@ private void CORE_Shutdown()
 
 public void CORE_RunOS()
 {
+	//Setup Error Handler
+	_ERROR_HALT_ENABLE(1);
+	_ERROR_BREAK_ENABLE(1);
+
 	CORE_Startup();
 
 	CMD_CommandLoop();

@@ -51,6 +51,7 @@ private var LoadImage()
 	COUT_Write(0x20);
 	COUT_WriteLine( &txt_bytes, size_of(txt_bytes));
 
+	HFS_LoadSymbols(&bootimage, size_of(bootimage));
 	var entryPtr = HFS_LoadBinaryV1(&bootimage, size_of(bootimage));
 	
 	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
@@ -74,6 +75,7 @@ private void Entry()
 	}
 	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	COUT_WriteLine( &txt_error, size_of(txt_error));
+	interrupt(1);
 	return;
 }
 

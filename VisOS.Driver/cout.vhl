@@ -1,7 +1,6 @@
 private const var cOut = 0xFFFF1001; //Console Out => Write Character
 private const var cOutNum = 0xFFFF1002; //Console Out => Write Number
 private const var cClearNum = 0xFFFF1005; //Console Clear
-#import "vasm-bridge BRK"
 
 private static string arr_sep = ", ";
 

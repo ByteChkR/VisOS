@@ -25,6 +25,8 @@ private const var HFS_FILE_DELETE = 0x08;
 private const var HFS_GET_FILES_NUM = 0x09;
 private const var HFS_GET_FILES = 0x0A;
 private const var HFS_FILE_EXIST = 0x0B;
+private const var HFS_LOAD_SYMBOLS = 0x0C;
+
 
 
 
@@ -101,6 +103,13 @@ public var HFS_GetFileSize(var path, var pathLen)
 	HFS_WriteData(path, pathLen);
 	HFS_SetCommand( &HFS_FILE_SIZE );
 	return HFS_FileReadByte();
+}
+
+public void HFS_LoadSymbols(var path, var pathLen)
+{
+	HFS_WriteData(path, pathLen);
+	HFS_SetCommand( &HFS_LOAD_SYMBOLS );
+	return;
 }
 
 public var HFS_FileExists(var path, var pathLen)

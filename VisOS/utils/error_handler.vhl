@@ -1,4 +1,3 @@
-#import "vasm-bridge HLT"
 #import "vasm-bridge BRK"
 #include "../VisOS.Driver/cout.vhl"
 
@@ -13,6 +12,7 @@ public void _ERROR_BREAK_ENABLE(var enable)
 	break_on_error = enable;
 	return;
 }
+
 public void _ERROR_HALT_ENABLE(var enable)
 {
 	halt_on_error = enable;
@@ -31,7 +31,11 @@ public void _ERROR_C(var code)
 	}
 	if(halt_on_error)
 	{
-		I0_HLT();
+		interrupt(1);
+	}
+	else
+	{
+		interrupt(0);
 	}
 	return;
 }
@@ -47,7 +51,11 @@ public void _ERROR_T(var msg, var len)
 	}
 	if(halt_on_error)
 	{
-		I0_HLT();
+		interrupt(1);
+	}
+	else
+	{
+		interrupt(0);
 	}
 	return;
 }

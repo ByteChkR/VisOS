@@ -1,6 +1,5 @@
-#import "vasm-bridge HLT"
-#import "vasm-bridge BRK"
 #include "VisOS.Driver/cout.vhl"
+#include "utils/error_handler.vhl"
 
 var MANAGED_END;
 var MAX_ALLOCATIONS;
@@ -18,6 +17,8 @@ string(TXT_CURRENT_ALLOCS, "Current Allocations: ");
 string(TXT_DEALLOC, "Deallocating: ");
 string(TXT_ALLOC, "Allocating: ");
 string(TXT_ALLOC_SIZE, "Size: ");
+
+string(ERR_OUT_OF_MEM, "Out of Memory Error.");
 
 string(INIT_MSTART, "Managed Start: ");
 string(INIT_MEND, "Managed End: ");
@@ -187,11 +188,9 @@ public var MMGR_Alloc(var size)
 	var end = cur + size;
 	if(end > MANAGED_END)
 	{
-		WriteDebugNum(MANAGED_END);
-		WriteDebugNewLine();
-		WriteDebugNum(end);
-		WriteDebugNewLine();
-		I0_HLT();
+
+		_ERROR_T(&ERR_OUT_OF_MEM, size_of(ERR_OUT_OF_MEM));
+		
 		return;
 	}
 	WriteAllocData(CUR_ALLOCS, cur, size);

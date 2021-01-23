@@ -9,6 +9,7 @@ public var MEM_IndexOf(var source, var start, var length, var num)
 		}
 		i++
 	} 
+
 	return i;
 }
 
