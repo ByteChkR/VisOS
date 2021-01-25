@@ -1,6 +1,6 @@
 {
   "ProjectName": "VisOS.BaseCommands",
-  "ProjectVersion": "0.1.0.67",
+  "ProjectVersion": "0.1.0.68",
   "Dependencies": [],
   "DefaultTarget": "Debug",
   "BuildTargets": {
