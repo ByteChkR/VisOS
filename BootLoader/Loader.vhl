@@ -18,6 +18,7 @@ private static string txt_bytes= "Bytes";
 private static string txt_complete= "Complete";
 private static string txt_error= "Error: File not Found";
 private static string txt_starting= "Starting Image...";
+private static string txt_ending= "Exited Image!";
 
 private void PrintHeader()
 {
@@ -64,7 +65,7 @@ private var LoadImage()
 
 private void Entry()
 {
-	CMGR_SetForeColor(11); //Orange
+	CMGR_SetForeColor(11); //Blue
 	PrintHeader();
 	var exists = HFS_FileExists( &bootimage, size_of(bootimage));
 	if(exists)
@@ -74,8 +75,14 @@ private void Entry()
 		COUT_WriteLine( &txt_starting, size_of(txt_starting));
 
 
-		CMGR_SetForeColor(10); //Orange
+		CMGR_SetForeColor(10); //Green
 		ptr();
+
+
+		CMGR_SetForeColor(11); //Blue
+		COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		COUT_WriteLine( &txt_ending, size_of(txt_ending));
+
 		return;
 	}
 	CMGR_SetForeColor(12); //Red
