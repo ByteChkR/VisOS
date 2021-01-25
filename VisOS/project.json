@@ -1,6 +1,6 @@
 {
   "ProjectName": "VisOS",
-  "ProjectVersion": "0.1.0.75",
+  "ProjectVersion": "0.1.0.76",
   "Dependencies": [
     {
       "ProjectName": "VisOS.Driver",

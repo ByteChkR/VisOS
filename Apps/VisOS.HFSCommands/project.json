@@ -1,6 +1,6 @@
 {
   "ProjectName": "VisOS.HFSCommands",
-  "ProjectVersion": "0.1.0.62",
+  "ProjectVersion": "0.1.0.63",
   "Dependencies": [],
   "DefaultTarget": "Debug",
   "BuildTargets": {
