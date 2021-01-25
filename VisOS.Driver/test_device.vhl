@@ -1,4 +1,5 @@
 #include "cout.vhl"
+#include "cmgr.vhl"
 
 private const var test_begin = 0xFFFF2000;
 private const var test_fail = 0xFFFF2001;
@@ -16,11 +17,14 @@ public void BeginTest(var namePtr, var len)
 {
 	if(!test_device_present)
 	{
+		var lastFore = CMGR_GetForeColor();
+		CMGR_SetForeColor(10);
 		COUT_WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
 		COUT_WriteString( &str_test_started, size_of(str_test_started));
 		COUT_WriteString(namePtr, len);
 		COUT_WriteString( &str_test_started_2, size_of(str_test_started_2));
 
+		CMGR_SetForeColor(lastFore);
 		return;
 	}
 
@@ -38,11 +42,16 @@ public void FailTest(var reasonPtr, var len)
 {
 	if(!test_device_present)
 	{
+		var lastFore = CMGR_GetForeColor();
+		CMGR_SetForeColor(12);
 		COUT_WriteLine( &str_test_failed, size_of(str_test_failed));
 
 		COUT_WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
 		COUT_WriteLine(reasonPtr, len);
+
 		interrupt(1);
+		
+		CMGR_SetForeColor(lastFore);
 		return;
 	}
 
@@ -61,7 +70,11 @@ public void PassTest()
 {
 	if(!test_device_present)
 	{
+
+		var lastFore = CMGR_GetForeColor();
+		CMGR_SetForeColor(10);
 		COUT_WriteLine( &str_test_passed, size_of(str_test_passed));
+		CMGR_SetForeColor(lastFore);
 		return;
 	}
 	

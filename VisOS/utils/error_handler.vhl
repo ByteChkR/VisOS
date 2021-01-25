@@ -1,5 +1,6 @@
 #import "vasm-bridge BRK"
 #include "../VisOS.Driver/cout.vhl"
+#include "../VisOS.Driver/cmgr.vhl"
 
 string(txt_error_c, "Encountered Error Code: ");
 string(DEBUG_TAG, "[ERR] ");
@@ -21,6 +22,8 @@ public void _ERROR_HALT_ENABLE(var enable)
 
 public void _ERROR_C(var code)
 {
+	
+	CMGR_SetForeColor(12); //Red
 	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	COUT_WriteString(&txt_error_c, size_of(txt_error_c));
 	COUT_WriteNumber(code);
@@ -37,11 +40,14 @@ public void _ERROR_C(var code)
 	{
 		interrupt(0);
 	}
+	CMGR_ResetConsoleColor();
 	return;
 }
 
 public void _ERROR_T(var msg, var len)
 {
+
+	CMGR_SetForeColor(12); //Red
 	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	COUT_WriteString(&txt_error_t, size_of(txt_error_t));
 	COUT_WriteLine(msg, len);
@@ -57,5 +63,6 @@ public void _ERROR_T(var msg, var len)
 	{
 		interrupt(0);
 	}
+	CMGR_ResetConsoleColor();
 	return;
 }

@@ -1,5 +1,6 @@
 #include "VisOS.Driver/hfs.vhl"
 #include "VisOS.Driver/cout.vhl"
+#include "VisOS.Driver/cmgr.vhl"
 #import "vasm-bridge BRK"
 
 //The Boot Image to Load
@@ -63,6 +64,7 @@ private var LoadImage()
 
 private void Entry()
 {
+	CMGR_SetForeColor(11); //Orange
 	PrintHeader();
 	var exists = HFS_FileExists( &bootimage, size_of(bootimage));
 	if(exists)
@@ -70,9 +72,13 @@ private void Entry()
 		var ptr = LoadImage();
 		COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 		COUT_WriteLine( &txt_starting, size_of(txt_starting));
+
+
+		CMGR_SetForeColor(10); //Orange
 		ptr();
 		return;
 	}
+	CMGR_SetForeColor(12); //Red
 	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	COUT_WriteLine( &txt_error, size_of(txt_error));
 	interrupt(1);

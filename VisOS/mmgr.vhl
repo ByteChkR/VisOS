@@ -1,4 +1,5 @@
 #include "VisOS.Driver/cout.vhl"
+#include "VisOS.Driver/cmgr.vhl"
 #include "utils/error_handler.vhl"
 
 var MANAGED_END;
@@ -43,7 +44,10 @@ private void WriteDebugString(var ptr, var size)
 {
 	if(ENABLE_DEBUG)
 	{
+		var lastFore = CMGR_GetForeColor();
+		CMGR_SetForeColor(12);
 		COUT_WriteString(ptr, size);
+		CMGR_SetForeColor(lastFore);
 	}
 	return;
 }
@@ -52,7 +56,10 @@ private void WriteDebugLine(var ptr, var size)
 {
 	if(ENABLE_DEBUG)
 	{
+		var lastFore = CMGR_GetForeColor();
+		CMGR_SetForeColor(12);
 		COUT_WriteLine(ptr, size);
+		CMGR_SetForeColor(lastFore);
 	}
 	return;
 }
@@ -61,7 +68,10 @@ private void WriteDebugNum(var num)
 {
 	if(ENABLE_DEBUG)
 	{
+		var lastFore = CMGR_GetForeColor();
+		CMGR_SetForeColor(12);
 		COUT_WriteNumber(num);
+		CMGR_SetForeColor(lastFore);
 	}
 	return;
 }
@@ -70,7 +80,10 @@ private void WriteDebugNewLine()
 {
 	if(ENABLE_DEBUG)
 	{
+		var lastFore = CMGR_GetForeColor();
+		CMGR_SetForeColor(12);
 		COUT_WriteNewLine();
+		CMGR_SetForeColor(lastFore);
 	}
 	return;
 }
