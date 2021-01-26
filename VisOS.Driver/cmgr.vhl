@@ -1,13 +1,13 @@
-private const var CMGR_InterfacePresentPin = 0xFFFF1006;
-private const var CMGR_WidthAddr = 0xFFFF1007;
-private const var CMGR_HeightAddr = 0xFFFF1008;
+private const uint CMGR_InterfacePresentPin = 0xFFFF1006;
+private const uint CMGR_WidthAddr = 0xFFFF1007;
+private const uint CMGR_HeightAddr = 0xFFFF1008;
 
-private const var CMGR_CursorLeftAddr = 0xFFFF1009;
-private const var CMGR_CursorTopAddr = 0xFFFF100A;
+private const uint CMGR_CursorLeftAddr = 0xFFFF1009;
+private const uint CMGR_CursorTopAddr = 0xFFFF100A;
 
-private const var CMGR_BackColorAddr = 0xFFFF100B;
-private const var CMGR_ForeColorAddr = 0xFFFF100C;
-private const var CMGR_ResetColorAddr = 0xFFFF100D;
+private const uint CMGR_BackColorAddr = 0xFFFF100B;
+private const uint CMGR_ForeColorAddr = 0xFFFF100C;
+private const uint CMGR_ResetColorAddr = 0xFFFF100D;
 
 
 public void CMGR_ResetConsoleColor()
@@ -20,7 +20,7 @@ public void CMGR_ResetConsoleColor()
 	return;
 }
 
-public void CMGR_SetBackColor(var color)
+public void CMGR_SetBackColor(uint color)
 {
 	if(!CMGR_InterfacePresentPin)
 	{
@@ -30,7 +30,7 @@ public void CMGR_SetBackColor(var color)
 	return;
 }
 
-public void CMGR_SetForeColor(var color)
+public void CMGR_SetForeColor(uint color)
 {
 	if(!CMGR_InterfacePresentPin)
 	{
@@ -40,14 +40,14 @@ public void CMGR_SetForeColor(var color)
 	return;
 }
 
-public void CMGR_SetConsoleColor(var fore, var back)
+public void CMGR_SetConsoleColor(uint fore, uint back)
 {
 	CMGR_SetForeColor(fore);
 	CMGR_SetBackColor(back);
 	return;
 }
 
-public void CMGR_SetCursorLeft(var left)
+public void CMGR_SetCursorLeft(uint left)
 {
 	if(!CMGR_InterfacePresentPin)
 	{
@@ -57,7 +57,7 @@ public void CMGR_SetCursorLeft(var left)
 	return;
 }
 
-public void CMGR_SetCursorTop(var top)
+public void CMGR_SetCursorTop(uint top)
 {
 	if(!CMGR_InterfacePresentPin)
 	{
@@ -67,13 +67,13 @@ public void CMGR_SetCursorTop(var top)
 	return;
 }
 
-public void CMGR_SetCursorPosition(var left, var top)
+public void CMGR_SetCursorPosition(uint left, uint top)
 {
 	CMGR_SetCursorLeft(left);
 	CMGR_SetCursorTop(top);
 }
 
-public void CMGR_SetConsoleWidth(var width)
+public void CMGR_SetConsoleWidth(uint width)
 {
 	if(!CMGR_InterfacePresentPin)
 	{
@@ -83,7 +83,7 @@ public void CMGR_SetConsoleWidth(var width)
 	return;
 }
 
-public void CMGR_SetConsoleHeight(var height)
+public void CMGR_SetConsoleHeight(uint height)
 {
 	if(!CMGR_InterfacePresentPin)
 	{
@@ -93,14 +93,14 @@ public void CMGR_SetConsoleHeight(var height)
 	return;
 }
 
-public void CMGR_SetConsoleSize(var width, var height)
+public void CMGR_SetConsoleSize(uint width, uint height)
 {
 	CMGR_SetConsoleWidth(width);
 	CMGR_SetConsoleHeight(height);
 	return;
 }
 
-public var CMGR_GetBackColor()
+public uint CMGR_GetBackColor()
 {
 	if(!CMGR_InterfacePresentPin)
 	{
@@ -109,7 +109,7 @@ public var CMGR_GetBackColor()
 	return CMGR_BackColorAddr;
 }
 
-public var CMGR_GetForeColor()
+public uint CMGR_GetForeColor()
 {
 	if(!CMGR_InterfacePresentPin)
 	{
@@ -118,7 +118,7 @@ public var CMGR_GetForeColor()
 	return CMGR_ForeColorAddr;
 }
 
-public var CMGR_GetCursorLeft()
+public uint CMGR_GetCursorLeft()
 {
 	if(!CMGR_InterfacePresentPin)
 	{
@@ -127,7 +127,7 @@ public var CMGR_GetCursorLeft()
 	return CMGR_CursorLeftAddr;
 }
 
-public var CMGR_GetCursorTop()
+public uint CMGR_GetCursorTop()
 {
 	if(!CMGR_InterfacePresentPin)
 	{
@@ -137,7 +137,7 @@ public var CMGR_GetCursorTop()
 }
 
 
-public var CMGR_GetConsoleWidth()
+public uint CMGR_GetConsoleWidth()
 {
 	if(!CMGR_InterfacePresentPin)
 	{
@@ -146,7 +146,7 @@ public var CMGR_GetConsoleWidth()
 	return CMGR_WidthAddr;
 }
 
-public var CMGR_GetConsoleHeight()
+public uint CMGR_GetConsoleHeight()
 {
 	if(!CMGR_InterfacePresentPin)
 	{

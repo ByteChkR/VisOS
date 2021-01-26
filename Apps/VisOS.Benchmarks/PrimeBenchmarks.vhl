@@ -2,17 +2,17 @@
 
 private static string bench_is_prime= " is Prime!";
 
-public var IsPrimeTest(var num)
+public uint IsPrimeTest(uint num)
 {
     if (num <= 1)
     {
       	return 0;
     }
-    var i = 2;
-    var end = num / 2;
+    uint i = 2;
+    uint end = num / 2;
     while(i <= end)
     {
-    	var val = num % i;
+    	uint val = num % i;
     	if (!val)
         {
         	return 0;
@@ -25,11 +25,11 @@ public var IsPrimeTest(var num)
 
 public void RunIsPrimeBenchmark()
 {
-	var i = 0;
-	var max = 10000;
+	uint i = 0;
+	uint max = 10000;
 	while(i<max)
 	{
-		var prime = IsPrimeTest(i);
+		uint prime = IsPrimeTest(i);
 		if(prime)
 		{
 			COUT_WriteNumber(i);

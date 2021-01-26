@@ -7,8 +7,8 @@ private static string test_assignment_fail= "Assignment a = b Failed.";
 public void Assign_V_Simple_Test()
 {
 	BeginTest(ptr_of(test_v), size_of(test_v));
-	var b = 1;
-	var a = b;
+	uint b = 1;
+	uint a = b;
 	if(a == 1)
 	{
 		PassTest();

@@ -6,16 +6,16 @@
 
 public void CMD_CommandLoop()
 {
-	var in_test_size = 255;
-	var in_test = MMGR_Alloc(in_test_size);
-	var count;
-	var exitLoop = 0;
+	uint in_test_size = 255;
+	uint in_test = MMGR_Alloc(in_test_size);
+	uint count;
+	uint exitLoop = 0;
 	while(!exitLoop)
 	{
 		DATA_WriteTerminalPrefix();
 		count = CMD_ReadCommand(in_test, in_test_size);
 
-		var isExit = CMD_IsExit(in_test);
+		uint isExit = CMD_IsExit(in_test);
 		if(isExit)
 		{
 			//exitLoop = 1;

@@ -2,7 +2,7 @@
 private static string str_ret_val_fail= "Return value is not 5";
 private static string str_test_name=  "Void1ArgsTest";
 
-private void Test(var arg1)
+private void Test(uint arg1)
 {
 	if(arg1 != 5)
 	{
@@ -14,7 +14,7 @@ private void Test(var arg1)
 private void VoidV1ArgsTest()
 {
 	BeginTest(ptr_of(str_test_name), size_of(str_test_name));
-	var ar = 5;
+	uint ar = 5;
 	Test(ar);
 	PassTest();
 	return;

@@ -4,9 +4,9 @@ private static string test_arrayC_add_c= "Assignment_ArrayC_C_Simple_Test";
 
 private static string test_assignment_fail= "Assignment b[5] = 1 Failed.";
 
-var bArray[10];
+uint bArray[10];
 
-private void Assign_ArrayC_C_Simple_Test(var b)
+private void Assign_ArrayC_C_Simple_Test(uint b)
 {
 	BeginTest(ptr_of(test_arrayC_add_c), size_of(test_arrayC_add_c));
 	

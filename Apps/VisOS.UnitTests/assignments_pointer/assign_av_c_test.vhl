@@ -3,12 +3,12 @@
 private static string test_arrayV_add_c= "Assignment_ArrayV_C_Simple_Test";
 private static string test_assignment_fail= "Assignment b[a] = 1 Failed.";
 
-var bArray[10];
+uint bArray[10];
 
-private void Assign_ArrayV_C_Simple_Test(var b)
+private void Assign_ArrayV_C_Simple_Test(uint b)
 {
 	BeginTest(ptr_of(test_arrayV_add_c), size_of(test_arrayV_add_c));
-	var a = 5;
+	uint a = 5;
 	b[a] = 1;
 	if(b[a] == 1)
 	{

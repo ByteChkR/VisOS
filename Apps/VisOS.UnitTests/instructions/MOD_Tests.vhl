@@ -10,9 +10,9 @@ private static string test_generic_math_fail= "Calculation Failed.";
 private void MOD_VV_Simple_Test()
 {
 	BeginTest(ptr_of(test_mod_vv), size_of(test_mod_vv));
-	var a = 4;
-	var b = 2;
-	var c = a % b;
+	uint a = 4;
+	uint b = 2;
+	uint c = a % b;
 	if(c == 0)
 	{
 		PassTest();
@@ -25,8 +25,8 @@ private void MOD_VV_Simple_Test()
 private void MOD_VC_Simple_Test()
 {
 	BeginTest(ptr_of(test_mod_vc), size_of(test_mod_vc));
-	var a = 4;
-	var c = a % 2;
+	uint a = 4;
+	uint c = a % 2;
 	if(c == 0)
 	{
 		PassTest();
@@ -39,7 +39,7 @@ private void MOD_VC_Simple_Test()
 private void MOD_CC_Simple_Test()
 {
 	BeginTest(ptr_of(test_mod_cc), size_of(test_mod_cc));
-	var c = 4 % 2;
+	uint c = 4 % 2;
 	if(c == 0)
 	{
 		PassTest();
@@ -52,8 +52,8 @@ private void MOD_CC_Simple_Test()
 private void MOD_CV_Simple_Test()
 {
 	BeginTest(ptr_of(test_mod_cv), size_of(test_mod_cv));
-	var a = 2;
-	var c = 4 % a;
+	uint a = 2;
+	uint c = 4 % a;
 	if(c == 0)
 	{
 		PassTest();

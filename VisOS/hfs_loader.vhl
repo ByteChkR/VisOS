@@ -7,18 +7,18 @@ string(hfs_load, "hfs.run");
 string(txt_reg, "Registering Command: ");
 string(txt_load_sym, "Loading Symbols for Binary...");
 
-private var HFS_IsLoad(var ptrIn)
+private uint HFS_IsLoad(uint ptrIn)
 {
 	return CMD_IsCommand(&hfs_load, size_of(hfs_load), ptrIn);
 }
 
-private void HFS_Load(var argStart, var argLength)
+private void HFS_Load(uint argStart, uint argLength)
 {
 	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	COUT_WriteLine(&txt_load_sym, size_of(txt_load_sym));
 	HFS_LoadSymbols(argStart, argLength);
 
-	var entry = HFS_LoadBinaryV1(argStart, argLength);
+	uint entry = HFS_LoadBinaryV1(argStart, argLength);
 	entry();
 	return;
 }

@@ -7,8 +7,8 @@ private static string test_arrayC_add_arrayC= "Assignment_ArrayC_ArrayC_Simple_T
 public void Assign_ArrayC_ArrayC_Simple_Test()
 {
 	BeginTest(ptr_of(test_arrayC_add_arrayC), size_of(test_arrayC_add_arrayC));
-	var b[10];
-	var d[10];
+	uint b[10];
+	uint d[10];
 	d[5] = 1;
 	b[5] = d[5];
 	if(b[5] == 1)

@@ -2,13 +2,13 @@
 private static string str_ret_val_fail= "Return value is not 5";
 private static string str_test_name=  "IfVar2ArgsTest";
 
-private var TestC(var arg1, var arg2)
+private uint TestC(uint arg1, uint arg2)
 {
-	var a = arg1 + arg2;
+	uint a = arg1 + arg2;
 	return a;
 }
 
-private var TestV(var arg1, var arg2)
+private uint TestV(uint arg1, uint arg2)
 {
 	return arg1 + arg2;
 }
@@ -19,8 +19,8 @@ public void IfVar2ArgsTest()
 
 	if(TestC(2,3) == 5)
 	{
-		var a = 3;
-		var b = 2;
+		uint a = 3;
+		uint b = 2;
 		if(TestV(a,b) == 5)
 		{
 			PassTest();

@@ -7,8 +7,8 @@ private static string test_ptr_fail= "Pointers of fields do not match pattern fi
 
 class TestClass
 {
-	public var fieldA;
-	public var fieldB;
+	public uint fieldA;
+	public uint fieldB;
 }
 
 public void TestMultiField()
@@ -22,8 +22,8 @@ public void TestMultiField()
 	{
 		if(tc.fieldB == 5)
 		{
-			var ptrA = ptr_of(tc) + offset_of(TestClass, fieldA);
-			var ptrB = ptr_of(tc) + offset_of(TestClass, fieldB);
+			uint ptrA = ptr_of(tc) + offset_of(TestClass, fieldA);
+			uint ptrB = ptr_of(tc) + offset_of(TestClass, fieldB);
 			if(ptrA == ptrB - 1)
 			{
 				PassTest();

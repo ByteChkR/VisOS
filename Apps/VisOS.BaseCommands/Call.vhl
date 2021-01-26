@@ -5,14 +5,14 @@ private static string cmd_call= "call";
 private static string txt_reg= "Registering Command: ";
 private static string DEBUG_TAG= "[CALL] ";
 
-private var IsCall(var ptrIn)
+private uint IsCall(uint ptrIn)
 {
 	return CMD_IsCommand(&cmd_call, size_of(cmd_call), ptrIn);
 }
 
-private void CallCommand(var argStart, var argLength)
+private void CallCommand(uint argStart, uint argLength)
 {
-	var addr = STR_ParseNumber(argStart, argLength);
+	uint addr = STR_ParseNumber(argStart, argLength);
 
 	addr();
 

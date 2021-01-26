@@ -1,8 +1,8 @@
 #include "../VisOS.Driver/cout.vhl"
-public var Pow(var a, var exp)
+public uint Pow(uint a, uint exp)
 {
-	var ret = 1;
-	var count = exp;
+	uint ret = 1;
+	uint count = exp;
 	while(count)
 	{
 		ret *= a;
@@ -12,18 +12,18 @@ public var Pow(var a, var exp)
 	return ret;
 }
 
-public var IsPrime(var num)
+public uint IsPrime(uint num)
 {
-    var ret = 0; //Workaround for a bug(when returning values directly e.g. "return 1" the tmp variable that gets returned is not properly emptied.)
+    uint ret = 0; //Workaround for a bug(when returning values directly e.g. "return 1" the tmp variable that gets returned is not properly emptied.)
     if (num <= 1)
     {
       	return ret;
     }
-    var i = 2;
-    var end = num / 2;
+    uint i = 2;
+    uint end = num / 2;
     while(i <= end)
     {
-    	var val = num % i;
+    	uint val = num % i;
     	if (!val)
         {
         	return ret;
@@ -35,7 +35,7 @@ public var IsPrime(var num)
     return ret;        
 }
 
-public var Clamp(var a, var min, var max)
+public uint Clamp(uint a, uint min, uint max)
 {
 	if(a < min)
 	{

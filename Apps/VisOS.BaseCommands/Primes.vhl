@@ -7,18 +7,18 @@ private static string txt_prime= " is Prime!";
 private static string txt_not_prime= " is not Prime!";
 private static string DEBUG_TAG= "[PRIMES] ";
 
-private var IsPrimes(var ptrIn)
+private uint IsPrimes(uint ptrIn)
 {
 	return CMD_IsCommand(&cmd_primes, size_of(cmd_primes), ptrIn);
 }
 
-private void PrimesCommand(var argStart, var argLength)
+private void PrimesCommand(uint argStart, uint argLength)
 {
-	var val = STR_ParseNumber(argStart, argLength);
+	uint val = STR_ParseNumber(argStart, argLength);
 	COUT_WriteString(&txt, size_of(txt));
 	COUT_WriteNumber(val);
 
-	var result = IsPrime(val);
+	uint result = IsPrime(val);
 
 	if(result)
 	{

@@ -1,10 +1,10 @@
 #include "cout.vhl"
 #include "cmgr.vhl"
 
-private const var test_begin = 0xFFFF2000;
-private const var test_fail = 0xFFFF2001;
-private const var test_pass = 0xFFFF2002;
-private const var test_device_present = 0xFFFF2003;
+private const uint test_begin = 0xFFFF2000;
+private const uint test_fail = 0xFFFF2001;
+private const uint test_pass = 0xFFFF2002;
+private const uint test_device_present = 0xFFFF2003;
 
 private static string DEBUG_TAG= "[TEST_DEV] ";
 private static string str_test_passed= "PASSED!";
@@ -13,11 +13,11 @@ private static string str_test_started= "Starting Test: ";
 private static string str_test_started_2= ".....";
 
 
-public void BeginTest(var namePtr, var len)
+public void BeginTest(uint namePtr, uint len)
 {
 	if(!test_device_present)
 	{
-		var lastFore = CMGR_GetForeColor();
+		uint lastFore = CMGR_GetForeColor();
 		CMGR_SetForeColor(10);
 		COUT_WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
 		COUT_WriteString( &str_test_started, size_of(str_test_started));
@@ -28,7 +28,7 @@ public void BeginTest(var namePtr, var len)
 		return;
 	}
 
-	var i = 0;
+	uint i = 0;
 	while(i < len)
 	{
 		test_begin = namePtr[i];
@@ -38,11 +38,11 @@ public void BeginTest(var namePtr, var len)
 	return;
 }
 
-public void FailTest(var reasonPtr, var len)
+public void FailTest(uint reasonPtr, uint len)
 {
 	if(!test_device_present)
 	{
-		var lastFore = CMGR_GetForeColor();
+		uint lastFore = CMGR_GetForeColor();
 		CMGR_SetForeColor(12);
 		COUT_WriteLine( &str_test_failed, size_of(str_test_failed));
 
@@ -55,7 +55,7 @@ public void FailTest(var reasonPtr, var len)
 		return;
 	}
 
-	var i = 0;
+	uint i = 0;
 	while(i < len)
 	{
 		test_fail = reasonPtr[i];
@@ -71,7 +71,7 @@ public void PassTest()
 	if(!test_device_present)
 	{
 
-		var lastFore = CMGR_GetForeColor();
+		uint lastFore = CMGR_GetForeColor();
 		CMGR_SetForeColor(10);
 		COUT_WriteLine( &str_test_passed, size_of(str_test_passed));
 		CMGR_SetForeColor(lastFore);

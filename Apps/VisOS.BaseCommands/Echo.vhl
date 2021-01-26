@@ -4,12 +4,12 @@ private static string cmd_echo= "echo";
 private static string txt_reg= "Registering Command: ";
 private static string DEBUG_TAG= "[ECHO] ";
 
-private var IsEcho(var ptrIn)
+private uint IsEcho(uint ptrIn)
 {
 	return CMD_IsCommand(&cmd_echo, size_of(cmd_echo), ptrIn);
 }
 
-private void EchoCommand(var argStart, var argLength)
+private void EchoCommand(uint argStart, uint argLength)
 {
 	COUT_WriteLine(argStart, argLength);
 }

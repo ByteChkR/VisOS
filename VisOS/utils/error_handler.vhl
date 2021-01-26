@@ -5,22 +5,22 @@
 string(txt_error_c, "Encountered Error Code: ");
 string(DEBUG_TAG, "[ERR] ");
 string(txt_error_t, "Encountered Error: ");
-var halt_on_error;
-var break_on_error;
+uint halt_on_error;
+uint break_on_error;
 
-public void _ERROR_BREAK_ENABLE(var enable)
+public void _ERROR_BREAK_ENABLE(uint enable)
 {
 	break_on_error = enable;
 	return;
 }
 
-public void _ERROR_HALT_ENABLE(var enable)
+public void _ERROR_HALT_ENABLE(uint enable)
 {
 	halt_on_error = enable;
 	return;
 }
 
-public void _ERROR_C(var code)
+public void _ERROR_C(uint code)
 {
 	
 	CMGR_SetForeColor(12); //Red
@@ -44,7 +44,7 @@ public void _ERROR_C(var code)
 	return;
 }
 
-public void _ERROR_T(var msg, var len)
+public void _ERROR_T(uint msg, uint len)
 {
 
 	CMGR_SetForeColor(12); //Red

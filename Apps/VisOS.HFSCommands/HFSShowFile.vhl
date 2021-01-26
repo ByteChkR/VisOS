@@ -6,10 +6,10 @@ private static string txt_reg= "Registering Command: ";
 private static string txt_file_size= "File Size:";
 private static string txt_fprint= "File Content:";
 
-private void WriteFileContent(var pathPtr, var pathLen)
+private void WriteFileContent(uint pathPtr, uint pathLen)
 {
 	COUT_WriteString(&txt_file_size, size_of(txt_file_size));
-	var size = HFS_GetFileSize(pathPtr, pathLen);
+	uint size = HFS_GetFileSize(pathPtr, pathLen);
 	COUT_WriteNumber(size)
 	COUT_WriteNewLine();
 
@@ -18,7 +18,7 @@ private void WriteFileContent(var pathPtr, var pathLen)
 	HFS_FileOpenRead(pathPtr, pathLen);
 	while(size)
 	{
-		var data = HFS_FileReadByte();
+		uint data = HFS_FileReadByte();
 		COUT_Write(CHR_Unpack(data, 0));
 		COUT_Write(CHR_Unpack(data, 8));
 		COUT_Write(CHR_Unpack(data, 16));
@@ -30,7 +30,7 @@ private void WriteFileContent(var pathPtr, var pathLen)
 	return;
 }
 
-private var IsFPrint(var ptrIn)
+private uint IsFPrint(uint ptrIn)
 {
 	return CMD_IsCommand(&cmd_fprint, size_of(cmd_fprint), ptrIn);
 }

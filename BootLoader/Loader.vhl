@@ -37,15 +37,15 @@ private void WritePreLoadText()
 	return;
 }
 
-private var GetSize()
+private uint GetSize()
 {
 	return HFS_GetFileSize( &bootimage, size_of(bootimage));
 }
 
-private var LoadImage()
+private uint LoadImage()
 {
 	WritePreLoadText();
-	var size = GetSize();
+	uint size = GetSize();
 	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	COUT_WriteString( &txt_loading , size_of(txt_loading));
 	COUT_Write(0x20);
@@ -54,7 +54,7 @@ private var LoadImage()
 	COUT_WriteLine( &txt_bytes, size_of(txt_bytes));
 
 	HFS_LoadSymbols(&bootimage, size_of(bootimage));
-	var entryPtr = HFS_LoadBinaryV1(&bootimage, size_of(bootimage));
+	uint entryPtr = HFS_LoadBinaryV1(&bootimage, size_of(bootimage));
 	
 	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	COUT_WriteString( &txt_loading, size_of(txt_loading));
@@ -67,10 +67,10 @@ private void Entry()
 {
 	CMGR_SetForeColor(11); //Blue
 	PrintHeader();
-	var exists = HFS_FileExists( &bootimage, size_of(bootimage));
+	uint exists = HFS_FileExists( &bootimage, size_of(bootimage));
 	if(exists)
 	{
-		var ptr = LoadImage();
+		uint ptr = LoadImage();
 		COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 		COUT_WriteLine( &txt_starting, size_of(txt_starting));
 

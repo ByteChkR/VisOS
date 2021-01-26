@@ -2,17 +2,17 @@
 #include "VisOS.Driver/cmgr.vhl"
 #include "utils/error_handler.vhl"
 
-var MANAGED_END;
-var MAX_ALLOCATIONS;
-var MANAGED_START;
+uint MANAGED_END;
+uint MAX_ALLOCATIONS;
+uint MANAGED_START;
 
-var CUR_ALLOCS;
-var CUR_ALLOC_TABLE_START = 0x1FFFE;
-var CUR_START;
+uint CUR_ALLOCS;
+uint CUR_ALLOC_TABLE_START = 0x1FFFE;
+uint CUR_START;
 
 
 //Debug Strings
-var ENABLE_DEBUG = 0;
+uint ENABLE_DEBUG = 0;
 string(TXT_DEBUG_TAG, "[MMGR] ");
 string(TXT_CURRENT_ALLOCS, "Current Allocations: ");
 string(TXT_DEALLOC, "Deallocating: ");
@@ -28,23 +28,23 @@ string(INIT_TSTART, "Allocation Table Start: ");
 string(INIT_CUR_START, "Allocation Store Start: ");
 
 
-public void MMGR_ToggleDebug(var enable)
+public void MMGR_ToggleDebug(uint enable)
 {
 	ENABLE_DEBUG = enable;
 	return;
 }
 
-public var MMGR_AllocCount()
+public uint MMGR_AllocCount()
 {
 	return CUR_ALLOCS;
 }
 
 
-private void WriteDebugString(var ptr, var size)
+private void WriteDebugString(uint ptr, uint size)
 {
 	if(ENABLE_DEBUG)
 	{
-		var lastFore = CMGR_GetForeColor();
+		uint lastFore = CMGR_GetForeColor();
 		CMGR_SetForeColor(12);
 		COUT_WriteString(ptr, size);
 		CMGR_SetForeColor(lastFore);
@@ -52,11 +52,11 @@ private void WriteDebugString(var ptr, var size)
 	return;
 }
 
-private void WriteDebugLine(var ptr, var size)
+private void WriteDebugLine(uint ptr, uint size)
 {
 	if(ENABLE_DEBUG)
 	{
-		var lastFore = CMGR_GetForeColor();
+		uint lastFore = CMGR_GetForeColor();
 		CMGR_SetForeColor(12);
 		COUT_WriteLine(ptr, size);
 		CMGR_SetForeColor(lastFore);
@@ -64,11 +64,11 @@ private void WriteDebugLine(var ptr, var size)
 	return;
 }
 
-private void WriteDebugNum(var num)
+private void WriteDebugNum(uint num)
 {
 	if(ENABLE_DEBUG)
 	{
-		var lastFore = CMGR_GetForeColor();
+		uint lastFore = CMGR_GetForeColor();
 		CMGR_SetForeColor(12);
 		COUT_WriteNumber(num);
 		CMGR_SetForeColor(lastFore);
@@ -80,7 +80,7 @@ private void WriteDebugNewLine()
 {
 	if(ENABLE_DEBUG)
 	{
-		var lastFore = CMGR_GetForeColor();
+		uint lastFore = CMGR_GetForeColor();
 		CMGR_SetForeColor(12);
 		COUT_WriteNewLine();
 		CMGR_SetForeColor(lastFore);
@@ -96,9 +96,9 @@ private void WriteDebugAllocCount()
 	return;
 }
 
-private void WriteAllocData(var index, var ptr, var len)
+private void WriteAllocData(uint index, uint ptr, uint len)
 {	
-	var idxPtr = index * 2;
+	uint idxPtr = index * 2;
 
 	CUR_ALLOC_TABLE_START[idxPtr] = ptr;
 	CUR_ALLOC_TABLE_START[idxPtr+1] = len;
@@ -106,9 +106,9 @@ private void WriteAllocData(var index, var ptr, var len)
 	return;
 }
 
-private void EraseAllocData(var index)
+private void EraseAllocData(uint index)
 {	
-	var idxPtr = index * 2;
+	uint idxPtr = index * 2;
 
 	CUR_ALLOC_TABLE_START[idxPtr] = 0;
 	CUR_ALLOC_TABLE_START[idxPtr+1] = 0;
@@ -117,17 +117,17 @@ private void EraseAllocData(var index)
 	return;
 }
 
-public void MMGR_Free(var ptr)
+public void MMGR_Free(uint ptr)
 {
 	if(!ptr)
 	{
 		return;
 	}
-	var i = 0;
+	uint i = 0;
 	while(i < MAX_ALLOCATIONS)
 	{
-		var idx = i * 2;
-		var entry = CUR_ALLOC_TABLE_START[idx];
+		uint idx = i * 2;
+		uint entry = CUR_ALLOC_TABLE_START[idx];
 
 		if(ptr == entry)
 		{
@@ -139,7 +139,7 @@ public void MMGR_Free(var ptr)
 			WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
 			WriteDebugString(&TXT_ALLOC_SIZE, size_of(TXT_ALLOC_SIZE));
 			
-			var size=CUR_ALLOC_TABLE_START[idx+1];
+			uint size=CUR_ALLOC_TABLE_START[idx+1];
 			WriteDebugNum(size);
 			WriteDebugNewLine();
 			EraseAllocData(i);
@@ -153,17 +153,17 @@ public void MMGR_Free(var ptr)
 }
 
 
-public var MMGR_GetPtrSize(var ptr)
+public uint MMGR_GetPtrSize(uint ptr)
 {
 	if(!ptr)
 	{
 		return 0;
 	}
-	var i = 0;
+	uint i = 0;
 	while(i < MAX_ALLOCATIONS)
 	{
-		var idx = i * 2;
-		var entry = CUR_ALLOC_TABLE_START[idx];
+		uint idx = i * 2;
+		uint entry = CUR_ALLOC_TABLE_START[idx];
 
 		if(ptr == entry)
 		{
@@ -174,17 +174,17 @@ public var MMGR_GetPtrSize(var ptr)
 	return 0;
 }
 
-public var MMGR_IsPtr(var ptr)
+public uint MMGR_IsPtr(uint ptr)
 {
 	if(!ptr)
 	{
 		return 0;
 	}
-	var i = 0;
+	uint i = 0;
 	while(i < MAX_ALLOCATIONS)
 	{
-		var idx = i * 2;
-		var entry = CUR_ALLOC_TABLE_START[idx];
+		uint idx = i * 2;
+		uint entry = CUR_ALLOC_TABLE_START[idx];
 
 		if(ptr == entry)
 		{
@@ -195,10 +195,10 @@ public var MMGR_IsPtr(var ptr)
 	return 0;
 }
 
-public var MMGR_Alloc(var size)
+public uint MMGR_Alloc(uint size)
 {
-	var cur = CUR_START;
-	var end = cur + size;
+	uint cur = CUR_START;
+	uint end = cur + size;
 	if(end > MANAGED_END)
 	{
 

@@ -14,7 +14,7 @@ private static string str_branch= "Branch Tests";
 private static string str_ts= "Type System Tests";
 private static string str_sep= "-------------------------";
 
-private void PrintHeader(var testName, var testSize)
+private void PrintHeader(uint testName, uint testSize)
 {
 	COUT_WriteNewLine();
 	COUT_WriteNewLine();

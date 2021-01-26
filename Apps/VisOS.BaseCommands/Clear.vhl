@@ -4,12 +4,12 @@ private static string cmd_clear= "clear";
 private static string txt_reg= "Registering Command: ";
 private static string DEBUG_TAG= "[CLEAR] ";
 
-private var IsClear(var ptrIn)
+private uint IsClear(uint ptrIn)
 {
 	return CMD_IsCommand(&cmd_clear, size_of(cmd_clear), ptrIn);
 }
 
-private void ClearCommand(var argStart, var argLength)
+private void ClearCommand(uint argStart, uint argLength)
 {
 	COUT_ClearConsole();
 	return;

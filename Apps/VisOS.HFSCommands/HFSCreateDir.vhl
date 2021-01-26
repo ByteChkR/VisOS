@@ -5,7 +5,7 @@ private static string txt_reg= "Registering Command: ";
 private static string cmd_fprint= "hfs.mkdir";
 private static string txt_cd= "Created Directory: ";
 
-private void CreateDirectory(var pathPtr, var pathLen)
+private void CreateDirectory(uint pathPtr, uint pathLen)
 {
 	HFS_CreateDirectory(pathPtr, pathLen);
 	COUT_WriteString(&txt_cd, size_of(txt_cd));
@@ -13,7 +13,7 @@ private void CreateDirectory(var pathPtr, var pathLen)
 	return;
 }
 
-private var IsMKDIR(var ptrIn)
+private uint IsMKDIR(uint ptrIn)
 {
 	return CMD_IsCommand(&cmd_fprint, size_of(cmd_fprint), ptrIn);
 }

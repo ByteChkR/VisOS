@@ -1,6 +1,6 @@
-private const var cOut = 0xFFFF1001; //Console Out => Write Character
-private const var cOutNum = 0xFFFF1002; //Console Out => Write Number
-private const var cClearNum = 0xFFFF1005; //Console Clear
+private const uint cOut = 0xFFFF1001; //Console Out => Write Character
+private const uint cOutNum = 0xFFFF1002; //Console Out => Write Number
+private const uint cClearNum = 0xFFFF1005; //Console Clear
 
 private static string arr_sep = ", ";
 
@@ -10,15 +10,15 @@ public void COUT_ClearConsole()
 	return;
 }
 
-public void COUT_Write(var chr)
+public void COUT_Write(uint chr)
 {
 	cOut = chr;
 	return;
 }
 
-public void COUT_WriteString(var str, var len)
+public void COUT_WriteString(uint str, uint len)
 {
-	var i = 0;
+	uint i = 0;
 	while(i < len)
 	{	
 		cOut = str[i];
@@ -27,7 +27,7 @@ public void COUT_WriteString(var str, var len)
 	return;
 }
 
-public void COUT_WriteNumber(var number)
+public void COUT_WriteNumber(uint number)
 {
 	cOutNum = number;
 	return;
@@ -40,16 +40,16 @@ public void COUT_WriteNewLine()
 }
 
 
-public void COUT_WriteLine(var str, var len)
+public void COUT_WriteLine(uint str, uint len)
 {
 	COUT_WriteString(str, len);
 	COUT_WriteNewLine();
 	return;
 }
 
-public void COUT_WriteNumbers(var ptr, var len)
+public void COUT_WriteNumbers(uint ptr, uint len)
 {
-	var i = 0;
+	uint i = 0;
 	while(i < len)
 	{
 		cOutNum = ptr[i];

@@ -4,14 +4,14 @@ private static string str_test_name= "IfVarNoArgsTest";
 private static string str_ret_c_val_fail= "C:Return value is not 5";
 private static string str_ret_v_val_fail= "V:Return value is not 5";
 
-private var TestC()
+private uint TestC()
 {
 	return 5;
 }
 
-private var TestV()
+private uint TestV()
 {
-	var b = 5;
+	uint b = 5;
 	return b;
 }
 

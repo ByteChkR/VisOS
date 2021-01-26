@@ -1,17 +1,23 @@
-#include "VisOS.Driver/hfs.vhl"
-#include "VisOS.Driver/cout.vhl"
-private static string TestFile = "./test.txt";
-private static string Exists = "File Exists";
-private static string NotExists = "File not found";
-
-
-var exists = HFS_FileExists(&TestFile, size_of(TestFile));
-
-if(exists)
+private void MainUint()
 {
-	COUT_WriteLine(&Exists, size_of(Exists));
+	uint a = 1;
+	uint b = 2;
+	uint c = a + b;
+	return;
 }
-else
+
+private var TestArgs(float a, float b)
 {
-	COUT_WriteLine(&NotExists, size_of(NotExists));
+	return a + b;
 }
+
+private void MainFloat()
+{
+	float a = 1f;
+	float b = 2f;
+	float c = TestArgs(a,b);
+	return;
+}
+
+MainUint();
+MainFloat();

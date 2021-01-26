@@ -2,25 +2,25 @@
 private static string str_ret_val_fail= "Return value is not 5";
 private static string str_test_name=  "Var1ArgsTest";
 
-private var TestC(var arg)
+private uint TestC(uint arg)
 {
 	return arg;
 }
 
-private var TestV(var arg)
+private uint TestV(uint arg)
 {
-	var b = arg;
+	uint b = arg;
 	return b;
 }
 
 private void VarV1ArgsTest()
 {
 	BeginTest(ptr_of(str_test_name), size_of(str_test_name));
-	var ar = 5;
-	var a = TestC(ar);
+	uint ar = 5;
+	uint a = TestC(ar);
 	if(a == 5)
 	{
-		var c = TestV(ar);
+		uint c = TestV(ar);
 		if(c == 5)
 		{
 			PassTest();
@@ -34,10 +34,10 @@ private void VarV1ArgsTest()
 private void VarC1ArgsTest()
 {
 	BeginTest(ptr_of(str_test_name), size_of(str_test_name));
-	var a = TestC(5);
+	uint a = TestC(5);
 	if(a == 5)
 	{
-		var c = TestV(5);
+		uint c = TestV(5);
 		if(c == 5)
 		{
 			PassTest();

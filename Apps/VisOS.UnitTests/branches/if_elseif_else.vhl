@@ -15,8 +15,8 @@ private static string test_fallthrough_fail="The Test did not enter the If block
 private void TestIfIfElseIf_V()
 {
 	BeginTest(ptr_of(test_if_if_else_if_v), size_of(test_if_if_else_if_v));
-	var a = 0;
-	var b = 1;
+	uint a = 0;
+	uint b = 1;
 	if(a)
 	{
 		FailTest(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
@@ -41,7 +41,7 @@ private void TestIfIfElseIf_V()
 private void TestIfIfElseIf_C()
 {
 	BeginTest(ptr_of(test_if_if_else_if_c), size_of(test_if_if_else_if_c));
-	var b = 1;
+	uint b = 1;
 	if(0)
 	{
 		FailTest(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
@@ -65,8 +65,8 @@ private void TestIfIfElseIf_C()
 private void TestIfIfElseIf_VC()
 {
 	BeginTest(ptr_of(test_if_if_else_if_vc), size_of(test_if_if_else_if_vc));
-	var a = 0;
-	var b = 1;
+	uint a = 0;
+	uint b = 1;
 	if(a == 1)
 	{
 		FailTest(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
@@ -91,8 +91,8 @@ private void TestIfIfElseIf_VC()
 private void TestIfIfElseIf_CV()
 {
 	BeginTest(ptr_of(test_if_if_else_if_cv), size_of(test_if_if_else_if_cv));
-	var a = 0;
-	var b = 1;
+	uint a = 0;
+	uint b = 1;
 	if(1 == a)
 	{
 		FailTest(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
@@ -117,7 +117,7 @@ private void TestIfIfElseIf_CV()
 private void TestIfIfElseIf_CC()
 {
 	BeginTest(ptr_of(test_if_if_else_if_cc), size_of(test_if_if_else_if_cc));
-	var b = 1;
+	uint b = 1;
 	if(0 == 1)
 	{
 		FailTest(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
@@ -143,9 +143,9 @@ private void TestIfIfElseIf_VV()
 {
 	BeginTest(ptr_of(test_if_if_else_if_vv), size_of(test_if_if_else_if_vv));
 
-	var a = 0;
-	var b = 1;
-	var c = 1;
+	uint a = 0;
+	uint b = 1;
+	uint c = 1;
 	
 	if(a == b)
 	{

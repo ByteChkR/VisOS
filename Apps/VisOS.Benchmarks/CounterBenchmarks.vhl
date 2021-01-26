@@ -7,9 +7,9 @@ private static string bench_10000= "10000";
 private static string bench_100000= "100000";
 private static string bench_1000000= "1000000";
 
-private void CountTo(var max)
+private void CountTo(uint max)
 {
-	var i = 0;
+	uint i = 0;
 	while ( i < max )
 	{
 		i++;

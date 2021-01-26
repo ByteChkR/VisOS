@@ -1,5 +1,5 @@
-var funcList;
-var funcListSize;
+uint funcList;
+uint funcListSize;
 
 #include "../VisOS.Driver/cout.vhl"
 #include "../utils/memory.vhl"
@@ -32,17 +32,17 @@ public void CMD_UnloadCommandList()
 	return;
 }
 
-private var FindCommand(var cmdPtr)
+private uint FindCommand(uint cmdPtr)
 {
 	
-	var current = 0;
-	var len = funcListSize;
+	uint current = 0;
+	uint len = funcListSize;
 	while(current < len)
 	{
-		var checkPtr = funcList[current];
+		uint checkPtr = funcList[current];
 		if(checkPtr)
 		{
-			var found = checkPtr(cmdPtr);
+			uint found = checkPtr(cmdPtr);
 
 			if(found)
 			{
@@ -56,16 +56,16 @@ private var FindCommand(var cmdPtr)
 	return 0;
 }
 
-public void CMD_InsertCommand(var funcPtr, var checkPtr)
+public void CMD_InsertCommand(uint funcPtr, uint checkPtr)
 {
-	var current = 0;
+	uint current = 0;
 	while(current < funcListSize)
 	{
-		var entry = funcList[current];
+		uint entry = funcList[current];
 		if(!entry)
 		{
 			funcList[current] = checkPtr;
-			var funcIndex = current+1;
+			uint funcIndex = current+1;
 			funcList[funcIndex] = funcPtr;
 			return;
 		}
@@ -74,20 +74,20 @@ public void CMD_InsertCommand(var funcPtr, var checkPtr)
 	return;
 }
 
-public void CMD_InvokeCommand(var cmdPtr, var cmdLen)
+public void CMD_InvokeCommand(uint cmdPtr, uint cmdLen)
 {
-	var cmdIndex = FindCommand(cmdPtr);
+	uint cmdIndex = FindCommand(cmdPtr);
 	if(cmdIndex)
 	{
-		var ptr = funcList[cmdIndex];
+		uint ptr = funcList[cmdIndex];
 
 		COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 		COUT_WriteString( &txt_invoke, size_of(txt_invoke));
 		COUT_WriteNumber(ptr);
 		COUT_WriteNewLine();
 
-		var argStart = MEM_FirstIndex(cmdPtr, 255, 0x20);
-		var sta = argStart+1;
+		uint argStart = MEM_FirstIndex(cmdPtr, 255, 0x20);
+		uint sta = argStart+1;
 
 		ptr(cmdPtr+sta, cmdLen - sta);
 	}
