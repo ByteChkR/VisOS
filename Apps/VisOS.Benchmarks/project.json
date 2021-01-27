@@ -1,6 +1,6 @@
 {
   "ProjectName": "VisOS.Benchmarks",
-  "ProjectVersion": "0.1.0.64",
+  "ProjectVersion": "2021.1.27.0",
   "Dependencies": [
     {
       "ProjectName": "VisOS.Driver",
