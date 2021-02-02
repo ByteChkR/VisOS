@@ -18,7 +18,7 @@ private void PrimesCommand(uint argStart, uint argLength)
 	COUT_WriteString(&txt, size_of(txt));
 	COUT_WriteNumber(val);
 
-	uint result = IsPrime(val);
+	uint result = MATH_IsPrime(val);
 
 	if(result)
 	{

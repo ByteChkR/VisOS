@@ -1,5 +1,5 @@
 #include "../VisOS.Driver/cout.vhl"
-public uint Pow(uint a, uint exp)
+public uint MATH_Pow(uint a, uint exp)
 {
 	uint ret = 1;
 	uint count = exp;
@@ -12,7 +12,7 @@ public uint Pow(uint a, uint exp)
 	return ret;
 }
 
-public uint IsPrime(uint num)
+public uint MATH_IsPrime(uint num)
 {
     uint ret = 0; //Workaround for a bug(when returning values directly e.g. "return 1" the tmp variable that gets returned is not properly emptied.)
     if (num <= 1)
@@ -35,7 +35,7 @@ public uint IsPrime(uint num)
     return ret;        
 }
 
-public uint Clamp(uint a, uint min, uint max)
+public uint MATH_Clamp(uint a, uint min, uint max)
 {
 	if(a < min)
 	{
