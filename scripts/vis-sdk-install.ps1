@@ -6,7 +6,7 @@ mkdir vis-sdk >$null 2>&1
 
 echo "------------- Cloning Source Repo -------------"
 git clone https://github.com/ByteChkR/viscpu vis-sdk
-cd vis-sdk
+cd vis-sdk\src
 
 echo "------------- Building Console -------------"
 dotnet build -c Release >$null 2>&1

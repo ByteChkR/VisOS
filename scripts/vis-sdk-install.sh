@@ -13,7 +13,7 @@ mkdir vis-sdk > /dev/null 2>&1
 
 echo "------------- Cloning Source Repo -------------"
 git clone https://github.com/ByteChkR/viscpu vis-sdk
-cd vis-sdk
+cd vis-sdk/src
 
 echo "------------- Building Console -------------"
 dotnet build -c Release >/dev/null 2>&1
