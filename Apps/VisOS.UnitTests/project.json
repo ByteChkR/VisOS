@@ -26,7 +26,7 @@
           "Arguments": {
             "merge:include": "%VISDIR%common/jobs/debug_build.json",
             "build:input": "UnitTests.vhl",
-            "assembler:offset.global": "32768"
+            "assembler:offset.global": "0"
           }
         }
       ]
@@ -55,7 +55,8 @@
           "BuildJobRunner": "merged",
           "Arguments": {
             "merge:include": "%VISDIR%common/jobs/debug_run.json",
-            "run:input": "UnitTests.vbin"
+            "run:input": "UnitTests.vbin",
+            "run:trim": "true"
           }
         }
       ]

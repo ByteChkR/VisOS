@@ -21,7 +21,7 @@
           "Arguments": {
             "merge:include": "%VISDIR%common/jobs/debug_build.json",
             "build:input": "App.vhl",
-            "assembler:offset.global": "4096"
+            "assembler:offset.global": "0"
           }
         }
       ]

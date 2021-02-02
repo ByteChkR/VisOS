@@ -13,13 +13,13 @@ mkdir vis-sdk > /dev/null 2>&1
 
 echo "------------- Cloning Source Repo -------------"
 git clone https://github.com/ByteChkR/viscpu vis-sdk
-cd vis-sdk/VisCPU.Console
+cd vis-sdk
 
 echo "------------- Building Console -------------"
-dotnet publish -c Debug >/dev/null 2>&1
+dotnet build -c Release >/dev/null 2>&1
 
 echo "------------- Setting up SDK Session Script -------------"
-ConsoleRoot=$PWD/bin/Debug/net5.0/publish/vis
+ConsoleRoot=$PWD/VisCPU.Console/bin/Release/net5.0/vis
 echo "vis=\"$ConsoleRoot\"">$ConsoleInstall/vis-make.sh
 chmod +x $ConsoleInstall/vis-make.sh
 
