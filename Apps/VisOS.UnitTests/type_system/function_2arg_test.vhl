@@ -6,26 +6,26 @@ private static string str_generic_error= "Generic Error";
 
 class TestClass
 {
-	public uint a;
-	public uint b;
+	public static uint a;
+	public static uint b;
 }
 
 TestClass const_ar;
 TestClass const_ab;
 
-private void TestXY(TestClass arg1, TestClass arg2)
+private static void TestXY(TestClass arg1, TestClass arg2)
 {
 	if(arg1.b == arg2.b)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 		
 	}
-	FailTest(ptr_of(str_generic_error), size_of(str_generic_error));
+	Tests.Fail(ptr_of(str_generic_error), size_of(str_generic_error));
 	return;
 }
 
-private void CustomTypeV2ArgsTest()
+private static void CustomTypeV2ArgsTest()
 {
 	TestClass ar;
 	ar.b = 5;
@@ -33,21 +33,21 @@ private void CustomTypeV2ArgsTest()
 	ab.b = 5;
 	
 
-	BeginTest(ptr_of(str_var_test_name), size_of(str_var_test_name));
+	Tests.Begin(ptr_of(str_var_test_name), size_of(str_var_test_name));
 	TestXY(ar, ab);
 	return;
 }
 
-private void CustomTypeC2ArgsTest()
+private static void CustomTypeC2ArgsTest()
 {
 	const_ar.b = 5;
 	const_ab.b = 5;
-	BeginTest(ptr_of(str_const_test_name), size_of(str_const_test_name));
+	Tests.Begin(ptr_of(str_const_test_name), size_of(str_const_test_name));
 	TestXY(const_ar, const_ab);
 	return;
 }
 
-public void CustomType2ArgsTest()
+public static void CustomType2ArgsTest()
 {
 	CustomTypeC2ArgsTest();
 	CustomTypeV2ArgsTest();

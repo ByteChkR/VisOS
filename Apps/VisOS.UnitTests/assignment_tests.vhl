@@ -11,7 +11,7 @@
 #include "assignments/assign_c_test.vhl"
 #include "assignments/assign_v_test.vhl"
 
-public void RunAssignmentTests()
+public static void RunAssignmentTests()
 {
 	Assign_C_Simple_Test();
 	Assign_V_Simple_Test();

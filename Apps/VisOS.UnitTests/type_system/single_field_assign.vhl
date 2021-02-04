@@ -8,19 +8,19 @@ private static string test_generic_fail= "Type System Error.";
 
 class TestClass
 {
-	public uint field;
+	public static uint field;
 }
 
-public void TestSingleField()
+public static void TestSingleField()
 {
-	BeginTest(ptr_of(test_single_field_type), size_of(test_single_field_type));
+	Tests.Begin(ptr_of(test_single_field_type), size_of(test_single_field_type));
 	TestClass tc;
 	tc.field = 4;
 	if(tc.field == 4)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_fail), size_of(test_generic_fail));
+	Tests.Fail(ptr_of(test_generic_fail), size_of(test_generic_fail));
 	return;
 }

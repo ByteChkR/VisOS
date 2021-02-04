@@ -7,63 +7,63 @@ private static string test_div_vc= "DIV_VC_Simple_Test";
 
 private static string test_generic_math_fail= "Calculation Failed.";
 
-private void DIV_VV_Simple_Test()
+private static void DIV_VV_Simple_Test()
 {
-	BeginTest(ptr_of(test_div_vv), size_of(test_div_vv));
+	Tests.Begin(ptr_of(test_div_vv), size_of(test_div_vv));
 	uint a = 4;
 	uint b = 2;
 	uint c = a / b;
 	if(c == 2)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
 
-private void DIV_VC_Simple_Test()
+private static void DIV_VC_Simple_Test()
 {
-	BeginTest(ptr_of(test_div_vc), size_of(test_div_vc));
+	Tests.Begin(ptr_of(test_div_vc), size_of(test_div_vc));
 	uint a = 4;
 	uint c = a / 2;
 	if(c == 2)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
 
-private void DIV_CC_Simple_Test()
+private static void DIV_CC_Simple_Test()
 {
-	BeginTest(ptr_of(test_div_cc), size_of(test_div_cc));
+	Tests.Begin(ptr_of(test_div_cc), size_of(test_div_cc));
 	uint c = 4 / 2;
 	if(c == 2)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
 
-private void DIV_CV_Simple_Test()
+private static void DIV_CV_Simple_Test()
 {
-	BeginTest(ptr_of(test_div_cv), size_of(test_div_cv));
+	Tests.Begin(ptr_of(test_div_cv), size_of(test_div_cv));
 	uint a = 2;
 	uint c = 4 / a;
 	if(c == 2)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
 
-public void Run_DIV_Tests()
+public static void Run_DIV_Tests()
 {
 	DIV_VV_Simple_Test();
 	DIV_VC_Simple_Test();

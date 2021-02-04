@@ -1,58 +1,63 @@
-public uint MEM_IndexOf(uint source, uint start, uint length, uint num)
+public class Memory
 {
-	uint i = start;
-	while(i < length)
+	public static uint IndexOf(uint source, uint start, uint length, uint num)
 	{
-		if(source[i] == num)
+		uint i = start;
+		while(i < length)
 		{
-			return i;
+			if(source[i] == num)
+			{
+				return i;
+			}
+			i++
+		} 
+
+		return i;
+	}
+
+	public static uint FirstIndex(uint source, uint length, uint num)
+	{
+		return Memory.IndexOf(source, 0, length, num);
+	}
+
+	public static uint Compare(uint source, uint length, uint destination)
+	{	
+		uint i = length;
+		while(i)
+		{
+			i--;
+			uint tmpdst = destination[i];
+			if(tmpdst != source[i])
+			{	
+				return 0;
+			}
 		}
-		i++
-	} 
+		return 1;
+	}
 
-	return i;
-}
 
-public uint MEM_FirstIndex(uint source, uint length, uint num)
-{
-	return MEM_IndexOf(source, 0, length, num);
-}
-
-public uint MEM_Compare(uint source, uint length, uint destination)
-{	
-	uint i = length;
-	while(i)
+	public static void Copy(uint source, uint length, uint destination)
 	{
-		i--;
-		uint tmpdst = destination[i];
-		if(tmpdst != source[i])
-		{	
-			return 0;
+		uint i = length;
+		while(i)
+		{
+			i--;
+			uint temp = source[i];
+			destination[i] = temp;
 		}
+		return;
 	}
-	return 1;
-}
 
-
-public void MEM_Copy(uint source, uint length, uint destination)
-{
-	uint i = length;
-	while(i)
+	public static void Set(uint source, uint length, uint value)
 	{
-		i--;
-		uint temp = source[i];
-		destination[i] = temp;
+		uint i = length;
+		while(i)
+		{
+			i--;
+			source[i] = value;
+		}
+		return;
 	}
-	return;
+
 }
 
-public void MEM_Set(uint source, uint length, uint value)
-{
-	uint i = length;
-	while(i)
-	{
-		i--;
-		source[i] = value;
-	}
-	return;
-}

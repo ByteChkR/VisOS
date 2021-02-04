@@ -8,19 +8,19 @@ private static string test_size_of_fail= "size_of(TestClass) is not equal 3.";
 
 class TestClass
 {
-	public uint fieldA;
+	public static uint fieldA;
 	public TestNestedMultiClass fieldB;
 }
 
 class TestNestedMultiClass
 {
-	public uint fieldC;
-	public uint fieldD;
+	public static uint fieldC;
+	public static uint fieldD;
 }
 
-public void TestNestedMultiField()
+public static void TestNestedMultiField()
 {
-	BeginTest(ptr_of(test_single_field_type), size_of(test_single_field_type));
+	Tests.Begin(ptr_of(test_single_field_type), size_of(test_single_field_type));
 	TestClass tc;
 	tc.fieldA = 4;
 	tc.fieldB.fieldC = 5;
@@ -38,19 +38,19 @@ public void TestNestedMultiField()
 				{
 					if(size_of(TestClass) == 3)
 					{
-						PassTest();
+						Tests.Pass();
 						return;
 					}
-					FailTest(ptr_of(test_size_of_fail), size_of(test_size_of_fail));
+					Tests.Fail(ptr_of(test_size_of_fail), size_of(test_size_of_fail));
 					return;
 				}
 
-				FailTest(ptr_of(test_ptr_fail), size_of(test_ptr_fail));
+				Tests.Fail(ptr_of(test_ptr_fail), size_of(test_ptr_fail));
 				return;
 			}
 		}
 		
 	}
-	FailTest(ptr_of(test_generic_fail), size_of(test_generic_fail));
+	Tests.Fail(ptr_of(test_generic_fail), size_of(test_generic_fail));
 	return;
 }

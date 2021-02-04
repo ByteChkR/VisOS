@@ -2,15 +2,15 @@
 
 private static string str_test_name= "VoidNoArgsTest";
 
-private void TestC()
+private static void TestC()
 {
-	PassTest();
+	Tests.Pass();
 	return;
 }
 
-public void VoidNoArgsTest()
+public static void VoidNoArgsTest()
 {
-	BeginTest(ptr_of(str_test_name), size_of(str_test_name));
+	Tests.Begin(ptr_of(str_test_name), size_of(str_test_name));
 	TestC();
 	return;
 }

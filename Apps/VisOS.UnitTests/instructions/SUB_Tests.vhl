@@ -7,63 +7,63 @@ private static string test_sub_vc= "SUB_VC_Simple_Test";
 
 private static string test_generic_math_fail= "Calculation Failed.";
 
-private void SUB_VV_Simple_Test()
+private static void SUB_VV_Simple_Test()
 {
-	BeginTest(ptr_of(test_sub_vv), size_of(test_sub_vv));
+	Tests.Begin(ptr_of(test_sub_vv), size_of(test_sub_vv));
 	uint a = 2;
 	uint b = 1;
 	uint c = a - b;
 	if(c == 1)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
 
-private void SUB_VC_Simple_Test()
+private static void SUB_VC_Simple_Test()
 {
-	BeginTest(ptr_of(test_sub_vc), size_of(test_sub_vc));
+	Tests.Begin(ptr_of(test_sub_vc), size_of(test_sub_vc));
 	uint a = 2;
 	uint c = a - 1;
 	if(c == 1)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
 
-private void SUB_CC_Simple_Test()
+private static void SUB_CC_Simple_Test()
 {
-	BeginTest(ptr_of(test_sub_cc), size_of(test_sub_cc));
+	Tests.Begin(ptr_of(test_sub_cc), size_of(test_sub_cc));
 	uint c = 2 - 1;
 	if(c == 1)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
 
-private void SUB_CV_Simple_Test()
+private static void SUB_CV_Simple_Test()
 {
-	BeginTest(ptr_of(test_sub_cv), size_of(test_sub_cv));
+	Tests.Begin(ptr_of(test_sub_cv), size_of(test_sub_cv));
 	uint a = 1;
 	uint c = 2 - a;
 	if(c == 1)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
 
-public void Run_SUB_Tests()
+public static void Run_SUB_Tests()
 {
 	SUB_VV_Simple_Test();
 	SUB_VC_Simple_Test();

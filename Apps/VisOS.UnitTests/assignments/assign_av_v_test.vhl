@@ -4,19 +4,19 @@ private static string test_assignment_fail= "Assignment b[a] = c Failed.";
 
 private static string test_arrayV_add_v= "Assignment_ArrayV_V_Simple_Test";
 
-public void Assign_ArrayV_V_Simple_Test()
+public static void Assign_ArrayV_V_Simple_Test()
 {
-	BeginTest(ptr_of(test_arrayV_add_v), size_of(test_arrayV_add_v));
+	Tests.Begin(ptr_of(test_arrayV_add_v), size_of(test_arrayV_add_v));
 	uint b[10];
 	uint a = 5;
 	uint c = 1;
 	b[a] = c;
 	if(b[a] == 1)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_assignment_fail), size_of(test_assignment_fail));
+	Tests.Fail(ptr_of(test_assignment_fail), size_of(test_assignment_fail));
 	return;
 }
 

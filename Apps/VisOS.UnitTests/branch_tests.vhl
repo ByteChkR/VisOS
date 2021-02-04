@@ -3,7 +3,7 @@
 #include "branches/if_else_if.vhl"
 #include "branches/if_elseif_else.vhl"
 
-public void RunBranchTests()
+public static void RunBranchTests()
 {
 	RunIfSimpleTests();
 	RunIfElseTests();

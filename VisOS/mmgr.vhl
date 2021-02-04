@@ -1,5 +1,4 @@
-#include "VisOS.Driver/cout.vhl"
-#include "VisOS.Driver/cmgr.vhl"
+#include "VisOS.Driver/console.vhl"
 #include "utils/error_handler.vhl"
 
 uint MANAGED_END;
@@ -27,238 +26,240 @@ string(INIT_MAXALLOC, "Max Allocations: ");
 string(INIT_TSTART, "Allocation Table Start: ");
 string(INIT_CUR_START, "Allocation Store Start: ");
 
-
-public void MMGR_ToggleDebug(uint enable)
+public class MMGR
 {
-	ENABLE_DEBUG = enable;
-	return;
-}
-
-public uint MMGR_AllocCount()
-{
-	return CUR_ALLOCS;
-}
-
-
-private void WriteDebugString(uint ptr, uint size)
-{
-	if(ENABLE_DEBUG)
+	public static void ToggleDebug(uint enable)
 	{
-		uint lastFore = CMGR_GetForeColor();
-		CMGR_SetForeColor(12);
-		Console.WriteString(ptr, size);
-		CMGR_SetForeColor(lastFore);
-	}
-	return;
-}
-
-private void WriteDebugLine(uint ptr, uint size)
-{
-	if(ENABLE_DEBUG)
-	{
-		uint lastFore = CMGR_GetForeColor();
-		CMGR_SetForeColor(12);
-		Console.WriteLine(ptr, size);
-		CMGR_SetForeColor(lastFore);
-	}
-	return;
-}
-
-private void WriteDebugNum(uint num)
-{
-	if(ENABLE_DEBUG)
-	{
-		uint lastFore = CMGR_GetForeColor();
-		CMGR_SetForeColor(12);
-		Console.WriteNumber(num);
-		CMGR_SetForeColor(lastFore);
-	}
-	return;
-}
-
-private void WriteDebugNewLine()
-{
-	if(ENABLE_DEBUG)
-	{
-		uint lastFore = CMGR_GetForeColor();
-		CMGR_SetForeColor(12);
-		Console.WriteNewLine();
-		CMGR_SetForeColor(lastFore);
-	}
-	return;
-}
-private void WriteDebugAllocCount()
-{
-	WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
-	WriteDebugString(&TXT_CURRENT_ALLOCS, size_of(TXT_CURRENT_ALLOCS));
-	WriteDebugNum(CUR_ALLOCS);
-	WriteDebugNewLine();
-	return;
-}
-
-private void WriteAllocData(uint index, uint ptr, uint len)
-{	
-	uint idxPtr = index * 2;
-
-	CUR_ALLOC_TABLE_START[idxPtr] = ptr;
-	CUR_ALLOC_TABLE_START[idxPtr+1] = len;
-
-	return;
-}
-
-private void EraseAllocData(uint index)
-{	
-	uint idxPtr = index * 2;
-
-	CUR_ALLOC_TABLE_START[idxPtr] = 0;
-	CUR_ALLOC_TABLE_START[idxPtr+1] = 0;
-
-
-	return;
-}
-
-public void MMGR_Free(uint ptr)
-{
-	if(!ptr)
-	{
+		ENABLE_DEBUG = enable;
 		return;
 	}
-	uint i = 0;
-	while(i < MAX_ALLOCATIONS)
+
+	public static uint AllocCount()
 	{
-		uint idx = i * 2;
-		uint entry = CUR_ALLOC_TABLE_START[idx];
+		return CUR_ALLOCS;
+	}
 
-		if(ptr == entry)
+
+	private static void WriteDebugString(uint ptr, uint size)
+	{
+		if(ENABLE_DEBUG)
 		{
-			WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
-			WriteDebugString(&TXT_DEALLOC, size_of(TXT_DEALLOC));
-			WriteDebugNum(entry);
-			WriteDebugNewLine();
+			uint lastFore = Console.GetForeColor();
+			Console.SetForeColor(12);
+			Console.WriteString(ptr, size);
+			Console.SetForeColor(lastFore);
+		}
+		return;
+	}
 
-			WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
-			WriteDebugString(&TXT_ALLOC_SIZE, size_of(TXT_ALLOC_SIZE));
-			
-			uint size=CUR_ALLOC_TABLE_START[idx+1];
-			WriteDebugNum(size);
-			WriteDebugNewLine();
-			EraseAllocData(i);
+	private static void WriteDebugLine(uint ptr, uint size)
+	{
+		if(ENABLE_DEBUG)
+		{
+			uint lastFore = Console.GetForeColor();
+			Console.SetForeColor(12);
+			Console.WriteLine(ptr, size);
+			Console.SetForeColor(lastFore);
+		}
+		return;
+	}
 
-			CUR_ALLOCS--;
+	private static void WriteDebugNum(uint num)
+	{
+		if(ENABLE_DEBUG)
+		{
+			uint lastFore = Console.GetForeColor();
+			Console.SetForeColor(12);
+			Console.WriteNumber(num);
+			Console.SetForeColor(lastFore);
+		}
+		return;
+	}
+
+	private static void WriteDebugNewLine()
+	{
+		if(ENABLE_DEBUG)
+		{
+			uint lastFore = Console.GetForeColor();
+			Console.SetForeColor(12);
+			Console.WriteNewLine();
+			Console.SetForeColor(lastFore);
+		}
+		return;
+	}
+	private static void WriteDebugAllocCount()
+	{
+		MMGR.WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
+		MMGR.WriteDebugString(&TXT_CURRENT_ALLOCS, size_of(TXT_CURRENT_ALLOCS));
+		MMGR.WriteDebugNum(CUR_ALLOCS);
+		MMGR.WriteDebugNewLine();
+		return;
+	}
+
+	private static void WriteAllocData(uint index, uint ptr, uint len)
+	{	
+		uint idxPtr = index * 2;
+
+		CUR_ALLOC_TABLE_START[idxPtr] = ptr;
+		CUR_ALLOC_TABLE_START[idxPtr+1] = len;
+
+		return;
+	}
+
+	private static void EraseAllocData(uint index)
+	{	
+		uint idxPtr = index * 2;
+
+		CUR_ALLOC_TABLE_START[idxPtr] = 0;
+		CUR_ALLOC_TABLE_START[idxPtr+1] = 0;
+
+
+		return;
+	}
+
+	public static void Free(uint ptr)
+	{
+		if(!ptr)
+		{
 			return;
 		}
-		i++;
+		uint i = 0;
+		while(i < MAX_ALLOCATIONS)
+		{
+			uint idx = i * 2;
+			uint entry = CUR_ALLOC_TABLE_START[idx];
+
+			if(ptr == entry)
+			{
+				MMGR.WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
+				MMGR.WriteDebugString(&TXT_DEALLOC, size_of(TXT_DEALLOC));
+				MMGR.WriteDebugNum(entry);
+				MMGR.WriteDebugNewLine();
+
+				MMGR.WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
+				MMGR.WriteDebugString(&TXT_ALLOC_SIZE, size_of(TXT_ALLOC_SIZE));
+				
+				uint size=CUR_ALLOC_TABLE_START[idx+1];
+				MMGR.WriteDebugNum(size);
+				MMGR.WriteDebugNewLine();
+				MMGR.EraseAllocData(i);
+
+				CUR_ALLOCS--;
+				return;
+			}
+			i++;
+		}
+		return;
 	}
-	return;
-}
 
 
-public uint MMGR_GetPtrSize(uint ptr)
-{
-	if(!ptr)
+	public static uint GetPtrSize(uint ptr)
 	{
+		if(!ptr)
+		{
+			return 0;
+		}
+		uint i = 0;
+		while(i < MAX_ALLOCATIONS)
+		{
+			uint idx = i * 2;
+			uint entry = CUR_ALLOC_TABLE_START[idx];
+
+			if(ptr == entry)
+			{
+				return CUR_ALLOC_TABLE_START[idx+1];
+			}
+			i++;
+		}
 		return 0;
 	}
-	uint i = 0;
-	while(i < MAX_ALLOCATIONS)
-	{
-		uint idx = i * 2;
-		uint entry = CUR_ALLOC_TABLE_START[idx];
 
-		if(ptr == entry)
+	public static uint IsPtr(uint ptr)
+	{
+		if(!ptr)
 		{
-			return CUR_ALLOC_TABLE_START[idx+1];
+			return 0;
 		}
-		i++;
-	}
-	return 0;
-}
+		uint i = 0;
+		while(i < MAX_ALLOCATIONS)
+		{
+			uint idx = i * 2;
+			uint entry = CUR_ALLOC_TABLE_START[idx];
 
-public uint MMGR_IsPtr(uint ptr)
-{
-	if(!ptr)
-	{
+			if(ptr == entry)
+			{
+				return 1;
+			}
+			i++;
+		}
 		return 0;
 	}
-	uint i = 0;
-	while(i < MAX_ALLOCATIONS)
-	{
-		uint idx = i * 2;
-		uint entry = CUR_ALLOC_TABLE_START[idx];
 
-		if(ptr == entry)
+	public static uint Alloc(uint size)
+	{
+		uint cur = CUR_START;
+		uint end = cur + size;
+		if(end > MANAGED_END)
 		{
-			return 1;
+
+			_ERROR_T(&ERR_OUT_OF_MEM, size_of(ERR_OUT_OF_MEM));
+			
+			return;
 		}
-		i++;
+		MMGR.WriteAllocData(CUR_ALLOCS, cur, size);
+		CUR_ALLOCS++;
+
+		MMGR.WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
+		MMGR.WriteDebugString(&TXT_ALLOC, size_of(TXT_ALLOC));
+		MMGR.WriteDebugNum(cur);
+		MMGR.WriteDebugNewLine();
+		
+		MMGR.WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
+		MMGR.WriteDebugString(&TXT_ALLOC_SIZE, size_of(TXT_ALLOC_SIZE));
+		MMGR.WriteDebugNum(size);
+		MMGR.WriteDebugNewLine();
+		MMGR.WriteDebugAllocCount();
+
+		CUR_START += size;
+		return cur;
 	}
-	return 0;
-}
 
-public uint MMGR_Alloc(uint size)
-{
-	uint cur = CUR_START;
-	uint end = cur + size;
-	if(end > MANAGED_END)
+
+	public static void Initialize()
 	{
+		MANAGED_END = 0x3FFFC;
+		MAX_ALLOCATIONS = 0x1000;
+		MANAGED_START = 0x1FFFE;
+		CUR_ALLOCS = 0;
+		CUR_ALLOC_TABLE_START = MANAGED_START;
+		CUR_START = MANAGED_START + MAX_ALLOCATIONS * 2;
 
-		_ERROR_T(&ERR_OUT_OF_MEM, size_of(ERR_OUT_OF_MEM));
+		MMGR.WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
+		MMGR.WriteDebugString(&INIT_MSTART, size_of(INIT_MSTART));
+		MMGR.WriteDebugNum(MANAGED_START);
+		MMGR.WriteDebugNewLine();
+
+		MMGR.WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
+		MMGR.WriteDebugString(&INIT_MEND, size_of(INIT_MEND));
+		MMGR.WriteDebugNum(MANAGED_END);
+		MMGR.WriteDebugNewLine();
+
+		MMGR.WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
+		MMGR.WriteDebugString(&INIT_MAXALLOC, size_of(INIT_MAXALLOC));
+		MMGR.WriteDebugNum(MAX_ALLOCATIONS);
+		MMGR.WriteDebugNewLine();
+
+		MMGR.WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
+		MMGR.WriteDebugString(&INIT_TSTART, size_of(INIT_TSTART));
+		MMGR.WriteDebugNum(CUR_ALLOC_TABLE_START);
+		MMGR.WriteDebugNewLine();
+
+		MMGR.WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
+		MMGR.WriteDebugString(&INIT_CUR_START, size_of(INIT_CUR_START));
+		MMGR.WriteDebugNum(CUR_START);
+		MMGR.WriteDebugNewLine();
+
 		
 		return;
 	}
-	WriteAllocData(CUR_ALLOCS, cur, size);
-	CUR_ALLOCS++;
-
-	WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
-	WriteDebugString(&TXT_ALLOC, size_of(TXT_ALLOC));
-	WriteDebugNum(cur);
-	WriteDebugNewLine();
-	
-	WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
-	WriteDebugString(&TXT_ALLOC_SIZE, size_of(TXT_ALLOC_SIZE));
-	WriteDebugNum(size);
-	WriteDebugNewLine();
-	WriteDebugAllocCount();
-
-	CUR_START += size;
-	return cur;
-}
-
-
-public void MMGR_Initialize()
-{
-	MANAGED_END = 0x3FFFC;
-	MAX_ALLOCATIONS = 0x1000;
-	MANAGED_START = 0x1FFFE;
-	CUR_ALLOCS = 0;
-	CUR_ALLOC_TABLE_START = MANAGED_START;
-	CUR_START = MANAGED_START + MAX_ALLOCATIONS * 2;
-
-	WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
-	WriteDebugString(&INIT_MSTART, size_of(INIT_MSTART));
-	WriteDebugNum(MANAGED_START);
-	WriteDebugNewLine();
-
-	WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
-	WriteDebugString(&INIT_MEND, size_of(INIT_MEND));
-	WriteDebugNum(MANAGED_END);
-	WriteDebugNewLine();
-
-	WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
-	WriteDebugString(&INIT_MAXALLOC, size_of(INIT_MAXALLOC));
-	WriteDebugNum(MAX_ALLOCATIONS);
-	WriteDebugNewLine();
-
-	WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
-	WriteDebugString(&INIT_TSTART, size_of(INIT_TSTART));
-	WriteDebugNum(CUR_ALLOC_TABLE_START);
-	WriteDebugNewLine();
-
-	WriteDebugString(&TXT_DEBUG_TAG, size_of(TXT_DEBUG_TAG));
-	WriteDebugString(&INIT_CUR_START, size_of(INIT_CUR_START));
-	WriteDebugNum(CUR_START);
-	WriteDebugNewLine();
-
-	
-	return;
 }

@@ -7,63 +7,63 @@ private static string test_add_vc= "ADD_VC_Simple_Test";
 
 private static string test_generic_math_fail= "Calculation Failed.";
 
-private void ADD_VV_Simple_Test()
+private static void ADD_VV_Simple_Test()
 {
-	BeginTest(ptr_of(test_add_vv), size_of(test_add_vv));
+	Tests.Begin(ptr_of(test_add_vv), size_of(test_add_vv));
 	uint a = 0;
 	uint b = 1;
 	uint c = a + b;
 	if(c == 1)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
 
-private void ADD_VC_Simple_Test()
+private static void ADD_VC_Simple_Test()
 {
-	BeginTest(ptr_of(test_add_vc), size_of(test_add_vc));
+	Tests.Begin(ptr_of(test_add_vc), size_of(test_add_vc));
 	uint a = 0;
 	uint c = a + 1;
 	if(c == 1)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
 
-private void ADD_CC_Simple_Test()
+private static void ADD_CC_Simple_Test()
 {
-	BeginTest(ptr_of(test_add_cc), size_of(test_add_cc));
+	Tests.Begin(ptr_of(test_add_cc), size_of(test_add_cc));
 	uint c = 0 + 1;
 	if(c == 1)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
 
-private void ADD_CV_Simple_Test()
+private static void ADD_CV_Simple_Test()
 {
-	BeginTest(ptr_of(test_add_cv), size_of(test_add_cv));
+	Tests.Begin(ptr_of(test_add_cv), size_of(test_add_cv));
 	uint a = 0;
 	uint c = 1 + a;
 	if(c == 1)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
 
-public void Run_ADD_Tests()
+public static void Run_ADD_Tests()
 {
 	ADD_VV_Simple_Test();
 	ADD_VC_Simple_Test();

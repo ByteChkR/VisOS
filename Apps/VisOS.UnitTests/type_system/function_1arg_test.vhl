@@ -6,43 +6,43 @@ private static string str_generic_error= "Generic Error";
 
 class TestClass
 {
-	public uint a;
-	public uint b;
+	public static uint a;
+	public static uint b;
 }
 
 TestClass const_ar;
 
-private void TestXY(TestClass arg1)
+private static void TestXY(TestClass arg1)
 {
 	if(arg1.b == 5)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 		
 	}
-	FailTest(ptr_of(str_generic_error), size_of(str_generic_error));
+	Tests.Fail(ptr_of(str_generic_error), size_of(str_generic_error));
 	return;
 }
 
-private void CustomTypeV1ArgsTest()
+private static void CustomTypeV1ArgsTest()
 {
 	TestClass ar;
 	ar.b = 5;
 
-	BeginTest(ptr_of(str_var_test_name), size_of(str_var_test_name));
+	Tests.Begin(ptr_of(str_var_test_name), size_of(str_var_test_name));
 	TestXY(ar);
 	return;
 }
 
-private void CustomTypeC1ArgsTest()
+private static void CustomTypeC1ArgsTest()
 {
 	const_ar.b = 5;
-	BeginTest(ptr_of(str_const_test_name), size_of(str_const_test_name));
+	Tests.Begin(ptr_of(str_const_test_name), size_of(str_const_test_name));
 	TestXY(const_ar);
 	return;
 }
 
-public void CustomType1ArgsTest()
+public static void CustomType1ArgsTest()
 {
 	CustomTypeC1ArgsTest();
 	CustomTypeV1ArgsTest();

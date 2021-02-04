@@ -5,20 +5,20 @@ private static string txt_reg= "Registering Command: ";
 private static string cmd_fprint= "hfs.cd";
 private static string txt_cd= "New Directory: ";
 
-private void ChangeDirectory(uint pathPtr, uint pathLen)
+private static void ChangeDirectory(uint pathPtr, uint pathLen)
 {
 	Console.WriteString(&txt_cd, size_of(txt_cd));
 	Console.WriteLine(pathPtr, pathLen);
-	HFS_ChangeDirectory(pathPtr, pathLen);
+	HFS.ChangeDirectory(pathPtr, pathLen);
 	return;
 }
 
-private uint IsCD(uint ptrIn)
+private static uint IsCD(uint ptrIn)
 {
 	return CMD_IsCommand(&cmd_fprint, size_of(cmd_fprint), ptrIn);
 }
 
-public void RegisterHFSChangeDir()
+public static void RegisterHFSChangeDir()
 {
 	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	Console.WriteString(&txt_reg, size_of(txt_reg));

@@ -2,33 +2,33 @@
 private static string str_ret_val_fail= "Return value is not 5";
 private static string str_test_name=  "Void1ArgsTest";
 
-private void Test(uint arg1)
+private static void Test(uint arg1)
 {
 	if(arg1 != 5)
 	{
-		FailTest(ptr_of(str_ret_val_fail), size_of(str_ret_val_fail));
+		Tests.Fail(ptr_of(str_ret_val_fail), size_of(str_ret_val_fail));
 	}
 	return;
 }
 
-private void VoidV1ArgsTest()
+private static void VoidV1ArgsTest()
 {
-	BeginTest(ptr_of(str_test_name), size_of(str_test_name));
+	Tests.Begin(ptr_of(str_test_name), size_of(str_test_name));
 	uint ar = 5;
 	Test(ar);
-	PassTest();
+	Tests.Pass();
 	return;
 }
 
-private void VoidC1ArgsTest()
+private static void VoidC1ArgsTest()
 {
-	BeginTest(ptr_of(str_test_name), size_of(str_test_name));
+	Tests.Begin(ptr_of(str_test_name), size_of(str_test_name));
 	Test(5);
-	PassTest();
+	Tests.Pass();
 	return;
 }
 
-public void Void1ArgsTest()
+public static void Void1ArgsTest()
 {
 	VoidC1ArgsTest();
 	VoidV1ArgsTest();

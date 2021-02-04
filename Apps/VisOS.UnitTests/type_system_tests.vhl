@@ -4,7 +4,7 @@
 #include "type_system/function_1arg_test.vhl"
 #include "type_system/function_2arg_test.vhl"
 
-public void RunTypeSystemTests()
+public static void RunTypeSystemTests()
 {
 	TestSingleField();
 	TestMultiField();

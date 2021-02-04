@@ -4,22 +4,22 @@
 #include "../utils/memory.vhl"
 #include "../mmgr.vhl"
 
-public void CMD_CommandLoop()
+public static void CMD_CommandLoop()
 {
 	uint in_test_size = 255;
-	uint in_test = MMGR_Alloc(in_test_size);
+	uint in_test = MMGR.Alloc(in_test_size);
 	uint count;
 	uint exitLoop = 0;
 	while(!exitLoop)
 	{
-		DATA_WriteTerminalPrefix();
+		OSData.WriteTerminalPrefix();
 		count = CMD_ReadCommand(in_test, in_test_size);
 
 		uint isExit = CMD_IsExit(in_test);
 		if(isExit)
 		{
 			//exitLoop = 1;
-			MMGR_Free(in_test);
+			MMGR.Free(in_test);
 			in_test = 0;
 			return;
 		}
@@ -31,7 +31,7 @@ public void CMD_CommandLoop()
 	}
 	if(in_test)
 	{
-		MMGR_Free(in_test);
+		MMGR.Free(in_test);
 		in_test = 0;
 	}
 	return;

@@ -7,13 +7,13 @@ private static string test_ptr_fail= "Pointers of fields do not match pattern fi
 
 class TestClass
 {
-	public uint fieldA;
-	public uint fieldB;
+	public static uint fieldA;
+	public static uint fieldB;
 }
 
-public void TestMultiField()
+public static void TestMultiField()
 {
-	BeginTest(ptr_of(test_single_field_type), size_of(test_single_field_type));
+	Tests.Begin(ptr_of(test_single_field_type), size_of(test_single_field_type));
 	TestClass tc;
 	tc.fieldA = 4;
 	tc.fieldB = 5;
@@ -26,15 +26,15 @@ public void TestMultiField()
 			uint ptrB = ptr_of(tc) + offset_of(TestClass, fieldB);
 			if(ptrA == ptrB - 1)
 			{
-				PassTest();
+				Tests.Pass();
 				return;
 			}
 
-			FailTest(ptr_of(test_ptr_fail), size_of(test_ptr_fail));
+			Tests.Fail(ptr_of(test_ptr_fail), size_of(test_ptr_fail));
 			return;
 		}
 		
 	}
-	FailTest(ptr_of(test_generic_fail), size_of(test_generic_fail));
+	Tests.Fail(ptr_of(test_generic_fail), size_of(test_generic_fail));
 	return;
 }

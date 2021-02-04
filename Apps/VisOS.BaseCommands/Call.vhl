@@ -5,21 +5,21 @@ private static string cmd_call= "call";
 private static string txt_reg= "Registering Command: ";
 private static string DEBUG_TAG= "[CALL] ";
 
-private uint IsCall(uint ptrIn)
+private static uint IsCall(uint ptrIn)
 {
 	return CMD_IsCommand(&cmd_call, size_of(cmd_call), ptrIn);
 }
 
-private void CallCommand(uint argStart, uint argLength)
+private static void CallCommand(uint argStart, uint argLength)
 {
-	uint addr = STR_ParseNumber(argStart, argLength);
+	uint addr = String.ParseNumber(argStart, argLength);
 
 	addr();
 
 	return;
 }
 
-public void RegisterCall()
+public static void RegisterCall()
 {
 	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	Console.WriteString(&txt_reg, size_of(txt_reg));

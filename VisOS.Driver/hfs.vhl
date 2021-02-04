@@ -1,7 +1,7 @@
 #import "vasm-bridge HLT"
 #import "vasm-bridge BRK"
 
-#include "cout.vhl"
+#include "console.vhl"
 
 private static string HFS_TXT_PATCH_LEN1 = "Patching ";
 private static string HFS_TXT_PATCH_LEN2 = " indices";
@@ -34,246 +34,246 @@ private const uint HFS_GET_FILES = 0x0A;
 private const uint HFS_FILE_EXIST = 0x0B;
 private const uint HFS_LOAD_SYMBOLS = 0x0C;
 
-
-
-
-public uint HFS_GetStatus()
+public class HFS
 {
-	uint v = HFS_ADDRESS_PRESENT;
-	if(!v)
+	public static uint GetStatus()
 	{
-		return 0;
+		uint v = HFS_ADDRESS_PRESENT;
+		if(!v)
+		{
+			return 0;
+		}
+		v = HFS_ADDRESS_STATUS;
+		return v;
 	}
-	v = HFS_ADDRESS_STATUS;
-	return v;
-}
 
-public uint HFS_FileReadByte()
-{
-	uint v = HFS_ADDRESS_DATA;
-	return v;
-}
-
-public void HFS_FileWriteByte(uint data)
-{
-	HFS_ADDRESS_DATA = data;
-	return;
-}
-
-private void HFS_SetCommand(uint command)
-{
-	uint v = HFS_GetStatus();
-	if(!v)
+	public static uint FileReadByte()
 	{
+		uint v = HFS_ADDRESS_DATA;
+		return v;
+	}
+
+	public static void FileWriteByte(uint data)
+	{
+		HFS_ADDRESS_DATA = data;
 		return;
 	}
-	HFS_ADDRESS_CMD = command;
-	return;
-}
 
-private void HFS_WriteData(uint data, uint length)
-{
-	uint v = HFS_GetStatus();
-	if(!v)
+	private static void  SetCommand(uint command)
 	{
+		uint v = HFS.GetStatus();
+		if(!v)
+		{
+			return;
+		}
+		HFS_ADDRESS_CMD = command;
 		return;
 	}
-	uint i = 0;
-	while(i < length)
-	{
-		uint d = data[i];
-		HFS_FileWriteByte(d);
-		i++;
-	}
-	return;
-}
 
-private void HFS_ReadData(uint data, uint length)
-{
-	uint v = HFS_GetStatus();
-	if(!v)
+	private static void WriteData(uint data, uint length)
 	{
+		uint v = HFS.GetStatus();
+		if(!v)
+		{
+			return;
+		}
+		uint i = 0;
+		while(i < length)
+		{
+			uint d = data[i];
+			HFS.FileWriteByte(d);
+			i++;
+		}
 		return;
 	}
-	uint i = 0;
-	while(i < length)
+
+	private static void ReadData(uint data, uint length)
 	{
-		data[i] = HFS_FileReadByte();
-		i++;
-	}
-	return;
-}
-
-
-public uint HFS_GetFileSize(uint path, uint pathLen)
-{
-	HFS_WriteData(path, pathLen);
-	HFS_SetCommand( &HFS_FILE_SIZE );
-	return HFS_FileReadByte();
-}
-
-private void HFS_LoadSymbols(uint path, uint pathLen)
-{
-	HFS_WriteData(path, pathLen);
-	HFS_SetCommand( &HFS_LOAD_SYMBOLS );
-	return;
-}
-
-public uint HFS_FileExists(uint path, uint pathLen)
-{
-	HFS_WriteData(path, pathLen);
-	HFS_SetCommand( &HFS_FILE_EXIST);
-	return HFS_FileReadByte();
-}
-
-public void HFS_FileOpenRead(uint path, uint pathLen)
-{
-	HFS_WriteData(path, pathLen);
-	HFS_SetCommand( &HFS_OPEN_READ );
-	return;
-}
-
-public void HFS_FileOpenWrite(uint path, uint pathLen)
-{
-	HFS_WriteData(path, pathLen);
-	HFS_SetCommand( &HFS_OPEN_WRITE );
-	return;
-}
-
-public void HFS_FileClose()
-{
-	HFS_SetCommand( &HFS_CLOSE );
-	return;
-}
-
-public void HFS_WriteAllData(uint path, uint pathLen, uint data, uint dataLen)
-{
-	HFS_WriteData(path, pathLen);
-	HFS_SetCommand( &HFS_OPEN_WRITE );
-	HFS_WriteData(data, dataLen);
-	HFS_SetCommand( &HFS_CLOSE );
-	return;
-}
-
-public void HFS_ChangeDirectory(uint path, uint pathLen)
-{
-	HFS_WriteData(path, pathLen);
-	HFS_SetCommand( &HFS_CHANGE_DIR);
-	return;
-}
-
-public void HFS_CreateDirectory(uint path, uint pathLen)
-{
-	HFS_WriteData(path, pathLen);
-	HFS_SetCommand( &HFS_MAKE_DIR);
-	return;
-}
-
-public void HFS_DeleteFile(uint path, uint pathLen)
-{
-	HFS_WriteData(path, pathLen);
-	HFS_SetCommand( &HFS_FILE_DELETE );
-	return;
-}
-
-public void HFS_ReadAllData(uint path, uint pathLen, uint data, uint dataLen)
-{
-	HFS_WriteData(path, pathLen);
-	HFS_SetCommand( &HFS_OPEN_READ );
-	HFS_ReadData(data, dataLen);
-	HFS_SetCommand( &HFS_CLOSE );
-	return;
-}
-
-
-private uint HFS_LoadBinaryV2(uint length)
-{
-	uint data = HFS_ADDRESS_DATA; //Read first value(the start pointer)
-
-	uint unused = HFS_ADDRESS_DATA; //Read Unused Byte (Should be 0)
-
-	length = length - 4;
-
-	uint i = 0;
-	while(i < length)
-	{
-		data[i] = HFS_ADDRESS_DATA;
-		i++;
-	}
-	HFS_SetCommand( &HFS_CLOSE );
-	return data;
-}
-
-public uint HFS_LoadBinaryV3(uint destinationAddr, uint length)
-{
-	uint listLength = HFS_ADDRESS_DATA; //Read List Length
-
-
-	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	Console.WriteString(&HFS_TXT_PATCH_LEN1, size_of(HFS_TXT_PATCH_LEN1));
-	Console.WriteNumber(listLength);
-	Console.WriteLine(&HFS_TXT_PATCH_LEN2, size_of(HFS_TXT_PATCH_LEN2));
-
-	uint unused = HFS_ADDRESS_DATA; //Read Unused Byte (Should be 0)
-
-	length -= 4;
-	length -= listLength;
-
-	for(uint i = 0; i < listLength; i++)
-	{
-		uint index = HFS_ADDRESS_DATA;
-		destinationAddr[index] = destinationAddr;
+		uint v = HFS.GetStatus();
+		if(!v)
+		{
+			return;
+		}
+		uint i = 0;
+		while(i < length)
+		{
+			data[i] = HFS.FileReadByte();
+			i++;
+		}
+		return;
 	}
 
-	for(uint i = 0; i < length; i++)
+
+	public static uint GetFileSize(uint path, uint pathLen)
 	{
-		uint val = destinationAddr[i];
-
-		uint newVal = val + HFS_ADDRESS_DATA;
-
-		destinationAddr[i] = newVal;
+		HFS.WriteData(path, pathLen);
+		HFS.SetCommand( &HFS_FILE_SIZE );
+		return HFS.FileReadByte();
 	}
 
-	HFS_SetCommand( &HFS_CLOSE );
-
-	return destinationAddr;
-}
-
-
-public uint HFS_LoadBinary(uint path, uint pathLen)
-{
-	HFS_WriteData(path, pathLen);
-	HFS_SetCommand( &HFS_FILE_SIZE );
-	uint length = HFS_ADDRESS_DATA; //Get Size
-
-	HFS_WriteData(path, pathLen);
-	HFS_SetCommand( &HFS_OPEN_READ );
-	
-	uint nop = HFS_ADDRESS_DATA; //Read First Byte (Allways 0)
-
-	uint version = HFS_ADDRESS_DATA; //Read Version Byte (V1 = 1)
-
-	uint retVal = 0;
-
-	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	Console.WriteString(&HFS_TXT_VERSION, size_of(HFS_TXT_VERSION));
-	Console.WriteNumber(version);
-	Console.WriteNewLine();
-
-	if(version == 1)
+	private static void LoadSymbols(uint path, uint pathLen)
 	{
-		retVal = HFS_LoadBinaryV2(length);
-		HFS_LoadSymbols(path, pathLen);
+		HFS.WriteData(path, pathLen);
+		HFS.SetCommand( &HFS_LOAD_SYMBOLS );
+		return;
 	}
-	else if(version == 2)
+
+	public static uint FileExists(uint path, uint pathLen)
 	{
+		HFS.WriteData(path, pathLen);
+		HFS.SetCommand( &HFS_FILE_EXIST);
+		return HFS.FileReadByte();
+	}
+
+	public static void FileOpenRead(uint path, uint pathLen)
+	{
+		HFS.WriteData(path, pathLen);
+		HFS.SetCommand( &HFS_OPEN_READ );
+		return;
+	}
+
+	public static void FileOpenWrite(uint path, uint pathLen)
+	{
+		HFS.WriteData(path, pathLen);
+		HFS.SetCommand( &HFS_OPEN_WRITE );
+		return;
+	}
+
+	public static void FileClose()
+	{
+		HFS.SetCommand( &HFS_CLOSE );
+		return;
+	}
+
+	public static void WriteAllData(uint path, uint pathLen, uint data, uint dataLen)
+	{
+		HFS.WriteData(path, pathLen);
+		HFS.SetCommand( &HFS_OPEN_WRITE );
+		HFS.WriteData(data, dataLen);
+		HFS.SetCommand( &HFS_CLOSE );
+		return;
+	}
+
+	public static void ChangeDirectory(uint path, uint pathLen)
+	{
+		HFS.WriteData(path, pathLen);
+		HFS.SetCommand( &HFS_CHANGE_DIR);
+		return;
+	}
+
+	public static void CreateDirectory(uint path, uint pathLen)
+	{
+		HFS.WriteData(path, pathLen);
+		HFS.SetCommand( &HFS_MAKE_DIR);
+		return;
+	}
+
+	public static void DeleteFile(uint path, uint pathLen)
+	{
+		HFS.WriteData(path, pathLen);
+		HFS.SetCommand( &HFS_FILE_DELETE );
+		return;
+	}
+
+	public static void ReadAllData(uint path, uint pathLen, uint data, uint dataLen)
+	{
+		HFS.WriteData(path, pathLen);
+		HFS.SetCommand( &HFS_OPEN_READ );
+		HFS.ReadData(data, dataLen);
+		HFS.SetCommand( &HFS_CLOSE );
+		return;
+	}
+
+
+	private static uint LoadBinaryV2(uint length)
+	{
+		uint data = HFS_ADDRESS_DATA; //Read first value(the start pointer)
+
+		uint unused = HFS_ADDRESS_DATA; //Read Unused Byte (Should be 0)
+
+		length = length - 4;
+
+		uint i = 0;
+		while(i < length)
+		{
+			data[i] = HFS_ADDRESS_DATA;
+			i++;
+		}
+		HFS.SetCommand( &HFS_CLOSE );
+		return data;
+	}
+
+	public static uint LoadBinaryV3(uint destinationAddr, uint length)
+	{
+		uint listLength = HFS_ADDRESS_DATA; //Read List Length
+
+
 		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-		Console.WriteLine(&HFS_TXT_SYMBOLS_NOT_SUPPORTED, size_of(HFS_TXT_SYMBOLS_NOT_SUPPORTED));
-		retVal = HFS_LoadBinaryV3(60000, length);
+		Console.WriteString(&HFS_TXT_PATCH_LEN1, size_of(HFS_TXT_PATCH_LEN1));
+		Console.WriteNumber(listLength);
+		Console.WriteLine(&HFS_TXT_PATCH_LEN2, size_of(HFS_TXT_PATCH_LEN2));
+
+		uint unused = HFS_ADDRESS_DATA; //Read Unused Byte (Should be 0)
+
+		length -= 4;
+		length -= listLength;
+
+		for(uint i = 0; i < listLength; i++)
+		{
+			uint index = HFS_ADDRESS_DATA;
+			destinationAddr[index] = destinationAddr;
+		}
+
+		for(uint i = 0; i < length; i++)
+		{
+			uint val = destinationAddr[i];
+
+			uint newVal = val + HFS_ADDRESS_DATA;
+
+			destinationAddr[i] = newVal;
+		}
+
+		HFS.SetCommand( &HFS_CLOSE );
+
+		return destinationAddr;
 	}
-	else
+
+
+	public static uint LoadBinary(uint path, uint pathLen)
 	{
-		interrupt(0);
-	}
-	return retVal;
+		HFS.WriteData(path, pathLen);
+		HFS.SetCommand( &HFS_FILE_SIZE );
+		uint length = HFS_ADDRESS_DATA; //Get Size
+
+		HFS.WriteData(path, pathLen);
+		HFS.SetCommand( &HFS_OPEN_READ );
+		
+		uint nop = HFS_ADDRESS_DATA; //Read First Byte (Allways 0)
+
+		uint version = HFS_ADDRESS_DATA; //Read Version Byte (V1 = 1)
+
+		uint retVal = 0;
+
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteString(&HFS_TXT_VERSION, size_of(HFS_TXT_VERSION));
+		Console.WriteNumber(version);
+		Console.WriteNewLine();
+
+		if(version == 1)
+		{
+			retVal = HFS.LoadBinaryV2(length);
+			HFS.LoadSymbols(path, pathLen);
+		}
+		else if(version == 2)
+		{
+			Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+			Console.WriteLine(&HFS_TXT_SYMBOLS_NOT_SUPPORTED, size_of(HFS_TXT_SYMBOLS_NOT_SUPPORTED));
+			retVal = HFS.LoadBinaryV3(60000, length);
+		}
+		else
+		{
+			interrupt(0);
+		}
+		return retVal;
+	}	
 }

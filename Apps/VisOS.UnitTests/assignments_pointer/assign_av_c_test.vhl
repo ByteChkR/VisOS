@@ -5,22 +5,22 @@ private static string test_assignment_fail= "Assignment b[a] = 1 Failed.";
 
 uint bArray[10];
 
-private void Assign_ArrayV_C_Simple_Test(uint b)
+private static void Assign_ArrayV_C_Simple_Test(uint b)
 {
-	BeginTest(ptr_of(test_arrayV_add_c), size_of(test_arrayV_add_c));
+	Tests.Begin(ptr_of(test_arrayV_add_c), size_of(test_arrayV_add_c));
 	uint a = 5;
 	b[a] = 1;
 	if(b[a] == 1)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_assignment_fail), size_of(test_assignment_fail));
+	Tests.Fail(ptr_of(test_assignment_fail), size_of(test_assignment_fail));
 	return;
 }
 
 Assign_ArrayV_C_Simple_Test(ptr_of(bArray));
-public void PtrRunAssign_ArrayV_C_Simple_Test()
+public static void PtrRunAssign_ArrayV_C_Simple_Test()
 {
 	Assign_ArrayV_C_Simple_Test(ptr_of(bArray));
 	return;

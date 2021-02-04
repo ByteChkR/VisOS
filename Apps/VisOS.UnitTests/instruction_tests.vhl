@@ -4,7 +4,7 @@
 #include "instructions/DIV_Tests.vhl"
 #include "instructions/MOD_Tests.vhl"
 
-public void RunInstructionTests()
+public static void RunInstructionTests()
 {
 	Run_ADD_Tests();
 	Run_SUB_Tests();

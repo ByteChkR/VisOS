@@ -1,7 +1,7 @@
 uint funcList;
 uint funcListSize;
 
-#include "../VisOS.Driver/cout.vhl"
+#include "../VisOS.Driver/console.vhl"
 #include "../utils/memory.vhl"
 #include "../mmgr.vhl"
 
@@ -11,28 +11,28 @@ string(txt_invoke, "Running Command: ");
 string(txt_found, "Found Command: ");
 string(txt_not_found, "Could not find Command.");
 
-public void CMD_InitCommandList()
+public static void CMD_InitCommandList()
 {
 	funcListSize = 512;
 	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	Console.WriteLine( &txt_init, size_of(txt_init));
 	if(funcList)
 	{
-		MMGR_Free(funcList);
+		MMGR.Free(funcList);
 	}
-	funcList = MMGR_Alloc(funcListSize);
-	MEM_Set( funcList, funcListSize, 0);
+	funcList = MMGR.Alloc(funcListSize);
+	Memory.Set( funcList, funcListSize, 0);
 	return;
 }
 
-public void CMD_UnloadCommandList()
+public static void CMD_UnloadCommandList()
 {
-	MMGR_Free(funcList);
+	MMGR.Free(funcList);
 	funcList = 0;
 	return;
 }
 
-private uint FindCommand(uint cmdPtr)
+private static uint FindCommand(uint cmdPtr)
 {
 	
 	uint current = 0;
@@ -56,7 +56,7 @@ private uint FindCommand(uint cmdPtr)
 	return 0;
 }
 
-public void CMD_InsertCommand(uint funcPtr, uint checkPtr)
+public static void CMD_InsertCommand(uint funcPtr, uint checkPtr)
 {
 	uint current = 0;
 	while(current < funcListSize)
@@ -74,7 +74,7 @@ public void CMD_InsertCommand(uint funcPtr, uint checkPtr)
 	return;
 }
 
-public void CMD_InvokeCommand(uint cmdPtr, uint cmdLen)
+public static void CMD_InvokeCommand(uint cmdPtr, uint cmdLen)
 {
 	uint cmdIndex = FindCommand(cmdPtr);
 	if(cmdIndex)
@@ -86,7 +86,7 @@ public void CMD_InvokeCommand(uint cmdPtr, uint cmdLen)
 		Console.WriteNumber(ptr);
 		Console.WriteNewLine();
 
-		uint argStart = MEM_FirstIndex(cmdPtr, 255, 0x20);
+		uint argStart = Memory.FirstIndex(cmdPtr, 255, 0x20);
 		uint sta = argStart+1;
 
 		ptr(cmdPtr+sta, cmdLen - sta);

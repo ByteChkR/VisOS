@@ -4,17 +4,17 @@ private static string cmd_echo= "echo";
 private static string txt_reg= "Registering Command: ";
 private static string DEBUG_TAG= "[ECHO] ";
 
-private uint IsEcho(uint ptrIn)
+private static uint IsEcho(uint ptrIn)
 {
 	return CMD_IsCommand(&cmd_echo, size_of(cmd_echo), ptrIn);
 }
 
-private void EchoCommand(uint argStart, uint argLength)
+private static void EchoCommand(uint argStart, uint argLength)
 {
 	Console.WriteLine(argStart, argLength);
 }
 
-public void RegisterEcho()
+public static void RegisterEcho()
 {
 	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	Console.WriteString(&txt_reg, size_of(txt_reg));

@@ -4,18 +4,18 @@ private static string cmd_clear= "clear";
 private static string txt_reg= "Registering Command: ";
 private static string DEBUG_TAG= "[CLEAR] ";
 
-private uint IsClear(uint ptrIn)
+private static uint IsClear(uint ptrIn)
 {
 	return CMD_IsCommand(&cmd_clear, size_of(cmd_clear), ptrIn);
 }
 
-private void ClearCommand(uint argStart, uint argLength)
+private static void ClearCommand(uint argStart, uint argLength)
 {
 	Console.Clear();
 	return;
 }
 
-public void RegisterClear()
+public static void RegisterClear()
 {
 	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	Console.WriteString(&txt_reg, size_of(txt_reg));

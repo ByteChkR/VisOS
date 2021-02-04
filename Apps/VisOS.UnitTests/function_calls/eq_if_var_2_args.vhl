@@ -4,20 +4,20 @@ private static string str_ret_v_val_fail= "V:Return value is not 5";
 private static string str_ret_c_val_fail= "C:Return value is not 5";
 private static string str_test_name= "EqIfVar2ArgsTest";
 
-private uint TestC(uint arg1, uint arg2)
+private static uint TestC(uint arg1, uint arg2)
 {
 	return arg1 + arg2;
 }
 
-private uint TestV(uint arg1, uint arg2)
+private static uint TestV(uint arg1, uint arg2)
 {
 	uint b = arg1 + arg2;
 	return b;
 }
 
-public void EqIfVar2ArgsTest()
+public static void EqIfVar2ArgsTest()
 {
-	BeginTest(ptr_of(str_test_name), size_of(str_test_name));
+	Tests.Begin(ptr_of(str_test_name), size_of(str_test_name));
 
 	if(1 == (TestC(3,2) == 5))
 	{
@@ -25,13 +25,13 @@ public void EqIfVar2ArgsTest()
 		uint y = 3;
 		if(1 == (TestV(x,y) == 5))
 		{
-			PassTest();
+			Tests.Pass();
 			return;
 		}
-		FailTest(ptr_of(str_ret_v_val_fail), size_of(str_ret_v_val_fail));
+		Tests.Fail(ptr_of(str_ret_v_val_fail), size_of(str_ret_v_val_fail));
 		return;
 	}
-	FailTest(ptr_of(str_ret_c_val_fail), size_of(str_ret_c_val_fail));
+	Tests.Fail(ptr_of(str_ret_c_val_fail), size_of(str_ret_c_val_fail));
 	return;
 }
 

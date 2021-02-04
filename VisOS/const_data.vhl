@@ -1,6 +1,5 @@
-#include "VisOS.Driver/cout.vhl"
+#include "VisOS.Driver/console.vhl"
 #include "utils/memory.vhl"
-#include "VisOS.Driver/cin.vhl"
 
 string(DEBUG_TAG, "[CORE] ");
 string(str_version, "v0.1");
@@ -10,41 +9,43 @@ string(str_fatal_error, "A fatal error occurred, the Virtual Machine has to be s
 
 string(cmd_exit_mesg, "Exiting..");
 
-public void DATA_WriteOSHeader()
+public class OSData
 {
-	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	Console.WriteString(&str_name, size_of(str_name));
-	Console.Write(0x20);
-	Console.WriteLine(&str_version, size_of(str_version));
-	Console.WriteNewLine();
-	return;
+	public static void WriteOSHeader()
+	{
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteString(&str_name, size_of(str_name));
+		Console.Write(0x20);
+		Console.WriteLine(&str_version, size_of(str_version));
+		Console.WriteNewLine();
+		return;
+	}
+
+	public static void WriteOSName()
+	{
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteLine(&str_name, size_of(str_name));
+		return;
+	}
+
+	public static void WriteOSVersion()
+	{
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteLine(&str_version, size_of(str_version));
+		return;
+	}
+
+	public static void WriteTerminalPrefix()
+	{
+		Console.WriteString(&str_term_prefix, size_of(str_term_prefix));
+		return;
+	}
+
+
+	public static void WriteExitMessage()
+	{
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteLine(&cmd_exit_mesg, size_of(cmd_exit_mesg));
+		return;
+	}	
 }
-
-public void DATA_WriteOSName()
-{
-	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	Console.WriteLine(&str_name, size_of(str_name));
-	return;
-}
-
-public void DATA_WriteOSVersion()
-{
-	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	Console.WriteLine(&str_version, size_of(str_version));
-	return;
-}
-
-public void DATA_WriteTerminalPrefix()
-{
-	Console.WriteString(&str_term_prefix, size_of(str_term_prefix));
-	return;
-}
-
-
-public void DATA_WriteExitMessage()
-{
-	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	Console.WriteLine(&cmd_exit_mesg, size_of(cmd_exit_mesg));
-	return;
-}
-

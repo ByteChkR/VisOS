@@ -12,136 +12,136 @@ private static string test_first_eval_fail="First if Triggered but should be els
 private static string test_second_eval_fail="Second if Triggered but should be else.";
 private static string test_fallthrough_fail="The Test did not enter the If blocks at all.";
 
-private void TestIfIfElseIf_V()
+private static void TestIfIfElseIf_V()
 {
-	BeginTest(ptr_of(test_if_if_else_if_v), size_of(test_if_if_else_if_v));
+	Tests.Begin(ptr_of(test_if_if_else_if_v), size_of(test_if_if_else_if_v));
 	uint a = 0;
 	uint b = 1;
 	if(a)
 	{
-		FailTest(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
+		Tests.Fail(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
 		return;
 	}
 	else if(!b)
 	{
-		FailTest(ptr_of(test_second_eval_fail), size_of(test_second_eval_fail));
+		Tests.Fail(ptr_of(test_second_eval_fail), size_of(test_second_eval_fail));
 		return;
 	}
 	else
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
 	
-	FailTest(ptr_of(test_fallthrough_fail), size_of(test_fallthrough_fail));
+	Tests.Fail(ptr_of(test_fallthrough_fail), size_of(test_fallthrough_fail));
 	return;
 }
 
 
-private void TestIfIfElseIf_C()
+private static void TestIfIfElseIf_C()
 {
-	BeginTest(ptr_of(test_if_if_else_if_c), size_of(test_if_if_else_if_c));
+	Tests.Begin(ptr_of(test_if_if_else_if_c), size_of(test_if_if_else_if_c));
 	uint b = 1;
 	if(0)
 	{
-		FailTest(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
+		Tests.Fail(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
 		return;
 	}
 	else if(!b)
 	{
-		FailTest(ptr_of(test_second_eval_fail), size_of(test_second_eval_fail));
+		Tests.Fail(ptr_of(test_second_eval_fail), size_of(test_second_eval_fail));
 		return;
 	}
 	else
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
 	
-	FailTest(ptr_of(test_fallthrough_fail), size_of(test_fallthrough_fail));
+	Tests.Fail(ptr_of(test_fallthrough_fail), size_of(test_fallthrough_fail));
 	return;
 }
 
-private void TestIfIfElseIf_VC()
+private static void TestIfIfElseIf_VC()
 {
-	BeginTest(ptr_of(test_if_if_else_if_vc), size_of(test_if_if_else_if_vc));
+	Tests.Begin(ptr_of(test_if_if_else_if_vc), size_of(test_if_if_else_if_vc));
 	uint a = 0;
 	uint b = 1;
 	if(a == 1)
 	{
-		FailTest(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
+		Tests.Fail(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
 		return;
 	}
 	else if(!b)
 	{
-		FailTest(ptr_of(test_second_eval_fail), size_of(test_second_eval_fail));
+		Tests.Fail(ptr_of(test_second_eval_fail), size_of(test_second_eval_fail));
 		return;
 	}
 	else
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
 	
-	FailTest(ptr_of(test_fallthrough_fail), size_of(test_fallthrough_fail));
+	Tests.Fail(ptr_of(test_fallthrough_fail), size_of(test_fallthrough_fail));
 	return;
 }
 
 
-private void TestIfIfElseIf_CV()
+private static void TestIfIfElseIf_CV()
 {
-	BeginTest(ptr_of(test_if_if_else_if_cv), size_of(test_if_if_else_if_cv));
+	Tests.Begin(ptr_of(test_if_if_else_if_cv), size_of(test_if_if_else_if_cv));
 	uint a = 0;
 	uint b = 1;
 	if(1 == a)
 	{
-		FailTest(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
+		Tests.Fail(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
 		return;
 	}
 	else if(!b)
 	{
-		FailTest(ptr_of(test_second_eval_fail), size_of(test_second_eval_fail));
+		Tests.Fail(ptr_of(test_second_eval_fail), size_of(test_second_eval_fail));
 		return;
 	}
 	else
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
 	
-	FailTest(ptr_of(test_fallthrough_fail), size_of(test_fallthrough_fail));
+	Tests.Fail(ptr_of(test_fallthrough_fail), size_of(test_fallthrough_fail));
 	return;
 }
 
 
-private void TestIfIfElseIf_CC()
+private static void TestIfIfElseIf_CC()
 {
-	BeginTest(ptr_of(test_if_if_else_if_cc), size_of(test_if_if_else_if_cc));
+	Tests.Begin(ptr_of(test_if_if_else_if_cc), size_of(test_if_if_else_if_cc));
 	uint b = 1;
 	if(0 == 1)
 	{
-		FailTest(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
+		Tests.Fail(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
 		return;
 	}
 	else if(!b)
 	{
-		FailTest(ptr_of(test_second_eval_fail), size_of(test_second_eval_fail));
+		Tests.Fail(ptr_of(test_second_eval_fail), size_of(test_second_eval_fail));
 		return;
 	}
 	else
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
 	
-	FailTest(ptr_of(test_fallthrough_fail), size_of(test_fallthrough_fail));
+	Tests.Fail(ptr_of(test_fallthrough_fail), size_of(test_fallthrough_fail));
 	return;
 }
 
 
-private void TestIfIfElseIf_VV()
+private static void TestIfIfElseIf_VV()
 {
-	BeginTest(ptr_of(test_if_if_else_if_vv), size_of(test_if_if_else_if_vv));
+	Tests.Begin(ptr_of(test_if_if_else_if_vv), size_of(test_if_if_else_if_vv));
 
 	uint a = 0;
 	uint b = 1;
@@ -149,25 +149,25 @@ private void TestIfIfElseIf_VV()
 	
 	if(a == b)
 	{
-		FailTest(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
+		Tests.Fail(ptr_of(test_first_eval_fail), size_of(test_first_eval_fail));
 		return;
 	}
 	else if(!b)
 	{
-		FailTest(ptr_of(test_second_eval_fail), size_of(test_second_eval_fail));
+		Tests.Fail(ptr_of(test_second_eval_fail), size_of(test_second_eval_fail));
 		return;
 	}
 	else
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
 	
-	FailTest(ptr_of(test_fallthrough_fail), size_of(test_fallthrough_fail));
+	Tests.Fail(ptr_of(test_fallthrough_fail), size_of(test_fallthrough_fail));
 	return;
 }
 
-public void RunIfElseIfElseTests()
+public static void RunIfElseIfElseTests()
 {
 	TestIfIfElseIf_V();
 	TestIfIfElseIf_C();

@@ -1,6 +1,5 @@
 #import "vasm-bridge BRK"
-#include "../VisOS.Driver/cout.vhl"
-#include "../VisOS.Driver/cmgr.vhl"
+#include "../VisOS.Driver/console.vhl"
 
 string(txt_error_c, "Encountered Error Code: ");
 string(DEBUG_TAG, "[ERR] ");
@@ -8,22 +7,22 @@ string(txt_error_t, "Encountered Error: ");
 uint halt_on_error;
 uint break_on_error;
 
-public void _ERROR_BREAK_ENABLE(uint enable)
+public static void _ERROR_BREAK_ENABLE(uint enable)
 {
 	break_on_error = enable;
 	return;
 }
 
-public void _ERROR_HALT_ENABLE(uint enable)
+public static void _ERROR_HALT_ENABLE(uint enable)
 {
 	halt_on_error = enable;
 	return;
 }
 
-public void _ERROR_C(uint code)
+public static void _ERROR_C(uint code)
 {
 	
-	CMGR_SetForeColor(12); //Red
+	Console.SetForeColor(12); //Red
 	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	Console.WriteString(&txt_error_c, size_of(txt_error_c));
 	Console.WriteNumber(code);
@@ -40,14 +39,14 @@ public void _ERROR_C(uint code)
 	{
 		interrupt(0);
 	}
-	CMGR_ResetConsoleColor();
+	Console.ResetConsoleColor();
 	return;
 }
 
-public void _ERROR_T(uint msg, uint len)
+public static void _ERROR_T(uint msg, uint len)
 {
 
-	CMGR_SetForeColor(12); //Red
+	Console.SetForeColor(12); //Red
 	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	Console.WriteString(&txt_error_t, size_of(txt_error_t));
 	Console.WriteLine(msg, len);
@@ -63,6 +62,6 @@ public void _ERROR_T(uint msg, uint len)
 	{
 		interrupt(0);
 	}
-	CMGR_ResetConsoleColor();
+	Console.ResetConsoleColor();
 	return;
 }

@@ -9,42 +9,47 @@
 string(txt_startup, "Starting..");
 string(DEBUG_TAG, "[CORE] ");
 
-private void CORE_Startup()
+public class OS
 {
-	MMGR_ToggleDebug(1);
-	MMGR_Initialize();
-
-	DATA_WriteOSHeader();
-	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	Console.WriteLine(&txt_startup, size_of(txt_startup));
-	CMD_InitCommandList();
-	HFS_RegisterHFSRun();
-	return;
-}
-
-private void CORE_Shutdown()
-{	
-	CMD_UnloadCommandList();
-
-	DATA_WriteExitMessage();
-
-	return;
-}
-
-public void CORE_RunOS()
-{
-	//Setup Error Handler
-	_ERROR_HALT_ENABLE(1);
-	_ERROR_BREAK_ENABLE(1);
-
-	CORE_Startup();
-
-	CMD_CommandLoop();
 	
-	CORE_Shutdown();
-	
-	return;
+	private static void Startup()
+	{
+		MMGR.ToggleDebug(1);
+		MMGR.Initialize();
+
+		OSData.WriteOSHeader();
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteLine(&txt_startup, size_of(txt_startup));
+		CMD_InitCommandList();
+		HFSRunCommand.Register();
+		return;
+	}
+
+	private static void Shutdown()
+	{	
+		CMD_UnloadCommandList();
+
+		OSData.WriteExitMessage();
+
+		return;
+	}
+
+	public static void RunOS()
+	{
+		//Setup Error Handler
+		_ERROR_HALT_ENABLE(1);
+		_ERROR_BREAK_ENABLE(1);
+
+		OS.Startup();
+
+		CMD_CommandLoop();
+		
+		OS.Shutdown();
+		
+		return;
+	}
 }
 
-CORE_RunOS();
+
+OS.RunOS();
 return;

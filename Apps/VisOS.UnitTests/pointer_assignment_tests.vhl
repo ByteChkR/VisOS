@@ -8,7 +8,7 @@
 #include "assignments_pointer/assign_av_c_test.vhl"
 #include "assignments_pointer/assign_av_v_test.vhl"
 
-public void RunPointerAssignmentTests()
+public static void RunPointerAssignmentTests()
 {
 
 	PtrRunAssign_ArrayC_C_Simple_Test();

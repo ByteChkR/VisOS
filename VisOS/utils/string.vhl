@@ -3,38 +3,45 @@
 string(STR_PARSE_INVALID_INPUT_L, "Invalid Input in STR_ParseNumber input, the value is lower than expected");
 string(STR_PARSE_INVALID_INPUT_H, "Invalid Input in STR_ParseNumber input, the value is lower than expected");
 
-public uint CHR_Unpack(uint value, uint count)
+public class String
 {
-	uint mask = 0xFF;
-	value = value >> count;
-	return value & mask;
+	public static uint ParseNumber(uint ptr, uint len)
+	{
+		uint i = len;
+		uint charOffset = 0x30;
+		uint charMax = 0x39;
+		uint result = 0;
+		uint position = 1;
+		uint mul = 10;
+		while(i)
+		{
+			i--;
+
+			uint rawValue = ptr[i];
+			if(rawValue < charOffset)
+			{
+				_ERROR_T(&STR_PARSE_INVALID_INPUT_L, size_of(STR_PARSE_INVALID_INPUT_L));
+			}
+			if(rawValue > charMax)
+			{
+				_ERROR_T(&STR_PARSE_INVALID_INPUT_H, size_of(STR_PARSE_INVALID_INPUT_H));
+			}
+			uint current = rawValue - charOffset;
+		
+			result += current * position;
+			position *= mul;
+		}
+		return result;
+	}
 }
 
-public uint STR_ParseNumber(uint ptr, uint len)
+public class Char
 {
-	uint i = len;
-	uint charOffset = 0x30;
-	uint charMax = 0x39;
-	uint result = 0;
-	uint position = 1;
-	uint mul = 10;
-	while(i)
+	public static uint Unpack(uint value, uint count)
 	{
-		i--;
-
-		uint rawValue = ptr[i];
-		if(rawValue < charOffset)
-		{
-			_ERROR_T(&STR_PARSE_INVALID_INPUT_L, size_of(STR_PARSE_INVALID_INPUT_L));
-		}
-		if(rawValue > charMax)
-		{
-			_ERROR_T(&STR_PARSE_INVALID_INPUT_H, size_of(STR_PARSE_INVALID_INPUT_H));
-		}
-		uint current = rawValue - charOffset;
-	
-		result += current * position;
-		position *= mul;
+		uint mask = 0xFF;
+		value = value >> count;
+		return value & mask;
 	}
-	return result;
+
 }

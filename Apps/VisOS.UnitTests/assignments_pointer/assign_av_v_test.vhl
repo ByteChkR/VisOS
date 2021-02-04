@@ -4,25 +4,25 @@ private static string test_arrayV_add_v= "Assignment_ArrayV_V_Simple_Test";
 
 uint bArray[10];
 
-private void Assign_ArrayV_V_Simple_Test(uint b)
+private static void Assign_ArrayV_V_Simple_Test(uint b)
 {
-	BeginTest(ptr_of(test_arrayV_add_v), size_of(test_arrayV_add_v));
+	Tests.Begin(ptr_of(test_arrayV_add_v), size_of(test_arrayV_add_v));
 
 	uint a = 5;
 	uint c = 1;
 	b[a] = c;
 	if(b[a] == 1)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_assignment_fail), size_of(test_assignment_fail));
+	Tests.Fail(ptr_of(test_assignment_fail), size_of(test_assignment_fail));
 	return;
 }
 
 Assign_ArrayV_V_Simple_Test(ptr_of(bArray));
 
-public void PtrRunAssign_ArrayV_V_Simple_Test()
+public static void PtrRunAssign_ArrayV_V_Simple_Test()
 {
 	Assign_ArrayV_V_Simple_Test(ptr_of(bArray));
 	return;

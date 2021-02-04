@@ -1,8 +1,7 @@
-#include "VisOS.Driver/benchmark_device.vhl"
-
+#include "VisOS.Driver/console.vhl"
 private static string bench_is_prime= " is Prime!";
 
-public uint IsPrimeTest(uint num)
+public static uint IsPrimeTest(uint num)
 {
     if (num <= 1)
     {
@@ -23,7 +22,7 @@ public uint IsPrimeTest(uint num)
     return 1;        
 }
 
-public void RunIsPrimeBenchmark()
+public static void RunIsPrimeBenchmark()
 {
 	uint i = 0;
 	uint max = 10000;

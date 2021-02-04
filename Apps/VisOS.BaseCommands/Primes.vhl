@@ -7,18 +7,18 @@ private static string txt_prime= " is Prime!";
 private static string txt_not_prime= " is not Prime!";
 private static string DEBUG_TAG= "[PRIMES] ";
 
-private uint IsPrimes(uint ptrIn)
+private static uint IsPrimes(uint ptrIn)
 {
 	return CMD_IsCommand(&cmd_primes, size_of(cmd_primes), ptrIn);
 }
 
-private void PrimesCommand(uint argStart, uint argLength)
+private static void PrimesCommand(uint argStart, uint argLength)
 {
-	uint val = STR_ParseNumber(argStart, argLength);
+	uint val = String.ParseNumber(argStart, argLength);
 	Console.WriteString(&txt, size_of(txt));
 	Console.WriteNumber(val);
 
-	uint result = MATH_IsPrime(val);
+	uint result = Math.IsPrime(val);
 
 	if(result)
 	{
@@ -32,7 +32,7 @@ private void PrimesCommand(uint argStart, uint argLength)
 	return;
 }
 
-public void RegisterPrimes()
+public static void RegisterPrimes()
 {
 	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 	Console.WriteString(&txt_reg, size_of(txt_reg));

@@ -18,7 +18,7 @@
 #include "function_calls/eq_if_var_1_args.vhl"
 #include "function_calls/eq_if_var_2_args.vhl"
 
-public void RunFunctionCallTests()
+public static void RunFunctionCallTests()
 {
 
 	VoidNoArgsTest();

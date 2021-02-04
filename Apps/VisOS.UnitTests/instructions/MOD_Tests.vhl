@@ -7,62 +7,62 @@ private static string test_mod_vc= "MOD_VC_Simple_Test";
 
 private static string test_generic_math_fail= "Calculation Failed.";
 
-private void MOD_VV_Simple_Test()
+private static void MOD_VV_Simple_Test()
 {
-	BeginTest(ptr_of(test_mod_vv), size_of(test_mod_vv));
+	Tests.Begin(ptr_of(test_mod_vv), size_of(test_mod_vv));
 	uint a = 4;
 	uint b = 2;
 	uint c = a % b;
 	if(c == 0)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
 
-private void MOD_VC_Simple_Test()
+private static void MOD_VC_Simple_Test()
 {
-	BeginTest(ptr_of(test_mod_vc), size_of(test_mod_vc));
+	Tests.Begin(ptr_of(test_mod_vc), size_of(test_mod_vc));
 	uint a = 4;
 	uint c = a % 2;
 	if(c == 0)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
 
-private void MOD_CC_Simple_Test()
+private static void MOD_CC_Simple_Test()
 {
-	BeginTest(ptr_of(test_mod_cc), size_of(test_mod_cc));
+	Tests.Begin(ptr_of(test_mod_cc), size_of(test_mod_cc));
 	uint c = 4 % 2;
 	if(c == 0)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
 
-private void MOD_CV_Simple_Test()
+private static void MOD_CV_Simple_Test()
 {
-	BeginTest(ptr_of(test_mod_cv), size_of(test_mod_cv));
+	Tests.Begin(ptr_of(test_mod_cv), size_of(test_mod_cv));
 	uint a = 2;
 	uint c = 4 % a;
 	if(c == 0)
 	{
-		PassTest();
+		Tests.Pass();
 		return;
 	}
-	FailTest(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
+	Tests.Fail(ptr_of(test_generic_math_fail), size_of(test_generic_math_fail));
 	return;
 }
-public void Run_MOD_Tests()
+public static void Run_MOD_Tests()
 {
 	MOD_VV_Simple_Test();
 	MOD_VC_Simple_Test();

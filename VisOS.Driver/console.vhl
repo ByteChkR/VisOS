@@ -1,0 +1,255 @@
+private const uint COUT_WRITE = 0xFFFF1001; //Console Out => Write Character
+private const uint COUT_WRITE_NUM = 0xFFFF1002; //Console Out => Write Number
+private const uint C_CLEAR = 0xFFFF1005; //Console Clear
+private const uint CIN_READ = 0xFFFF1004;
+
+
+private const uint CMGR_InterfacePresentPin = 0xFFFF1006;
+private const uint CMGR_WidthAddr = 0xFFFF1007;
+private const uint CMGR_HeightAddr = 0xFFFF1008;
+
+private const uint CMGR_CursorLeftAddr = 0xFFFF1009;
+private const uint CMGR_CursorTopAddr = 0xFFFF100A;
+
+private const uint CMGR_BackColorAddr = 0xFFFF100B;
+private const uint CMGR_ForeColorAddr = 0xFFFF100C;
+private const uint CMGR_ResetColorAddr = 0xFFFF100D;
+
+
+private static string arr_sep = ", ";
+
+public class Console
+{
+	public static void Clear()
+	{
+		C_CLEAR = 1;
+	}
+
+	public static void Write(uint chr)
+	{
+		COUT_WRITE = chr;
+	}
+
+	public static void WriteString(uint str, uint len)
+	{
+		uint i = 0;
+		while(i < len)
+		{	
+			COUT_WRITE = str[i];
+			i++;
+		}
+	}
+
+	public static void WriteNumber(uint num)
+	{
+		COUT_WRITE_NUM = num;
+	}
+
+	public static void WriteNewLine()
+	{
+		COUT_WRITE = '\n';
+	}
+
+	public static void WriteLine(uint str, uint len)
+	{
+		Console.WriteString(str, len);
+		Console.WriteNewLine();
+	}
+
+	public static void WriteNumbers(uint ptr, uint len)
+	{
+		uint i = 0;
+		while(i < len)
+		{
+			COUT_WRITE_NUM = ptr[i];
+			i++;
+			Console.WriteNewLine();
+		}
+	}
+
+	public static uint Read()
+	{
+		return CIN_READ;
+	}
+
+	public static uint ReadBuffer(uint buf, uint len)
+	{
+		uint counter = 0;
+		while(counter < len)
+		{
+			uint char = Console.Read();
+			buf[counter] = char;
+			counter++;
+		}
+		return counter;
+	}
+
+
+	public static uint ReadLine(uint buf, uint len)
+	{
+		uint counter = 0;
+
+		while(counter < len)
+		{
+			uint char = Console.Read();
+			while(char == 0xD)
+			{
+				char = Console.Read();
+			}
+
+			if(char == 0xA)
+			{
+				return counter;
+			}
+		
+			buf[counter]  = char;
+			counter = counter++;
+		}
+		return counter;
+	}
+
+	public static void ResetConsoleColor()
+	{
+		if(!CMGR_InterfacePresentPin)
+		{
+			return;
+		}
+		CMGR_ResetColorAddr = 1;
+		return;
+	}
+
+	public static void SetBackColor(uint color)
+	{
+		if(!CMGR_InterfacePresentPin)
+		{
+			return;
+		}
+		CMGR_BackColorAddr = color;
+		return;
+	}
+
+	public static void SetForeColor(uint color)
+	{
+		if(!CMGR_InterfacePresentPin)
+		{
+			return;
+		}
+		CMGR_ForeColorAddr = color;
+		return;
+	}
+
+	public static void SetConsoleColor(uint fore, uint back)
+	{
+		Console.SetForeColor(fore);
+		Console.SetBackColor(back);
+		return;
+	}
+
+	public static void SetCursorLeft(uint left)
+	{
+		if(!CMGR_InterfacePresentPin)
+		{
+			return;
+		}
+		CMGR_CursorLeftAddr = left;
+		return;
+	}
+
+	public static void SetCursorTop(uint top)
+	{
+		if(!CMGR_InterfacePresentPin)
+		{
+			return;
+		}
+		CMGR_CursorTopAddr = top;
+		return;
+	}
+
+	public static void SetCursorPosition(uint left, uint top)
+	{
+		Console.SetCursorLeft(left);
+		Console.SetCursorTop(top);
+	}
+
+	public static void SetConsoleWidth(uint width)
+	{
+		if(!CMGR_InterfacePresentPin)
+		{
+			return;
+		}
+		CMGR_WidthAddr = width;
+		return;
+	}
+
+	public static void SetConsoleHeight(uint height)
+	{
+		if(!CMGR_InterfacePresentPin)
+		{
+			return;
+		}
+		CMGR_HeightAddr = height;
+		return;
+	}
+
+	public static void SetConsoleSize(uint width, uint height)
+	{
+		Console.SetConsoleWidth(width);
+		Console.SetConsoleHeight(height);
+		return;
+	}
+
+	public static uint GetBackColor()
+	{
+		if(!CMGR_InterfacePresentPin)
+		{
+			return 0;
+		}
+		return CMGR_BackColorAddr;
+	}
+
+	public static uint GetForeColor()
+	{
+		if(!CMGR_InterfacePresentPin)
+		{
+			return 0;
+		}
+		return CMGR_ForeColorAddr;
+	}
+
+	public static uint GetCursorLeft()
+	{
+		if(!CMGR_InterfacePresentPin)
+		{
+			return 0;
+		}
+		return CMGR_CursorLeftAddr;
+	}
+
+	public static uint GetCursorTop()
+	{
+		if(!CMGR_InterfacePresentPin)
+		{
+			return 0;
+		}
+		return CMGR_CursorTopAddr;
+	}
+
+
+	public static uint GetConsoleWidth()
+	{
+		if(!CMGR_InterfacePresentPin)
+		{
+			return 0;
+		}
+		return CMGR_WidthAddr;
+	}
+
+	public static uint GetConsoleHeight()
+	{
+		if(!CMGR_InterfacePresentPin)
+		{
+			return 0;
+		}
+		return CMGR_HeightAddr;
+	}
+}

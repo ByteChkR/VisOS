@@ -2,21 +2,21 @@
 private static string str_ret_val_fail= "Return value is not 5";
 private static string str_test_name=  "Var2ArgsTest";
 
-private uint TestC(uint arg1, uint arg2)
+private static uint TestC(uint arg1, uint arg2)
 {
 	return arg1 + arg2;
 }
 
-private uint TestV(uint arg1, uint arg2)
+private static uint TestV(uint arg1, uint arg2)
 {
 	uint b = arg1;
 	uint c = arg2;
 	return b + c;
 }
 
-private void VarV2ArgsTest()
+private static void VarV2ArgsTest()
 {
-	BeginTest(ptr_of(str_test_name), size_of(str_test_name));
+	Tests.Begin(ptr_of(str_test_name), size_of(str_test_name));
 	uint ar = 3;
 	uint br = 2;
 	uint a = TestC(ar,br);
@@ -25,32 +25,32 @@ private void VarV2ArgsTest()
 		uint c = TestV(ar,br);
 		if(c == 5)
 		{
-			PassTest();
+			Tests.Pass();
 			return;
 		}
 	}
-	FailTest(ptr_of(str_ret_val_fail), size_of(str_ret_val_fail));
+	Tests.Fail(ptr_of(str_ret_val_fail), size_of(str_ret_val_fail));
 	return;
 }
 
-private void VarC2ArgsTest()
+private static void VarC2ArgsTest()
 {
-	BeginTest(ptr_of(str_test_name), size_of(str_test_name));
+	Tests.Begin(ptr_of(str_test_name), size_of(str_test_name));
 	uint a = TestC(2, 3);
 	if(a == 5)
 	{
 		uint c = TestV(2, 3);
 		if(c == 5)
 		{
-			PassTest();
+			Tests.Pass();
 			return;
 		}
 	}
-	FailTest(ptr_of(str_ret_val_fail), size_of(str_ret_val_fail));
+	Tests.Fail(ptr_of(str_ret_val_fail), size_of(str_ret_val_fail));
 	return;
 }
 
-public void Var2ArgsTest()
+public static void Var2ArgsTest()
 {
 	VarC2ArgsTest();
 	VarV2ArgsTest();

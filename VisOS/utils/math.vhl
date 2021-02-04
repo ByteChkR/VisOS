@@ -1,50 +1,54 @@
-#include "../VisOS.Driver/cout.vhl"
-public uint MATH_Pow(uint a, uint exp)
-{
-	uint ret = 1;
-	uint count = exp;
-	while(count)
-	{
-		ret *= a;
-		count--;
-	}
+#include "../VisOS.Driver/console.vhl"
 
-	return ret;
-}
-
-public uint MATH_IsPrime(uint num)
+public class Math
 {
-    uint ret = 0; //Workaround for a bug(when returning values directly e.g. "return 1" the tmp variable that gets returned is not properly emptied.)
-    if (num <= 1)
+    public static uint Pow(uint a, uint exp)
     {
-      	return ret;
-    }
-    uint i = 2;
-    uint end = num / 2;
-    while(i <= end)
-    {
-    	uint val = num % i;
-    	if (!val)
+        uint ret = 1;
+        uint count = exp;
+        while(count)
         {
-        	return ret;
+            ret *= a;
+            count--;
         }
-        i += 2;
+
+        return ret;
     }
 
-    ret = 1;
-    return ret;        
-}
+    public static uint IsPrime(uint num)
+    {
+        uint ret = 0; //Workaround for a bug(when returning values directly e.g. "return 1" the tmp variable that gets returned is not properly emptied.)
+        if (num <= 1)
+        {
+            return ret;
+        }
+        uint i = 2;
+        uint end = num / 2;
+        while(i <= end)
+        {
+            uint val = num % i;
+            if (!val)
+            {
+                return ret;
+            }
+            i += 2;
+        }
 
-public uint MATH_Clamp(uint a, uint min, uint max)
-{
-	if(a < min)
-	{
-		return min;
-	}
-	if(a > max)
-	{
-		return max;
-	}
+        ret = 1;
+        return ret;        
+    }
 
-	return a;
+    public static uint Clamp(uint a, uint min, uint max)
+    {
+        if(a < min)
+        {
+            return min;
+        }
+        if(a > max)
+        {
+            return max;
+        }
+
+        return a;
+    }
 }

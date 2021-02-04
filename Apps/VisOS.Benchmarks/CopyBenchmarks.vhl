@@ -5,10 +5,10 @@ private static string bench_100= "100";
 private static string bench_1000= "1000";
 private static string bench_10000= "10000";
 private static string bench_100000= "100000";
-private uint test_src_array[100000];
-private uint test_dst_array[100000];
+private static uint test_src_array[100000];
+private static uint test_dst_array[100000];
 
-private void CopyTo(uint max)
+private static void CopyTo(uint max)
 {
 	uint i = 0;
 	while ( i < max )
@@ -19,52 +19,52 @@ private void CopyTo(uint max)
 	return;
 }
 
-private void Copy100()
+private static void Copy100()
 {
-	BENCH_ClearName();
-	BENCH_SetName(&bench_name, size_of(bench_name));
-	BENCH_SetName(&bench_100, size_of(bench_100));
-	BENCH_Run();
+	Benchmarks.ClearName();
+	Benchmarks.SetName(&bench_name, size_of(bench_name));
+	Benchmarks.SetName(&bench_100, size_of(bench_100));
+	Benchmarks.Run();
 	CopyTo(100);
-	BENCH_End();
+	Benchmarks.End();
 	return;
 }
 
-private void Copy1000()
+private static void Copy1000()
 {
-	BENCH_ClearName();
-	BENCH_SetName(&bench_name, size_of(bench_name));
-	BENCH_SetName(&bench_1000, size_of(bench_1000));
-	BENCH_Run();
+	Benchmarks.ClearName();
+	Benchmarks.SetName(&bench_name, size_of(bench_name));
+	Benchmarks.SetName(&bench_1000, size_of(bench_1000));
+	Benchmarks.Run();
 	CopyTo(1000);
-	BENCH_End();
+	Benchmarks.End();
 	return;
 }
 
-private void Copy10000()
+private static void Copy10000()
 {
-	BENCH_ClearName();
-	BENCH_SetName(&bench_name, size_of(bench_name));
-	BENCH_SetName(&bench_10000, size_of(bench_10000));
-	BENCH_Run();
+	Benchmarks.ClearName();
+	Benchmarks.SetName(&bench_name, size_of(bench_name));
+	Benchmarks.SetName(&bench_10000, size_of(bench_10000));
+	Benchmarks.Run();
 	CopyTo(10000);
-	BENCH_End();
+	Benchmarks.End();
 	return;
 }
 
-private void Copy100000()
+private static void Copy100000()
 {
-	BENCH_ClearName();
-	BENCH_SetName(&bench_name, size_of(bench_name));
-	BENCH_SetName(&bench_100000, size_of(bench_100000));
-	BENCH_Run();
+	Benchmarks.ClearName();
+	Benchmarks.SetName(&bench_name, size_of(bench_name));
+	Benchmarks.SetName(&bench_100000, size_of(bench_100000));
+	Benchmarks.Run();
 	CopyTo(100000);
-	BENCH_End();
+	Benchmarks.End();
 	return;
 }
 
 
-public void RunCopyBenchmarks()
+public static void RunCopyBenchmarks()
 {
 	Copy100();
 	Copy1000();

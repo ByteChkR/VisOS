@@ -1,5 +1,4 @@
-#include "cout.vhl"
-#include "cmgr.vhl"
+#include "console.vhl"
 
 private const uint test_begin = 0xFFFF2000;
 private const uint test_fail = 0xFFFF2001;
@@ -12,72 +11,74 @@ private static string str_test_failed= "FAILED!";
 private static string str_test_started= "Starting Test: ";
 private static string str_test_started_2= ".....";
 
-
-public void BeginTest(uint namePtr, uint len)
+public class Tests
 {
-	if(!test_device_present)
+	public static void Begin(uint namePtr, uint len)
 	{
-		uint lastFore = CMGR_GetForeColor();
-		CMGR_SetForeColor(10);
-		Console.WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
-		Console.WriteString( &str_test_started, size_of(str_test_started));
-		Console.WriteString(namePtr, len);
-		Console.WriteString( &str_test_started_2, size_of(str_test_started_2));
+		if(!test_device_present)
+		{
+			uint lastFore = Console.GetForeColor();
+			Console.SetForeColor(10);
+			Console.WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
+			Console.WriteString( &str_test_started, size_of(str_test_started));
+			Console.WriteString(namePtr, len);
+			Console.WriteString( &str_test_started_2, size_of(str_test_started_2));
 
-		CMGR_SetForeColor(lastFore);
+			Console.SetForeColor(lastFore);
+			return;
+		}
+
+		uint i = 0;
+		while(i < len)
+		{
+			test_begin = namePtr[i];
+			i++;
+		}
+		test_begin = 0x0; //Send Null Byte
 		return;
 	}
 
-	uint i = 0;
-	while(i < len)
+	public static void Fail(uint reasonPtr, uint len)
 	{
-		test_begin = namePtr[i];
-		i++;
+		if(!test_device_present)
+		{
+			uint lastFore = Console.GetForeColor();
+			Console.SetForeColor(12);
+			Console.WriteLine( &str_test_failed, size_of(str_test_failed));
+
+			Console.WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
+			Console.WriteLine(reasonPtr, len);
+
+			interrupt(1);
+			
+			Console.SetForeColor(lastFore);
+			return;
+		}
+
+		uint i = 0;
+		while(i < len)
+		{
+			test_fail = reasonPtr[i];
+			i++;
+		}
+		test_fail = 0x0; //Send Null Byte
+		interrupt(0)
+		return;
 	}
-	test_begin = 0x0; //Send Null Byte
-	return;
-}
 
-public void FailTest(uint reasonPtr, uint len)
-{
-	if(!test_device_present)
+	public static void Pass()
 	{
-		uint lastFore = CMGR_GetForeColor();
-		CMGR_SetForeColor(12);
-		Console.WriteLine( &str_test_failed, size_of(str_test_failed));
+		if(!test_device_present)
+		{
 
-		Console.WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
-		Console.WriteLine(reasonPtr, len);
-
-		interrupt(1);
+			uint lastFore = Console.GetForeColor();
+			Console.SetForeColor(10);
+			Console.WriteLine( &str_test_passed, size_of(str_test_passed));
+			Console.SetForeColor(lastFore);
+			return;
+		}
 		
-		CMGR_SetForeColor(lastFore);
+		test_pass = 0x01; //Set Pass Flag
 		return;
 	}
-
-	uint i = 0;
-	while(i < len)
-	{
-		test_fail = reasonPtr[i];
-		i++;
-	}
-	test_fail = 0x0; //Send Null Byte
-	interrupt(0)
-	return;
-}
-
-public void PassTest()
-{
-	if(!test_device_present)
-	{
-
-		uint lastFore = CMGR_GetForeColor();
-		CMGR_SetForeColor(10);
-		Console.WriteLine( &str_test_passed, size_of(str_test_passed));
-		CMGR_SetForeColor(lastFore);
-		return;
-	}
-	
-	test_pass = 0x01; //Set Pass Flag
-	return;
 }

@@ -5,28 +5,36 @@
 string(DEBUG_TAG, "[HFS.RUN] ")
 string(hfs_load, "hfs.run");
 string(txt_reg, "Registering Command: ");
+string(txt_addr, "Address: ");
 string(txt_load_sym, "Loading Symbols for Binary...");
 
-private uint HFS_IsLoad(uint ptrIn)
+public class HFSRunCommand
 {
-	return CMD_IsCommand(&hfs_load, size_of(hfs_load), ptrIn);
-}
+	public static uint IsLoad(uint ptrIn)
+	{
+		return CMD_IsCommand(&hfs_load, size_of(hfs_load), ptrIn);
+	}
 
-private void HFS_Load(uint argStart, uint argLength)
-{
-	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	Console.WriteLine(&txt_load_sym, size_of(txt_load_sym));
-	uint entry = HFS_LoadBinary(argStart, argLength);
-	entry();
-	return;
-}
+	public static void Load(uint argStart, uint argLength)
+	{
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteLine(&txt_load_sym, size_of(txt_load_sym));
+		uint entry = HFS.LoadBinary(argStart, argLength);
+		entry();
+		return;
+	}
 
-public void HFS_RegisterHFSRun()
-{
-	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	Console.WriteString(&txt_reg, size_of(txt_reg));
-	Console.WriteLine(&hfs_load, size_of(hfs_load));
+	public static void Register()
+	{
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteString(&txt_reg, size_of(txt_reg));
+		Console.WriteLine(&hfs_load, size_of(hfs_load));
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteString(&txt_addr, size_of(txt_addr));
+		Console.WriteNumber(&HFSRunCommand.Load);
+		Console.WriteNewLine();
 
-	CMD_InsertCommand(&HFS_Load, &HFS_IsLoad);
-	return;
+		CMD_InsertCommand(&HFSRunCommand.Load, &HFSRunCommand.IsLoad);
+		return;
+	}
 }

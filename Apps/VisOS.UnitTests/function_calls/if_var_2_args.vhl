@@ -2,20 +2,20 @@
 private static string str_ret_val_fail= "Return value is not 5";
 private static string str_test_name=  "IfVar2ArgsTest";
 
-private uint TestC(uint arg1, uint arg2)
+private static uint TestC(uint arg1, uint arg2)
 {
 	uint a = arg1 + arg2;
 	return a;
 }
 
-private uint TestV(uint arg1, uint arg2)
+private static uint TestV(uint arg1, uint arg2)
 {
 	return arg1 + arg2;
 }
 
-public void IfVar2ArgsTest()
+public static void IfVar2ArgsTest()
 {
-	BeginTest(ptr_of(str_test_name), size_of(str_test_name));
+	Tests.Begin(ptr_of(str_test_name), size_of(str_test_name));
 
 	if(TestC(2,3) == 5)
 	{
@@ -23,11 +23,11 @@ public void IfVar2ArgsTest()
 		uint b = 2;
 		if(TestV(a,b) == 5)
 		{
-			PassTest();
+			Tests.Pass();
 			return;
 		}
 	}
-	FailTest(ptr_of(str_ret_val_fail), size_of(str_ret_val_fail));
+	Tests.Fail(ptr_of(str_ret_val_fail), size_of(str_ret_val_fail));
 	return;
 }
 

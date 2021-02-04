@@ -1,30 +1,30 @@
 #include "../utils/memory.vhl"
-#include "../VisOS.Driver/cin.vhl"
+#include "../VisOS.Driver/console.vhl"
 string(cmd_exit, "exit");
 
-private uint GetCommandPartEnd(uint ptrIn, uint ptrInSize, uint ptrCmd)
+private static uint GetCommandPartEnd(uint ptrIn, uint ptrInSize, uint ptrCmd)
 {
 	uint space = 0x20;
-	return MEM_FirstIndex(ptrIn, ptrInSize, space);
+	return Memory.FirstIndex(ptrIn, ptrInSize, space);
 }
 
-public uint CMD_IsCommand(uint ptrIn, uint ptrInSize, uint ptrCmd)
+public static uint CMD_IsCommand(uint ptrIn, uint ptrInSize, uint ptrCmd)
 {
-	return MEM_Compare(ptrIn, GetCommandPartEnd(ptrIn, ptrInSize, ptrCmd), ptrCmd);
+	return Memory.Compare(ptrIn, GetCommandPartEnd(ptrIn, ptrInSize, ptrCmd), ptrCmd);
 }
 
-public void CMD_ClearCommand(uint ptrIn, uint ptrInSize)
+public static void CMD_ClearCommand(uint ptrIn, uint ptrInSize)
 {
-	MEM_Set(ptrIn, ptrInSize, 0);
+	Memory.Set(ptrIn, ptrInSize, 0);
 	return;
 }
 
-public uint CMD_ReadCommand(uint ptrIn, uint ptrInSize)
+public static uint CMD_ReadCommand(uint ptrIn, uint ptrInSize)
 {
-	return CIN_ReadLine(ptrIn, ptrInSize);
+	return Console.ReadLine(ptrIn, ptrInSize);
 }
 
-public uint CMD_IsExit(uint ptrIn)
+public static uint CMD_IsExit(uint ptrIn)
 {
 	return CMD_IsCommand(&cmd_exit, size_of(cmd_exit), ptrIn);
 }

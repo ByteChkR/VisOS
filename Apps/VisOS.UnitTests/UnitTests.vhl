@@ -4,7 +4,7 @@
 #include "branch_tests.vhl"
 #include "instruction_tests.vhl"
 #include "type_system_tests.vhl"
-#include "VisOS.Driver/cout.vhl"
+#include "VisOS.Driver/console.vhl"
 
 private static string str_instr= "Instruction Tests";
 private static string str_func= "Function Tests";
@@ -14,7 +14,7 @@ private static string str_branch= "Branch Tests";
 private static string str_ts= "Type System Tests";
 private static string str_sep= "-------------------------";
 
-private void PrintHeader(uint testName, uint testSize)
+private static void PrintHeader(uint testName, uint testSize)
 {
 	Console.WriteNewLine();
 	Console.WriteNewLine();
@@ -24,7 +24,7 @@ private void PrintHeader(uint testName, uint testSize)
 	return;
 }
 
-public void RunTests()
+public static void RunTests()
 {
 	PrintHeader(ptr_of(str_instr), size_of(str_instr));
 	RunInstructionTests();

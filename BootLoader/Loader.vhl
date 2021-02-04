@@ -1,6 +1,6 @@
+
+#include "VisOS.Driver/console.vhl"
 #include "VisOS.Driver/hfs.vhl"
-#include "VisOS.Driver/cout.vhl"
-#include "VisOS.Driver/cmgr.vhl"
 #import "vasm-bridge BRK"
 
 //The Boot Image to Load
@@ -20,77 +20,74 @@ private static string txt_error= "Error: File not Found";
 private static string txt_starting= "Starting Image...";
 private static string txt_ending= "Exited Image!";
 
-private void PrintHeader()
+public class BootLoader
 {
-	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	Console.WriteString(&ldr_name, size_of(ldr_name));
-	Console.Write(0x20);
-	Console.WriteLine( &ldr_version, size_of(ldr_version));
-	return;
-}
-
-private void WritePreLoadText()
-{
-	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	Console.WriteString( &txt_pre_load, size_of(txt_pre_load));
-	Console.WriteLine( &bootimage, size_of(bootimage));
-	return;
-}
-
-private uint GetSize()
-{
-	return HFS_GetFileSize( &bootimage, size_of(bootimage));
-}
-
-private uint LoadImage()
-{
-	WritePreLoadText();
-	uint size = GetSize();
-	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	Console.WriteString( &txt_loading , size_of(txt_loading));
-	Console.Write(0x20);
-	Console.WriteNumber(size * 4);
-	Console.Write(0x20);
-	Console.WriteLine( &txt_bytes, size_of(txt_bytes));
-	
-	uint entryPtr = HFS_LoadBinary(&bootimage, size_of(bootimage));
-	
-	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	Console.WriteString( &txt_loading, size_of(txt_loading));
-	Console.Write(0x20);
-	Console.WriteLine(&txt_complete, size_of(txt_complete));
-	return entryPtr;
-}
-
-private void Entry()
-{
-	CMGR_SetForeColor(11); //Blue
-	PrintHeader();
-	uint exists = HFS_FileExists( &bootimage, size_of(bootimage));
-	if(exists)
+	public static void PrintHeader()
 	{
-		uint ptr = LoadImage();
 		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-		Console.WriteLine( &txt_starting, size_of(txt_starting));
-
-
-		CMGR_SetForeColor(10); //Green
-		ptr();
-
-
-		CMGR_SetForeColor(11); //Blue
-		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-		Console.WriteLine( &txt_ending, size_of(txt_ending));
-
+		Console.WriteString(&ldr_name, size_of(ldr_name));
+		Console.Write(0x20);
+		Console.WriteLine( &ldr_version, size_of(ldr_version));
 		return;
 	}
-	CMGR_SetForeColor(12); //Red
-	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	Console.WriteLine( &txt_error, size_of(txt_error));
-	interrupt(1);
-	return;
+
+	public static void WritePreLoadText()
+	{
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteString( &txt_pre_load, size_of(txt_pre_load));
+		Console.WriteLine( &bootimage, size_of(bootimage));
+		return;
+	}
+
+	public static uint LoadImage()
+	{
+		BootLoader.WritePreLoadText();
+		uint size = HFS.GetFileSize( &bootimage, size_of(bootimage));
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteString( &txt_loading , size_of(txt_loading));
+		Console.Write(0x20);
+		Console.WriteNumber(size * 4);
+		Console.Write(0x20);
+		Console.WriteLine( &txt_bytes, size_of(txt_bytes));
+		
+		uint entryPtr = HFS.LoadBinary(&bootimage, size_of(bootimage));
+		
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteString( &txt_loading, size_of(txt_loading));
+		Console.Write(0x20);
+		Console.WriteLine(&txt_complete, size_of(txt_complete));
+		return entryPtr;
+	}
+
+	public static void Entry()
+	{
+		Console.SetForeColor(11); //Blue
+		BootLoader.PrintHeader();
+		uint exists = HFS.FileExists( &bootimage, size_of(bootimage));
+		if(exists)
+		{
+			uint ptr = BootLoader.LoadImage();
+			Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+			Console.WriteLine( &txt_starting, size_of(txt_starting));
+
+
+			Console.SetForeColor(10); //Green
+			ptr();
+
+
+			Console.SetForeColor(11); //Blue
+			Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+			Console.WriteLine( &txt_ending, size_of(txt_ending));
+
+			return;
+		}
+		Console.SetForeColor(12); //Red
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteLine( &txt_error, size_of(txt_error));
+		interrupt(1);
+		return;
+	}
 }
 
-Console.Clear();
-Console.WriteLine(&bootimage, size_of(bootimage))
-Entry();
+
+BootLoader.Entry();

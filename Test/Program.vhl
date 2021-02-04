@@ -1,9 +1,32 @@
+#include "VisOS.Driver/console.vhl"
+
 public class Test
 {
-	public uint MyFunction()
+
+	public uint MyVar1;
+	public uint MyVar2;
+	public uint MyFunction1()
 	{
-		return 123;
+		return this.MyVar1;
+	}
+	public uint MyFunction2()
+	{
+		return this.MyVar2;
 	}
 }
 
-uint myData = Test.MyFunction();
+Test instance;
+
+instance.MyVar1 = 123;
+
+instance.MyVar2 = 321;
+
+uint myData = instance.MyFunction1();
+
+Console.WriteNumber(myData);
+Console.WriteNewLine();
+
+myData = instance.MyFunction2();
+
+Console.WriteNumber(myData);
+Console.WriteNewLine();

@@ -1,4 +1,4 @@
-#include "cout.vhl"
+#include "console.vhl"
 #import "vasm-bridge HLT"
 #import "vasm-bridge BRK"
 private const uint benchmark_device_present = 0xFFFF4000;
@@ -10,59 +10,63 @@ private const uint run_set_name = 0xFFFF4004;
 private static string DEBUG_TAG= "[BENCH_DEV] ";
 private static string str_dev_not_found= "Benchmark Device not Detected. Pin: ";
 
-private void CheckDevice()
+public class Benchmarks
 {
-	if(!benchmark_device_present)
+	private static void CheckDevice()
 	{
-		Console.WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
-		Console.WriteString( &str_dev_not_found, size_of(str_dev_not_found));
-		Console.WriteNumber( &benchmark_device_present);
-		Console.WriteNewLine();
-		I0_BRK();
-		I0_HLT();
+		if(!benchmark_device_present)
+		{
+			Console.WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
+			Console.WriteString( &str_dev_not_found, size_of(str_dev_not_found));
+			Console.WriteNumber( &benchmark_device_present);
+			Console.WriteNewLine();
+			I0_BRK();
+			I0_HLT();
+			return;
+		}
 		return;
 	}
-	return;
-}
 
-public void BENCH_SetName(uint namePtr, uint len)
-{
-	CheckDevice();
-	uint i = 0;
-	while(i < len)
+	public static void SetName(uint namePtr, uint len)
 	{
-		run_set_name = namePtr[i];
-		i++;
+		Benchmarks.CheckDevice();
+		uint i = 0;
+		while(i < len)
+		{
+			run_set_name = namePtr[i];
+			i++;
+		}
+		return;
 	}
-	return;
+
+	public static void ClearName()
+	{
+		Benchmarks.CheckDevice();
+		run_clear_name = 1;
+		return;
+	}
+
+	public static void Run()
+	{
+		Benchmarks.CheckDevice();
+		run_begin = 1;
+		return;
+	}
+
+	public static void Begin(uint namePtr, uint len)
+	{
+		Benchmarks.CheckDevice();
+		Benchmarks.ClearName();
+		Benchmarks.SetName(namePtr, len);
+		Benchmarks.Run();
+		return;
+	}
+
+	public static void End()
+	{
+		Benchmarks.CheckDevice();
+		run_end = 1;
+		return;
+	}	
 }
 
-public void BENCH_ClearName()
-{
-	CheckDevice();
-	run_clear_name = 1;
-	return;
-}
-
-public void BENCH_Run()
-{
-	CheckDevice();
-	run_begin = 1;
-	return;
-}
-
-public void BENCH_Begin(uint namePtr, uint len)
-{
-	CheckDevice();
-	BENCH_ClearName();
-	BENCH_SetName(namePtr, len);
-	BENCH_Run();
-	return;
-}
-
-public void BENCH_End()
-{
-	CheckDevice();
-	run_end = 1;
-	return;
-}
