@@ -46,7 +46,7 @@ private void WriteDebugString(uint ptr, uint size)
 	{
 		uint lastFore = CMGR_GetForeColor();
 		CMGR_SetForeColor(12);
-		COUT_WriteString(ptr, size);
+		Console.WriteString(ptr, size);
 		CMGR_SetForeColor(lastFore);
 	}
 	return;
@@ -58,7 +58,7 @@ private void WriteDebugLine(uint ptr, uint size)
 	{
 		uint lastFore = CMGR_GetForeColor();
 		CMGR_SetForeColor(12);
-		COUT_WriteLine(ptr, size);
+		Console.WriteLine(ptr, size);
 		CMGR_SetForeColor(lastFore);
 	}
 	return;
@@ -70,7 +70,7 @@ private void WriteDebugNum(uint num)
 	{
 		uint lastFore = CMGR_GetForeColor();
 		CMGR_SetForeColor(12);
-		COUT_WriteNumber(num);
+		Console.WriteNumber(num);
 		CMGR_SetForeColor(lastFore);
 	}
 	return;
@@ -82,7 +82,7 @@ private void WriteDebugNewLine()
 	{
 		uint lastFore = CMGR_GetForeColor();
 		CMGR_SetForeColor(12);
-		COUT_WriteNewLine();
+		Console.WriteNewLine();
 		CMGR_SetForeColor(lastFore);
 	}
 	return;

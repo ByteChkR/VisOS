@@ -15,18 +15,18 @@ private uint IsPrimes(uint ptrIn)
 private void PrimesCommand(uint argStart, uint argLength)
 {
 	uint val = STR_ParseNumber(argStart, argLength);
-	COUT_WriteString(&txt, size_of(txt));
-	COUT_WriteNumber(val);
+	Console.WriteString(&txt, size_of(txt));
+	Console.WriteNumber(val);
 
 	uint result = MATH_IsPrime(val);
 
 	if(result)
 	{
-		COUT_WriteLine(&txt_prime, size_of(txt_prime));
+		Console.WriteLine(&txt_prime, size_of(txt_prime));
 	}
 	else
 	{
-		COUT_WriteLine(&txt_not_prime, size_of(txt_not_prime));
+		Console.WriteLine(&txt_not_prime, size_of(txt_not_prime));
 	}
 
 	return;
@@ -34,9 +34,9 @@ private void PrimesCommand(uint argStart, uint argLength)
 
 public void RegisterPrimes()
 {
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteString(&txt_reg, size_of(txt_reg));
-	COUT_WriteLine(&cmd_primes, size_of(cmd_primes));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString(&txt_reg, size_of(txt_reg));
+	Console.WriteLine(&cmd_primes, size_of(cmd_primes));
 	CMD_InsertCommand(&PrimesCommand, &IsPrimes);
 	return;
 }

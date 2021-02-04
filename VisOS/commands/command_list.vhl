@@ -14,8 +14,8 @@ string(txt_not_found, "Could not find Command.");
 public void CMD_InitCommandList()
 {
 	funcListSize = 512;
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteLine( &txt_init, size_of(txt_init));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteLine( &txt_init, size_of(txt_init));
 	if(funcList)
 	{
 		MMGR_Free(funcList);
@@ -51,8 +51,8 @@ private uint FindCommand(uint cmdPtr)
 		}
 		current += 2;
 	}
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteLine( &txt_not_found, size_of(txt_not_found));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteLine( &txt_not_found, size_of(txt_not_found));
 	return 0;
 }
 
@@ -81,10 +81,10 @@ public void CMD_InvokeCommand(uint cmdPtr, uint cmdLen)
 	{
 		uint ptr = funcList[cmdIndex];
 
-		COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-		COUT_WriteString( &txt_invoke, size_of(txt_invoke));
-		COUT_WriteNumber(ptr);
-		COUT_WriteNewLine();
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteString( &txt_invoke, size_of(txt_invoke));
+		Console.WriteNumber(ptr);
+		Console.WriteNewLine();
 
 		uint argStart = MEM_FirstIndex(cmdPtr, 255, 0x20);
 		uint sta = argStart+1;

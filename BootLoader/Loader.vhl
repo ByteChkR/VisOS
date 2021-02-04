@@ -22,18 +22,18 @@ private static string txt_ending= "Exited Image!";
 
 private void PrintHeader()
 {
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteString(&ldr_name, size_of(ldr_name));
-	COUT_Write(0x20);
-	COUT_WriteLine( &ldr_version, size_of(ldr_version));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString(&ldr_name, size_of(ldr_name));
+	Console.Write(0x20);
+	Console.WriteLine( &ldr_version, size_of(ldr_version));
 	return;
 }
 
 private void WritePreLoadText()
 {
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteString( &txt_pre_load, size_of(txt_pre_load));
-	COUT_WriteLine( &bootimage, size_of(bootimage));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString( &txt_pre_load, size_of(txt_pre_load));
+	Console.WriteLine( &bootimage, size_of(bootimage));
 	return;
 }
 
@@ -46,20 +46,19 @@ private uint LoadImage()
 {
 	WritePreLoadText();
 	uint size = GetSize();
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteString( &txt_loading , size_of(txt_loading));
-	COUT_Write(0x20);
-	COUT_WriteNumber(size * 4);
-	COUT_Write(0x20);
-	COUT_WriteLine( &txt_bytes, size_of(txt_bytes));
-
-	HFS_LoadSymbols(&bootimage, size_of(bootimage));
-	uint entryPtr = HFS_LoadBinaryV1(&bootimage, size_of(bootimage));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString( &txt_loading , size_of(txt_loading));
+	Console.Write(0x20);
+	Console.WriteNumber(size * 4);
+	Console.Write(0x20);
+	Console.WriteLine( &txt_bytes, size_of(txt_bytes));
 	
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteString( &txt_loading, size_of(txt_loading));
-	COUT_Write(0x20);
-	COUT_WriteLine(&txt_complete, size_of(txt_complete));
+	uint entryPtr = HFS_LoadBinary(&bootimage, size_of(bootimage));
+	
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString( &txt_loading, size_of(txt_loading));
+	Console.Write(0x20);
+	Console.WriteLine(&txt_complete, size_of(txt_complete));
 	return entryPtr;
 }
 
@@ -71,8 +70,8 @@ private void Entry()
 	if(exists)
 	{
 		uint ptr = LoadImage();
-		COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-		COUT_WriteLine( &txt_starting, size_of(txt_starting));
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteLine( &txt_starting, size_of(txt_starting));
 
 
 		CMGR_SetForeColor(10); //Green
@@ -80,17 +79,18 @@ private void Entry()
 
 
 		CMGR_SetForeColor(11); //Blue
-		COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-		COUT_WriteLine( &txt_ending, size_of(txt_ending));
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteLine( &txt_ending, size_of(txt_ending));
 
 		return;
 	}
 	CMGR_SetForeColor(12); //Red
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteLine( &txt_error, size_of(txt_error));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteLine( &txt_error, size_of(txt_error));
 	interrupt(1);
 	return;
 }
 
-
+Console.Clear();
+Console.WriteLine(&bootimage, size_of(bootimage))
 Entry();

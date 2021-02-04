@@ -11,15 +11,15 @@ private uint IsClear(uint ptrIn)
 
 private void ClearCommand(uint argStart, uint argLength)
 {
-	COUT_ClearConsole();
+	Console.Clear();
 	return;
 }
 
 public void RegisterClear()
 {
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteString(&txt_reg, size_of(txt_reg));
-	COUT_WriteLine(&cmd_clear, size_of(cmd_clear));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString(&txt_reg, size_of(txt_reg));
+	Console.WriteLine(&cmd_clear, size_of(cmd_clear));
 	CMD_InsertCommand(&ClearCommand, &IsClear);
 	return;
 }

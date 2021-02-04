@@ -1,6 +1,13 @@
 #import "vasm-bridge HLT"
 #import "vasm-bridge BRK"
 
+#include "cout.vhl"
+
+private static string HFS_TXT_PATCH_LEN1 = "Patching ";
+private static string HFS_TXT_PATCH_LEN2 = " indices";
+private static string HFS_TXT_VERSION = "Loading Version: ";
+private static string HFS_TXT_SYMBOLS_NOT_SUPPORTED = "Loading Symbols is not supported with this Format.";
+private static string DEBUG_TAG = "[HFS_DEV]";
 
 // Status IDS
 private const uint HFS_STATUS_READY = 0x01;
@@ -105,7 +112,7 @@ public uint HFS_GetFileSize(uint path, uint pathLen)
 	return HFS_FileReadByte();
 }
 
-public void HFS_LoadSymbols(uint path, uint pathLen)
+private void HFS_LoadSymbols(uint path, uint pathLen)
 {
 	HFS_WriteData(path, pathLen);
 	HFS_SetCommand( &HFS_LOAD_SYMBOLS );
@@ -178,29 +185,12 @@ public void HFS_ReadAllData(uint path, uint pathLen, uint data, uint dataLen)
 	return;
 }
 
-public uint HFS_LoadBinaryV1(uint path, uint pathLen)
+
+private uint HFS_LoadBinaryV2(uint length)
 {
-	uint status = HFS_GetStatus();
-	if(!status)
-	{
-		I0_BRK();
-		I0_HLT(); //Break Execution. Something has gone wrong
-	}
-
-	HFS_WriteData(path, pathLen);
-	HFS_SetCommand( &HFS_FILE_SIZE );
-	uint length = HFS_ADDRESS_DATA; //Get Size
-
-	HFS_WriteData(path, pathLen);
-	HFS_SetCommand( &HFS_OPEN_READ );
-	
-	uint temp = HFS_ADDRESS_DATA; //Read First Byte (Allways 0)
-
-	temp = HFS_ADDRESS_DATA; //Read Version Byte (V1 = 1)
-
 	uint data = HFS_ADDRESS_DATA; //Read first value(the start pointer)
 
-	temp = HFS_ADDRESS_DATA; //Read Unused Byte (Should be 0)
+	uint unused = HFS_ADDRESS_DATA; //Read Unused Byte (Should be 0)
 
 	length = length - 4;
 
@@ -212,4 +202,78 @@ public uint HFS_LoadBinaryV1(uint path, uint pathLen)
 	}
 	HFS_SetCommand( &HFS_CLOSE );
 	return data;
+}
+
+public uint HFS_LoadBinaryV3(uint destinationAddr, uint length)
+{
+	uint listLength = HFS_ADDRESS_DATA; //Read List Length
+
+
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString(&HFS_TXT_PATCH_LEN1, size_of(HFS_TXT_PATCH_LEN1));
+	Console.WriteNumber(listLength);
+	Console.WriteLine(&HFS_TXT_PATCH_LEN2, size_of(HFS_TXT_PATCH_LEN2));
+
+	uint unused = HFS_ADDRESS_DATA; //Read Unused Byte (Should be 0)
+
+	length -= 4;
+	length -= listLength;
+
+	for(uint i = 0; i < listLength; i++)
+	{
+		uint index = HFS_ADDRESS_DATA;
+		destinationAddr[index] = destinationAddr;
+	}
+
+	for(uint i = 0; i < length; i++)
+	{
+		uint val = destinationAddr[i];
+
+		uint newVal = val + HFS_ADDRESS_DATA;
+
+		destinationAddr[i] = newVal;
+	}
+
+	HFS_SetCommand( &HFS_CLOSE );
+
+	return destinationAddr;
+}
+
+
+public uint HFS_LoadBinary(uint path, uint pathLen)
+{
+	HFS_WriteData(path, pathLen);
+	HFS_SetCommand( &HFS_FILE_SIZE );
+	uint length = HFS_ADDRESS_DATA; //Get Size
+
+	HFS_WriteData(path, pathLen);
+	HFS_SetCommand( &HFS_OPEN_READ );
+	
+	uint nop = HFS_ADDRESS_DATA; //Read First Byte (Allways 0)
+
+	uint version = HFS_ADDRESS_DATA; //Read Version Byte (V1 = 1)
+
+	uint retVal = 0;
+
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString(&HFS_TXT_VERSION, size_of(HFS_TXT_VERSION));
+	Console.WriteNumber(version);
+	Console.WriteNewLine();
+
+	if(version == 1)
+	{
+		retVal = HFS_LoadBinaryV2(length);
+		HFS_LoadSymbols(path, pathLen);
+	}
+	else if(version == 2)
+	{
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteLine(&HFS_TXT_SYMBOLS_NOT_SUPPORTED, size_of(HFS_TXT_SYMBOLS_NOT_SUPPORTED));
+		retVal = HFS_LoadBinaryV3(60000, length);
+	}
+	else
+	{
+		interrupt(0);
+	}
+	return retVal;
 }

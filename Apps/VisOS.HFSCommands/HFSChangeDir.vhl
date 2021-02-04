@@ -7,8 +7,8 @@ private static string txt_cd= "New Directory: ";
 
 private void ChangeDirectory(uint pathPtr, uint pathLen)
 {
-	COUT_WriteString(&txt_cd, size_of(txt_cd));
-	COUT_WriteLine(pathPtr, pathLen);
+	Console.WriteString(&txt_cd, size_of(txt_cd));
+	Console.WriteLine(pathPtr, pathLen);
 	HFS_ChangeDirectory(pathPtr, pathLen);
 	return;
 }
@@ -20,9 +20,9 @@ private uint IsCD(uint ptrIn)
 
 public void RegisterHFSChangeDir()
 {
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteString(&txt_reg, size_of(txt_reg));
-	COUT_WriteLine(&cmd_fprint, size_of(cmd_fprint));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString(&txt_reg, size_of(txt_reg));
+	Console.WriteLine(&cmd_fprint, size_of(cmd_fprint));
 	CMD_InsertCommand(&ChangeDirectory, &IsCD);
 	return;
 }

@@ -14,20 +14,18 @@ private uint HFS_IsLoad(uint ptrIn)
 
 private void HFS_Load(uint argStart, uint argLength)
 {
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteLine(&txt_load_sym, size_of(txt_load_sym));
-	HFS_LoadSymbols(argStart, argLength);
-
-	uint entry = HFS_LoadBinaryV1(argStart, argLength);
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteLine(&txt_load_sym, size_of(txt_load_sym));
+	uint entry = HFS_LoadBinary(argStart, argLength);
 	entry();
 	return;
 }
 
 public void HFS_RegisterHFSRun()
 {
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteString(&txt_reg, size_of(txt_reg));
-	COUT_WriteLine(&hfs_load, size_of(hfs_load));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString(&txt_reg, size_of(txt_reg));
+	Console.WriteLine(&hfs_load, size_of(hfs_load));
 
 	CMD_InsertCommand(&HFS_Load, &HFS_IsLoad);
 	return;

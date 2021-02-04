@@ -8,25 +8,25 @@ private static string txt_fprint= "File Content:";
 
 private void WriteFileContent(uint pathPtr, uint pathLen)
 {
-	COUT_WriteString(&txt_file_size, size_of(txt_file_size));
+	Console.WriteString(&txt_file_size, size_of(txt_file_size));
 	uint size = HFS_GetFileSize(pathPtr, pathLen);
-	COUT_WriteNumber(size)
-	COUT_WriteNewLine();
+	Console.WriteNumber(size)
+	Console.WriteNewLine();
 
 
-	COUT_WriteLine(&txt_fprint, size_of(txt_fprint));
+	Console.WriteLine(&txt_fprint, size_of(txt_fprint));
 	HFS_FileOpenRead(pathPtr, pathLen);
 	while(size)
 	{
 		uint data = HFS_FileReadByte();
-		COUT_Write(CHR_Unpack(data, 0));
-		COUT_Write(CHR_Unpack(data, 8));
-		COUT_Write(CHR_Unpack(data, 16));
-		COUT_Write(CHR_Unpack(data, 24));
+		Console.Write(CHR_Unpack(data, 0));
+		Console.Write(CHR_Unpack(data, 8));
+		Console.Write(CHR_Unpack(data, 16));
+		Console.Write(CHR_Unpack(data, 24));
 		size--;
 	}
 	HFS_FileClose();
-	COUT_WriteNewLine();
+	Console.WriteNewLine();
 	return;
 }
 
@@ -37,9 +37,9 @@ private uint IsFPrint(uint ptrIn)
 
 public void RegisterHFSShow()
 {
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteString(&txt_reg, size_of(txt_reg));
-	COUT_WriteLine(&cmd_fprint, size_of(cmd_fprint));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString(&txt_reg, size_of(txt_reg));
+	Console.WriteLine(&cmd_fprint, size_of(cmd_fprint));
 	CMD_InsertCommand(&WriteFileContent, &IsFPrint);
 	return;
 }

@@ -19,10 +19,10 @@ public void BeginTest(uint namePtr, uint len)
 	{
 		uint lastFore = CMGR_GetForeColor();
 		CMGR_SetForeColor(10);
-		COUT_WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
-		COUT_WriteString( &str_test_started, size_of(str_test_started));
-		COUT_WriteString(namePtr, len);
-		COUT_WriteString( &str_test_started_2, size_of(str_test_started_2));
+		Console.WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteString( &str_test_started, size_of(str_test_started));
+		Console.WriteString(namePtr, len);
+		Console.WriteString( &str_test_started_2, size_of(str_test_started_2));
 
 		CMGR_SetForeColor(lastFore);
 		return;
@@ -44,10 +44,10 @@ public void FailTest(uint reasonPtr, uint len)
 	{
 		uint lastFore = CMGR_GetForeColor();
 		CMGR_SetForeColor(12);
-		COUT_WriteLine( &str_test_failed, size_of(str_test_failed));
+		Console.WriteLine( &str_test_failed, size_of(str_test_failed));
 
-		COUT_WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
-		COUT_WriteLine(reasonPtr, len);
+		Console.WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteLine(reasonPtr, len);
 
 		interrupt(1);
 		
@@ -73,7 +73,7 @@ public void PassTest()
 
 		uint lastFore = CMGR_GetForeColor();
 		CMGR_SetForeColor(10);
-		COUT_WriteLine( &str_test_passed, size_of(str_test_passed));
+		Console.WriteLine( &str_test_passed, size_of(str_test_passed));
 		CMGR_SetForeColor(lastFore);
 		return;
 	}

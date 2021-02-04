@@ -12,39 +12,39 @@ string(cmd_exit_mesg, "Exiting..");
 
 public void DATA_WriteOSHeader()
 {
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteString(&str_name, size_of(str_name));
-	COUT_Write(0x20);
-	COUT_WriteLine(&str_version, size_of(str_version));
-	COUT_WriteNewLine();
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString(&str_name, size_of(str_name));
+	Console.Write(0x20);
+	Console.WriteLine(&str_version, size_of(str_version));
+	Console.WriteNewLine();
 	return;
 }
 
 public void DATA_WriteOSName()
 {
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteLine(&str_name, size_of(str_name));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteLine(&str_name, size_of(str_name));
 	return;
 }
 
 public void DATA_WriteOSVersion()
 {
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteLine(&str_version, size_of(str_version));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteLine(&str_version, size_of(str_version));
 	return;
 }
 
 public void DATA_WriteTerminalPrefix()
 {
-	COUT_WriteString(&str_term_prefix, size_of(str_term_prefix));
+	Console.WriteString(&str_term_prefix, size_of(str_term_prefix));
 	return;
 }
 
 
 public void DATA_WriteExitMessage()
 {
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteLine(&cmd_exit_mesg, size_of(cmd_exit_mesg));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteLine(&cmd_exit_mesg, size_of(cmd_exit_mesg));
 	return;
 }
 

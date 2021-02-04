@@ -11,14 +11,14 @@ private uint IsEcho(uint ptrIn)
 
 private void EchoCommand(uint argStart, uint argLength)
 {
-	COUT_WriteLine(argStart, argLength);
+	Console.WriteLine(argStart, argLength);
 }
 
 public void RegisterEcho()
 {
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteString(&txt_reg, size_of(txt_reg));
-	COUT_WriteLine(&cmd_echo, size_of(cmd_echo));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString(&txt_reg, size_of(txt_reg));
+	Console.WriteLine(&cmd_echo, size_of(cmd_echo));
 	CMD_InsertCommand(&EchoCommand, &IsEcho);
 	return;
 }

@@ -4,58 +4,52 @@ private const uint cClearNum = 0xFFFF1005; //Console Clear
 
 private static string arr_sep = ", ";
 
-public void COUT_ClearConsole()
+public class Console
 {
-	cClearNum = 1;
-	return;
-}
-
-public void COUT_Write(uint chr)
-{
-	cOut = chr;
-	return;
-}
-
-public void COUT_WriteString(uint str, uint len)
-{
-	uint i = 0;
-	while(i < len)
-	{	
-		cOut = str[i];
-		i++;
-	}
-	return;
-}
-
-public void COUT_WriteNumber(uint number)
-{
-	cOutNum = number;
-	return;
-}
-
-public void COUT_WriteNewLine()
-{
-	cOut = '\n';
-	return;
-}
-
-
-public void COUT_WriteLine(uint str, uint len)
-{
-	COUT_WriteString(str, len);
-	COUT_WriteNewLine();
-	return;
-}
-
-public void COUT_WriteNumbers(uint ptr, uint len)
-{
-	uint i = 0;
-	while(i < len)
+	public void Clear()
 	{
-		cOutNum = ptr[i];
-		i++;
-		COUT_WriteNewLine();
+		cClearNum = 1;
 	}
-	return;
-}
 
+	public void Write(uint chr)
+	{
+		cOut = chr;
+	}
+
+	public void WriteString(uint str, uint len)
+	{
+		uint i = 0;
+		while(i < len)
+		{	
+			cOut = str[i];
+			i++;
+		}
+	}
+
+	public void WriteNumber(uint num)
+	{
+		cOutNum = num;
+	}
+
+	public void WriteNewLine()
+	{
+		cOut = '\n';
+	}
+
+	public void WriteLine(uint str, uint len)
+	{
+		Console.WriteString(str, len);
+		Console.WriteNewLine();
+	}
+
+	public void WriteNumbers(uint ptr, uint len)
+	{
+		uint i = 0;
+		while(i < len)
+		{
+			cOutNum = ptr[i];
+			i++;
+			Console.WriteNewLine();
+		}
+	}
+}

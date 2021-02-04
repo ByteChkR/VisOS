@@ -24,10 +24,10 @@ public void _ERROR_C(uint code)
 {
 	
 	CMGR_SetForeColor(12); //Red
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteString(&txt_error_c, size_of(txt_error_c));
-	COUT_WriteNumber(code);
-	COUT_WriteNewLine();
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString(&txt_error_c, size_of(txt_error_c));
+	Console.WriteNumber(code);
+	Console.WriteNewLine();
 	if(break_on_error)
 	{
 		I0_BRK();
@@ -48,9 +48,9 @@ public void _ERROR_T(uint msg, uint len)
 {
 
 	CMGR_SetForeColor(12); //Red
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteString(&txt_error_t, size_of(txt_error_t));
-	COUT_WriteLine(msg, len);
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString(&txt_error_t, size_of(txt_error_t));
+	Console.WriteLine(msg, len);
 	if(break_on_error)
 	{
 		I0_BRK();

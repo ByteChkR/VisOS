@@ -21,9 +21,9 @@ private void CallCommand(uint argStart, uint argLength)
 
 public void RegisterCall()
 {
-	COUT_WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
-	COUT_WriteString(&txt_reg, size_of(txt_reg));
-	COUT_WriteLine(&cmd_call, size_of(cmd_call));
+	Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+	Console.WriteString(&txt_reg, size_of(txt_reg));
+	Console.WriteLine(&cmd_call, size_of(cmd_call));
 	CMD_InsertCommand(&CallCommand, &IsCall);
 	return;
 }

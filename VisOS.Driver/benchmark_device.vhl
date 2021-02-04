@@ -14,10 +14,10 @@ private void CheckDevice()
 {
 	if(!benchmark_device_present)
 	{
-		COUT_WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
-		COUT_WriteString( &str_dev_not_found, size_of(str_dev_not_found));
-		COUT_WriteNumber( &benchmark_device_present);
-		COUT_WriteNewLine();
+		Console.WriteString( &DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteString( &str_dev_not_found, size_of(str_dev_not_found));
+		Console.WriteNumber( &benchmark_device_present);
+		Console.WriteNewLine();
 		I0_BRK();
 		I0_HLT();
 		return;

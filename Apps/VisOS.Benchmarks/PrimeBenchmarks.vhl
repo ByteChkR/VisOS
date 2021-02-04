@@ -32,8 +32,8 @@ public void RunIsPrimeBenchmark()
 		uint prime = IsPrimeTest(i);
 		if(prime)
 		{
-			COUT_WriteNumber(i);
-			COUT_WriteLine(&bench_is_prime, size_of(bench_is_prime));
+			Console.WriteNumber(i);
+			Console.WriteLine(&bench_is_prime, size_of(bench_is_prime));
 		}
 		i++;
 	}
