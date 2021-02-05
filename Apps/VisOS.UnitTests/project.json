@@ -1,6 +1,6 @@
 {
   "ProjectName": "VisOS.UnitTests",
-  "ProjectVersion": "2021.2.5.1",
+  "ProjectVersion": "2021.2.5.2",
   "Dependencies": [
     {
       "ProjectName": "VisOS.Driver",
