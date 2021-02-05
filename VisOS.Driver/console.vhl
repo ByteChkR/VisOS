@@ -1,3 +1,4 @@
+#include "console_colors.vhl"
 private const uint COUT_WRITE = 0xFFFF1001; //Console Out => Write Character
 private const uint COUT_WRITE_NUM = 0xFFFF1002; //Console Out => Write Number
 private const uint C_CLEAR = 0xFFFF1005; //Console Clear
@@ -48,6 +49,12 @@ public class Console
 	public static void WriteNewLine()
 	{
 		COUT_WRITE = '\n';
+	}
+
+	public static void WriteNumberLine(uint num)
+	{
+		Console.WriteNumber(num);
+		Console.WriteNewLine();
 	}
 
 	public static void WriteLine(uint str, uint len)

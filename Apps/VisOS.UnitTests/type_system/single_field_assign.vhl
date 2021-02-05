@@ -14,7 +14,7 @@ class TestClass
 public static void TestSingleField()
 {
 	Tests.Begin(ptr_of(test_single_field_type), size_of(test_single_field_type));
-	TestClass tc;
+	TestClass tc = TestClass();
 	tc.field = 4;
 	if(tc.field == 4)
 	{

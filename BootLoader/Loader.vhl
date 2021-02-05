@@ -61,7 +61,7 @@ public class BootLoader
 
 	public static void Entry()
 	{
-		Console.SetForeColor(11); //Blue
+		Console.SetForeColor(ConsoleColors.Cyan());
 		BootLoader.PrintHeader();
 		uint exists = HFS.FileExists( &bootimage, size_of(bootimage));
 		if(exists)
@@ -71,17 +71,17 @@ public class BootLoader
 			Console.WriteLine( &txt_starting, size_of(txt_starting));
 
 
-			Console.SetForeColor(10); //Green
+			Console.SetForeColor(ConsoleColors.Green()); //Green
 			ptr();
 
 
-			Console.SetForeColor(11); //Blue
+			Console.SetForeColor(ConsoleColors.Cyan()); //Blue
 			Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 			Console.WriteLine( &txt_ending, size_of(txt_ending));
 
 			return;
 		}
-		Console.SetForeColor(12); //Red
+		Console.SetForeColor(ConsoleColors.Red()); //Red
 		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 		Console.WriteLine( &txt_error, size_of(txt_error));
 		interrupt(1);

@@ -2,7 +2,11 @@
 
 public class Test
 {
-
+	public Test(uint a, uint b)
+	{
+		this.MyVar1 = a;
+		this.MyVar2 = b;
+	}
 	public uint MyVar1;
 	public uint MyVar2;
 	public uint MyFunction1()
@@ -15,18 +19,13 @@ public class Test
 	}
 }
 
-Test instance;
+private static string tAddr = "Address: ";
+private static string tVal = "Value: ";
+private static string tNum = "Number: ";
 
-instance.MyVar1 = 123;
+private static Test instance = Test(123,321);
+private static uint var1 = instance.MyVar1;
+private static uint var2 = instance.MyVar2;
 
-instance.MyVar2 = 321;
-
-uint myData = instance.MyFunction1();
-
-Console.WriteNumber(myData);
-Console.WriteNewLine();
-
-myData = instance.MyFunction2();
-
-Console.WriteNumber(myData);
-Console.WriteNewLine();
+Console.WriteNumberLine(var1);
+Console.WriteNumberLine(var2);

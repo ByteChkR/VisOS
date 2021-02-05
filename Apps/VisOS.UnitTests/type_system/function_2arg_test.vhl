@@ -10,8 +10,8 @@ class TestClass
 	public static uint b;
 }
 
-TestClass const_ar;
-TestClass const_ab;
+TestClass const_ar = TestClass();
+TestClass const_ab = TestClass();
 
 private static void TestXY(TestClass arg1, TestClass arg2)
 {
@@ -27,9 +27,9 @@ private static void TestXY(TestClass arg1, TestClass arg2)
 
 private static void CustomTypeV2ArgsTest()
 {
-	TestClass ar;
+	TestClass ar = TestClass();
 	ar.b = 5;
-	TestClass ab;
+	TestClass ab = TestClass();
 	ab.b = 5;
 	
 

@@ -14,7 +14,7 @@ public class OS
 	
 	private static void Startup()
 	{
-		MMGR.ToggleDebug(1);
+		//MMGR.ToggleDebug(1);
 		MMGR.Initialize();
 
 		OSData.WriteOSHeader();

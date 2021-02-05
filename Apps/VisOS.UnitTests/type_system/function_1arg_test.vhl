@@ -10,7 +10,7 @@ class TestClass
 	public static uint b;
 }
 
-TestClass const_ar;
+TestClass const_ar = TestClass();
 
 private static void TestXY(TestClass arg1)
 {
@@ -26,7 +26,7 @@ private static void TestXY(TestClass arg1)
 
 private static void CustomTypeV1ArgsTest()
 {
-	TestClass ar;
+	TestClass ar = TestClass();
 	ar.b = 5;
 
 	Tests.Begin(ptr_of(str_var_test_name), size_of(str_var_test_name));

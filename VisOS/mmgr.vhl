@@ -45,7 +45,7 @@ public class MMGR
 		if(ENABLE_DEBUG)
 		{
 			uint lastFore = Console.GetForeColor();
-			Console.SetForeColor(12);
+			Console.SetForeColor(ConsoleColors.Red());
 			Console.WriteString(ptr, size);
 			Console.SetForeColor(lastFore);
 		}
@@ -57,7 +57,7 @@ public class MMGR
 		if(ENABLE_DEBUG)
 		{
 			uint lastFore = Console.GetForeColor();
-			Console.SetForeColor(12);
+			Console.SetForeColor(ConsoleColors.Red());
 			Console.WriteLine(ptr, size);
 			Console.SetForeColor(lastFore);
 		}
@@ -69,7 +69,7 @@ public class MMGR
 		if(ENABLE_DEBUG)
 		{
 			uint lastFore = Console.GetForeColor();
-			Console.SetForeColor(12);
+			Console.SetForeColor(ConsoleColors.Red());
 			Console.WriteNumber(num);
 			Console.SetForeColor(lastFore);
 		}
@@ -81,7 +81,7 @@ public class MMGR
 		if(ENABLE_DEBUG)
 		{
 			uint lastFore = Console.GetForeColor();
-			Console.SetForeColor(12);
+			Console.SetForeColor(ConsoleColors.Red());
 			Console.WriteNewLine();
 			Console.SetForeColor(lastFore);
 		}
