@@ -1,9 +1,9 @@
 uint funcList;
 uint funcListSize;
 
-#include "../VisOS.Driver/console.vhl"
+#include "../VisOS.Driver/console/console.vhl"
+#include "../VisOS.Driver/structures/mmgr.vhl"
 #include "../utils/memory.vhl"
-#include "../mmgr.vhl"
 
 string(txt_init, "Initializing Command System..");
 string(DEBUG_TAG, "[CMD] ");

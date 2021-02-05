@@ -1,0 +1,51 @@
+#include "time_device_driver.vhl"
+
+public class Time
+{
+	public static uint EpochDays()
+	{
+		return TimeDriver.GetEpochSeconds() / 3600 * 24;	
+	}
+
+	public static uint EpochHours()
+	{
+		return TimeDriver.GetEpochSeconds() / 3600;
+	}
+
+	public static uint EpochMinutes()
+	{
+		return TimeDriver.GetEpochSeconds() / 60;
+	}
+
+
+	public static uint EpochSeconds()
+	{
+		return TimeDriver.GetEpochSeconds();
+	}
+
+
+	public static uint Hours()
+	{
+		return Time.EpochHours() % 24;
+	}
+
+	public static uint MinutesToday()
+	{
+		return Time.EpochMinutes() % (60 * 24);
+	}
+
+	public static uint SecondsToday()
+	{
+		return Time.EpochSeconds() % (3600 * 24);
+	}
+
+	public static uint Minutes()
+	{
+		return Time.MinutesToday() % 60;
+	}
+
+	public static uint Seconds()
+	{
+		return Time.SecondsToday() % 60;
+	}
+}

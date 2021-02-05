@@ -1,4 +1,4 @@
-#include "console.vhl"
+#include "../console/console.vhl"
 #import "vasm-bridge HLT"
 #import "vasm-bridge BRK"
 private const uint benchmark_device_present = 0xFFFF4000;

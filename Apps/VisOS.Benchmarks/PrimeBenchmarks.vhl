@@ -1,4 +1,4 @@
-#include "VisOS.Driver/console.vhl"
+#include "VisOS.Driver/console/console.vhl"
 private static string bench_is_prime= " is Prime!";
 
 public static uint IsPrimeTest(uint num)

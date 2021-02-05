@@ -1,4 +1,4 @@
-#include "VisOS.Driver/hfs.vhl"
+#include "VisOS.Driver/hfs/hfs.vhl"
 #include "commands/command_utils.vhl"
 #include "commands/command_loop.vhl"
 

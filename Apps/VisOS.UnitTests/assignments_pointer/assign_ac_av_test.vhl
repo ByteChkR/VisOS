@@ -1,4 +1,4 @@
-#include "../VisOS.Driver/test_device.vhl"
+#include "../VisOS.Driver/tests/test_device.vhl"
 private static string test_assignment_fail= "Assignment b[5] = d[a] Failed.";
 private static string test_arrayC_add_arrayV= "Assignment_ArrayC_ArrayV_Simple_Test";
 	

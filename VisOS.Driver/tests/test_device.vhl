@@ -1,4 +1,4 @@
-#include "console.vhl"
+#include "../console/console.vhl"
 
 private const uint test_begin = 0xFFFF2000;
 private const uint test_fail = 0xFFFF2001;

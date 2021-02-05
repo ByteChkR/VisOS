@@ -1,4 +1,4 @@
-#include "../VisOS.Driver/test_device.vhl"
+#include "../VisOS.Driver/tests/test_device.vhl"
 
 private static string test_div_cc= "DIV_CC_Simple_Test";
 private static string test_div_cv= "DIV_CV_Simple_Test";

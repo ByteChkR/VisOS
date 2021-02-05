@@ -1,6 +1,11 @@
 
-#include "VisOS.Driver/console.vhl"
-#include "VisOS.Driver/hfs.vhl"
+#include "VisOS.Driver/console/console.vhl"
+#include "VisOS.Driver/hfs/hfs.vhl"
+#include "VisOS.Driver/time/time.vhl"
+#include "VisOS.Driver/tests/test_device.vhl"
+#include "VisOS.Driver/error/error_handler.vhl"
+#include "VisOS.Driver/benchmarks/benchmark_device.vhl"
+
 #import "vasm-bridge BRK"
 
 //The Boot Image to Load
@@ -14,6 +19,7 @@ private static string DEBUG_TAG = "[BLDR] ";
 
 private static string txt_pre_load = "Preparing to load Image: ";
 private static string txt_loading = "Loading";
+private static string txt_loading_bin_ver = "Version: ";
 private static string txt_bytes= "Bytes";
 private static string txt_complete= "Complete";
 private static string txt_error= "Error: File not Found";
@@ -31,17 +37,24 @@ public class BootLoader
 		return;
 	}
 
-	public static void WritePreLoadText()
+	public static void WritePreLoadText(uint version)
 	{
 		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 		Console.WriteString( &txt_pre_load, size_of(txt_pre_load));
 		Console.WriteLine( &bootimage, size_of(bootimage));
+
+		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
+		Console.WriteString( &txt_loading_bin_ver, size_of(txt_loading_bin_ver));
+		Console.WriteNumberLine( version );
+
 		return;
 	}
 
 	public static uint LoadImage()
 	{
-		BootLoader.WritePreLoadText();
+		uint version = HFS.GetBinaryVersion(&bootimage, size_of(bootimage));
+
+		BootLoader.WritePreLoadText(version);
 		uint size = HFS.GetFileSize( &bootimage, size_of(bootimage));
 		Console.WriteString(&DEBUG_TAG, size_of(DEBUG_TAG));
 		Console.WriteString( &txt_loading , size_of(txt_loading));
@@ -61,6 +74,8 @@ public class BootLoader
 
 	public static void Entry()
 	{
+		MMGR.ToggleDebug(0);
+		MMGR.Initialize();
 		Console.SetForeColor(ConsoleColors.Cyan());
 		BootLoader.PrintHeader();
 		uint exists = HFS.FileExists( &bootimage, size_of(bootimage));

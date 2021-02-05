@@ -1,4 +1,4 @@
-#include "../VisOS.Driver/test_device.vhl"
+#include "../VisOS.Driver/tests/test_device.vhl"
 
 private static string test_single_field_type= "SINGLE_FIELD_TYPE_TEST";
 

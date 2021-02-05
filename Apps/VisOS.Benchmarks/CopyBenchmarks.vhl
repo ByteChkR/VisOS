@@ -1,4 +1,4 @@
-#include "VisOS.Driver/benchmark_device.vhl"
+#include "VisOS.Driver/benchmarks/benchmark_device.vhl"
 
 private static string bench_name= "CopyTest_";
 private static string bench_100= "100";

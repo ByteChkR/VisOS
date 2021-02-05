@@ -1,4 +1,4 @@
-#include "VisOS.Driver/console.vhl"
+#include "VisOS.Driver/console/console.vhl"
 #include "utils/memory.vhl"
 
 string(DEBUG_TAG, "[CORE] ");

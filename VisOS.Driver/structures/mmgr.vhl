@@ -1,5 +1,5 @@
-#include "VisOS.Driver/console.vhl"
-#include "utils/error_handler.vhl"
+#include "../console/console.vhl"
+#include "../error/error_handler.vhl"
 
 uint MANAGED_END;
 uint MAX_ALLOCATIONS;
@@ -229,7 +229,7 @@ public class MMGR
 	{
 		MANAGED_END = 0x3FFFC;
 		MAX_ALLOCATIONS = 0x1000;
-		MANAGED_START = 0x1FFFE;
+		MANAGED_START = 0x0FFFE;
 		CUR_ALLOCS = 0;
 		CUR_ALLOC_TABLE_START = MANAGED_START;
 		CUR_START = MANAGED_START + MAX_ALLOCATIONS * 2;

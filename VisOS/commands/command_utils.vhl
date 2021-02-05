@@ -1,5 +1,5 @@
 #include "../utils/memory.vhl"
-#include "../VisOS.Driver/console.vhl"
+#include "../VisOS.Driver/console/console.vhl"
 string(cmd_exit, "exit");
 
 private static uint GetCommandPartEnd(uint ptrIn, uint ptrInSize, uint ptrCmd)

@@ -1,10 +1,16 @@
+
+#include "VisOS.Driver/console/console.vhl"
+#include "VisOS.Driver/hfs/hfs.vhl"
+#include "VisOS.Driver/time/time.vhl"
+#include "VisOS.Driver/tests/test_device.vhl"
+#include "VisOS.Driver/error/error_handler.vhl"
+#include "VisOS.Driver/structures/mmgr.vhl"
+#include "VisOS.Driver/benchmarks/benchmark_device.vhl"
 #include "commands/command_loop.vhl"
 #include "const_data.vhl"
 #include "utils/string.vhl"
 #include "utils/math.vhl"
 #include "hfs_loader.vhl"
-#include "mmgr.vhl"
-#include "utils/error_handler.vhl"
 
 string(txt_startup, "Starting..");
 string(DEBUG_TAG, "[CORE] ");
@@ -14,7 +20,7 @@ public class OS
 	
 	private static void Startup()
 	{
-		//MMGR.ToggleDebug(1);
+		MMGR.ToggleDebug(1);
 		MMGR.Initialize();
 
 		OSData.WriteOSHeader();

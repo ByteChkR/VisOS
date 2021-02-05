@@ -1,0 +1,14 @@
+#include "time_device_driver.vhl"
+
+public class Timer
+{
+	public static uint Start()
+	{
+		return TimeDriver.GetEpochSeconds();
+	}
+
+	public static uint End(uint start)
+	{
+		return TimeDriver.GetEpochSeconds() - start;
+	}
+}

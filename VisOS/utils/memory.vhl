@@ -1,3 +1,4 @@
+
 public class Memory
 {
 	public static uint IndexOf(uint source, uint start, uint length, uint num)
@@ -44,6 +45,20 @@ public class Memory
 			i--;
 			uint temp = source[i];
 			destination[i] = temp;
+		}
+		return;
+	}
+
+	public static void CopyReverse(uint source, uint length, uint destination)
+	{
+		uint i = length;
+		while(i)
+		{
+			i--;
+			uint temp = source[i];
+			uint newIndex = length-i;
+			newIndex--;
+			destination[newIndex] = temp;
 		}
 		return;
 	}

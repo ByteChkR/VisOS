@@ -1,0 +1,19 @@
+private const uint PRESENT_PIN = 0xFFFF5000;
+private const uint EPOCH_PIN = 0xFFFF5001;
+
+public class TimeDriver
+{
+	public static uint DeviceFound()
+	{
+		return PRESENT_PIN;
+	}
+
+	public static uint GetEpochSeconds()
+	{
+		if(TimeDriver.DeviceFound())
+		{
+			return EPOCH_PIN;
+		}
+		return 0;
+	}
+}

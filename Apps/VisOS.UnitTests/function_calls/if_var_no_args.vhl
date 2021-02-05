@@ -1,4 +1,4 @@
-#include "../VisOS.Driver/test_device.vhl"
+#include "../VisOS.Driver/tests/test_device.vhl"
 
 private static string str_test_name= "IfVarNoArgsTest";
 private static string str_ret_c_val_fail= "C:Return value is not 5";

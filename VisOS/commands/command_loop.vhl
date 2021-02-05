@@ -2,7 +2,7 @@
 #include "command_list.vhl"
 #include "../const_data.vhl"
 #include "../utils/memory.vhl"
-#include "../mmgr.vhl"
+#include "../VisOS.Driver/structures/mmgr.vhl"
 
 public static void CMD_CommandLoop()
 {

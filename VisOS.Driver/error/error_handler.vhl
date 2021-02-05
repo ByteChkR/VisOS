@@ -1,5 +1,5 @@
 #import "vasm-bridge BRK"
-#include "../VisOS.Driver/console.vhl"
+#include "../console/console.vhl"
 
 string(txt_error_c, "Encountered Error Code: ");
 string(DEBUG_TAG, "[ERR] ");

@@ -4,7 +4,7 @@
 #include "branch_tests.vhl"
 #include "instruction_tests.vhl"
 #include "type_system_tests.vhl"
-#include "VisOS.Driver/console.vhl"
+#include "VisOS.Driver/console/console.vhl"
 
 private static string str_instr= "Instruction Tests";
 private static string str_func= "Function Tests";

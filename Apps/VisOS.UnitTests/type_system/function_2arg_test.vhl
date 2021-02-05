@@ -1,4 +1,4 @@
-#include "../VisOS.Driver/test_device.vhl"
+#include "../VisOS.Driver/tests/test_device.vhl"
 
 private static string str_var_test_name= "CTYPE_2VAR_ARGS_Test";
 private static string str_const_test_name= "CTYPE_2CONST_ARGS_Test";

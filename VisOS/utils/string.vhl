@@ -1,10 +1,50 @@
-#include "error_handler.vhl"
+
+#include "memory.vhl"
+#include "../VisOS.Driver/error/error_handler.vhl"
 
 string(STR_PARSE_INVALID_INPUT_L, "Invalid Input in STR_ParseNumber input, the value is lower than expected");
 string(STR_PARSE_INVALID_INPUT_H, "Invalid Input in STR_ParseNumber input, the value is lower than expected");
+private static string NUM_CHARS = "0123456789abcdef";
+private static uint PARSE_BUF[30];
 
 public class String
 {
+	public static uint ToString(uint value, uint baseSystem, uint ptr)
+	{
+		if(!value)
+		{
+			ptr[0] = '0';
+			return 1;
+		}
+
+		uint start = size_of(PARSE_BUF);
+		while(value && start)
+		{
+			start--;
+			uint idx = value % baseSystem;
+
+			uint tempPtr = &NUM_CHARS;
+			uint chr = tempPtr[idx];
+
+			PARSE_BUF[start] = chr;
+			value /= baseSystem;
+			if(!value)
+			{
+				start++;
+			}
+		}
+		uint size = size_of(PARSE_BUF);
+		uint read = size- start-1;
+		if(value)
+		{
+			read = size;
+		}
+
+		Memory.Copy(&PARSE_BUF + start-1, read, ptr); 
+
+		return read;
+	}
+
 	public static uint ParseNumber(uint ptr, uint len)
 	{
 		uint i = len;
