@@ -1,0 +1,5 @@
+public class Enumerator
+{
+	public abstract uint Current();
+	public abstract uint MoveNext();
+}

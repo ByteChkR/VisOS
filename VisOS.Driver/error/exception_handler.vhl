@@ -1,0 +1,7 @@
+public class ExceptionHandler
+{
+	private static void Error(Exception ex)
+	{
+		ex.Throw();
+	}
+}

@@ -1,0 +1,9 @@
+
+#include "array.vhl"
+public class String : Array
+{
+	public static String(uint start, uint length)
+	{
+		Array.new(this, start, length);
+	}
+}

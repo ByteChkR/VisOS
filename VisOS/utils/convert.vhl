@@ -7,7 +7,7 @@ string(STR_PARSE_INVALID_INPUT_H, "Invalid Input in STR_ParseNumber input, the v
 private static string NUM_CHARS = "0123456789abcdef";
 private static uint PARSE_BUF[30];
 
-public class String
+public class Convert
 {
 	public static uint ToString(uint value, uint baseSystem, uint ptr)
 	{

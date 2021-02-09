@@ -12,7 +12,7 @@ private static uint IsCall(uint ptrIn)
 
 private static void CallCommand(uint argStart, uint argLength)
 {
-	uint addr = String.ParseNumber(argStart, argLength);
+	uint addr = Convert.ParseNumber(argStart, argLength);
 
 	addr();
 

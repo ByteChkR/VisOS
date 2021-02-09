@@ -14,7 +14,7 @@ private static uint IsPrimes(uint ptrIn)
 
 private static void PrimesCommand(uint argStart, uint argLength)
 {
-	uint val = String.ParseNumber(argStart, argLength);
+	uint val = Convert.ParseNumber(argStart, argLength);
 	Console.WriteString(&txt, size_of(txt));
 	Console.WriteNumber(val);
 

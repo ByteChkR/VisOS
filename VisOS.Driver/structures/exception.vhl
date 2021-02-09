@@ -1,0 +1,26 @@
+#include "string.vhl"
+#include "../console/console.vhl"
+
+public class StringException : Exception
+{
+	private uint msgPtr;
+	public static StringException(String msg)
+	{
+		this.msgPtr = msg;
+	}
+
+	public override void Throw()
+	{
+		String msg = this.msgPtr;
+		Console.WriteLine(msg.Begin(), msg.Size());
+		Exception.Throw(this);
+	}
+}
+
+public class Exception
+{	
+	public virtual void Throw()
+	{
+		interrupt(1);
+	}
+}

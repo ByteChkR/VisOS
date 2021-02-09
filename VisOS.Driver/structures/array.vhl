@@ -1,0 +1,90 @@
+#include "enumerator.vhl"
+
+public class ArrayEnumerator : Enumerator
+{
+	private uint start;
+	private uint length;
+	private uint current;
+	public static ArrayEnumerator(Array source)
+	{
+		this.start = source.Begin();
+		this.current = 0;
+		this.length = source.Size();
+	}
+
+	public override uint Current()
+	{
+		uint c = this.current;
+		uint l = this.length;
+
+		if(c < l)
+		{
+			uint s = this.start;
+			uint v = s[c];
+			return v;
+		}
+		return 0;
+	}
+
+	public override uint MoveNext()
+	{
+		uint c = this.current;
+		uint l = this.length;
+		c++;
+		if(c < l)
+		{
+			this.current = c;
+			return 1;
+		}
+		return 0;
+	}
+}
+
+public class Array
+{
+	private uint Start;
+	private uint Length;
+	public static Array(uint start, uint length)
+	{
+		this.Start = start;
+		this.Length = length;
+	}
+
+	public uint Size()
+	{
+		uint v = this.Length;
+		return v;
+	}
+
+	public uint Begin()
+	{
+		uint v = this.Start;
+		return v;
+	}
+
+	public uint Set(uint index, uint value)
+	{
+		uint l = this.Length;
+		if(index < l)
+		{
+			uint v = this.Start;
+			v[index] = value;
+			return 1;
+		}
+
+		return 0;
+	}
+
+	public uint Get(uint index)
+	{
+		uint l = this.Length;
+		if(index < l)
+		{
+			uint p = this.Start;
+			uint v = p[index];
+			return v;
+		}
+
+		return 0;
+	}
+}

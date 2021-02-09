@@ -5,10 +5,11 @@
 #include "VisOS.Driver/tests/test_device.vhl"
 #include "VisOS.Driver/error/error_handler.vhl"
 #include "VisOS.Driver/structures/mmgr.vhl"
+#include "VisOS.Driver/structures/exception.vhl"
 #include "VisOS.Driver/benchmarks/benchmark_device.vhl"
 #include "commands/command_loop.vhl"
 #include "const_data.vhl"
-#include "utils/string.vhl"
+#include "utils/convert.vhl"
 #include "utils/math.vhl"
 #include "hfs_loader.vhl"
 
@@ -55,7 +56,6 @@ public class OS
 		return;
 	}
 }
-
 
 OS.RunOS();
 return;
