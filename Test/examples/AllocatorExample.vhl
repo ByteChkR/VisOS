@@ -1,0 +1,45 @@
+public class AllocatorExample : Example
+{
+	public override void RunExample()
+	{
+		//Somewhere in the Upper Memory Area that is still in range of the Memory Device
+		ConstantAllocator alloc = ConstantAllocator(0x8FFF, 0x1000);
+
+		//Optimization Levels: 
+		// Merges Free Blocks to have less fragmentation.
+		// 0 - No Optimizations
+		//		Free Blocks get marked as such, but not merged.
+		// 1 - Optimize with one merge pass
+		//		Merges Blocks that are next to each other and both free
+		// 2 - Optimize again after each successful optimization => 
+		// 		This can keep fragmentation low, but might result in considerable amount of time spent in the optimization
+		alloc.SetOptimizationLevel(2);
+
+		alloc.WriteDebugData(); //Writing Allocation Table
+
+		uint rawL[10];
+		Array arr = Array(&rawL, 10);
+
+		for(uint i = 0; i < 10; i++)
+		{
+			uint ptr = alloc.Allocate(100 + i*10);
+			arr.SetElementAt(i, ptr);
+		}
+
+		alloc.WriteDebugData(); //Writing Allocation Table
+
+		for(uint j = 9; j <= 9; j--)
+		{
+			uint ptr = arr.GetElementAt(j);
+			alloc.Free(ptr);
+		}
+
+		alloc.WriteDebugData(); //Writing Allocation Table
+
+	}
+	public override Collection GetTypeString()
+	{
+		string STACK_TYPE_STR = "AllocatorExample";
+		return String(&STACK_TYPE_STR, size_of(STACK_TYPE_STR));
+	}
+}

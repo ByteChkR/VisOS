@@ -1,0 +1,79 @@
+public class Logger : Object
+{
+	private uint m_LogTag;
+	public static Logger(String tag)
+	{
+		this.m_LogTag = tag;
+	}
+
+	public void Append(Collection data)
+	{
+		Console.Write(data);
+	}
+
+	public void AppendNumber(uint data)
+	{
+		Console.WriteNumber(data);
+	}
+
+	public void AppendLine(Collection data)
+	{
+		Console.WriteLine(data);
+	}
+
+	public void AppendCharacter(uint value)
+	{
+		Console.WriteCharacter(value);
+	}
+
+	public void AppendNumber(uint data)
+	{
+		Console.WriteNumber(data);
+	}
+
+	public void AppendNumberLine(uint data)
+	{
+		Console.WriteNumberLine(data);
+	}
+
+	public void Write(Collection data)
+	{
+		String tag = this.m_LogTag;
+		Console.Write(tag);
+		Console.Write(data);
+	}
+
+	public void WriteNumber(uint value)
+	{
+		String tag = this.m_LogTag;
+		Console.Write(tag);
+		Console.WriteNumber(value);
+	}
+
+	public void WriteCharacter(uint value)
+	{
+		String tag = this.m_LogTag;
+		Console.Write(tag);
+		Console.WriteCharacter(value);
+	}
+
+	public void WriteNumberLine(uint value)
+	{
+		String tag = this.m_LogTag;
+		Console.Write(tag);
+		Console.WriteNumberLine(value);
+	}
+
+	public void WriteLine(Collection data)
+	{
+		String tag = this.m_LogTag;
+		Console.Write(tag);
+		Console.WriteLine(data);
+	}
+
+	public override Collection GetTypeString()
+	{
+		string STACK_TYPE_STR = "Logger";
+		return String(&STACK_TYPE_STR, size_of(STACK_TYPE_STR));
+	}
+}

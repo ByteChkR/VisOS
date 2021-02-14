@@ -2,6 +2,9 @@ public class ArrayExample : Example
 {
 	public override void RunExample()
 	{
+		string EXAMPLE_LOG_TAG = "[Array Example]";
+		String loggerTag = String(&EXAMPLE_LOG_TAG, size_of(EXAMPLE_LOG_TAG));
+		Logger exampleLogger = Logger(&loggerTag);
 		//Text
 		string TXT_ARR_LEN_STR = "Collection Capacity: ";
 		String ArrayLengthText = String(&TXT_ARR_LEN_STR, size_of(TXT_ARR_LEN_STR)); 
@@ -10,9 +13,8 @@ public class ArrayExample : Example
 		Array MyArray = Array(&RAW_ARR, size_of(RAW_ARR));
 
 		//Print Info
-		Console.Write(ArrayLengthText);
-		Console.WriteNumber(MyArray.GetCapacity());
-		Console.WriteCharacter('\n');
+		exampleLogger.Write(ArrayLengthText);
+		exampleLogger.AppendNumberLine(MyArray.GetCapacity());
 	}
 
 	public override Collection GetTypeString()

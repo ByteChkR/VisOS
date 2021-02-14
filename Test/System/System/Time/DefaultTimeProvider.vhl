@@ -1,10 +1,16 @@
-private const uint TIME_PIN = 0xFFFF5001;
 
 public class DefaultTimeProvider : TimeProvider
 {
+	private uint m_DevicePin;
+	public static DefaultTimeProvider(uint pin)
+	{
+		this.m_DevicePin = pin;
+	}
+
 	public override uint GetSystemSeconds()
 	{
-		return TIME_PIN;
+		uint v = this.m_DevicePin;
+		return *v;
 	}
 	
 	public override Collection GetTypeString()

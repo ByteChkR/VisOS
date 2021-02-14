@@ -3,18 +3,20 @@ public class TimeProviderExample : Example
 {
 	public override void RunExample()
 	{
-		TimeProvider time = DefaultTimeProvider();
-		DateTime instance = DateTime(time.GetSystemSeconds());
+		string EXAMPLE_LOG_TAG = "[Time Provider Example]";
+		String loggerTag = String(&EXAMPLE_LOG_TAG, size_of(EXAMPLE_LOG_TAG));
+		Logger exampleLogger = Logger(&loggerTag);
+		DateTime instance = DateTime(Time.GetSystemSeconds());
 
 		string TXT_TIME_STR = "Current Time: ";
 		String TimeStringText = String(&TXT_TIME_STR, size_of(TXT_TIME_STR)); 
-		
-		Console.Write(TimeStringText);
-		Console.WriteNumber(instance.Hours());
-		Console.WriteCharacter(':');
-		Console.WriteNumber(instance.Minutes());
-		Console.WriteCharacter(':');
-		Console.WriteNumberLine(instance.Seconds());
+
+		exampleLogger.Write(TimeStringText);
+		exampleLogger.AppendNumber(instance.Hours());
+		exampleLogger.AppendCharacter(':');
+		exampleLogger.AppendNumber(instance.Minutes());
+		exampleLogger.AppendCharacter(':');
+		exampleLogger.AppendNumberLine(instance.Seconds());
 	}
 	
 	public override Collection GetTypeString()

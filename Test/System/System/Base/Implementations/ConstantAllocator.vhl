@@ -1,0 +1,233 @@
+
+public class ConstantAllocatorBlockData
+{
+	private uint m_BlockLength;
+	private uint m_IsFree;
+	public static ConstantAllocatorBlockData(uint length, uint free)
+	{	
+		this.m_BlockLength = length;
+		this.m_IsFree = free;
+	}
+
+	public uint GetBlockLength()
+	{
+		uint v = this.m_BlockLength;
+
+		return v;
+	}
+
+	public void SetData(uint isFree, uint len)
+	{
+		this.m_IsFree = isFree;
+		this.m_BlockLength = len;
+	}
+
+	public void SetFree(uint isFree)
+	{
+		this.m_IsFree = isFree;
+	}
+
+	public uint IsFree()
+	{
+		uint v = this.m_IsFree;
+		return v;
+	}
+}
+
+
+public class ConstantAllocator : Allocator
+{
+	private uint m_MemoryStart;
+	private uint m_MemoryLength;
+	private uint m_OptimizationLevel;
+
+	public static ConstantAllocator(uint memoryStart, uint memoryLength)
+	{
+		this.m_MemoryStart = memoryStart;
+		this.m_MemoryLength = memoryLength;
+		this.CreateBlock(memoryStart, memoryLength-size_of(ConstantAllocatorBlockData), 1);
+		this.m_OptimizationLevel = 0;
+	}
+
+	private uint CreateBlock(uint thisPtr, uint len, uint free)
+	{
+		return ConstantAllocatorBlockData.new(thisPtr, len, free);
+	}
+
+
+	public void SetOptimizationLevel(uint level)
+	{
+		this.m_OptimizationLevel = level;
+	}
+
+	private uint GetRawBlock(uint current)
+	{
+		return current + size_of(ConstantAllocatorBlockData);
+	}
+
+
+	private uint GetDataFromBlock(uint blockPtr)
+	{
+		return blockPtr - size_of(ConstantAllocatorBlockData);
+	}
+
+
+	private uint GetNext(uint current)
+	{
+		ConstantAllocatorBlockData data = current;
+		uint size = data.GetBlockLength();
+		size += size_of(ConstantAllocatorBlockData);
+		size += current;
+		return size;
+	}
+
+	private uint FindFree(uint current, uint minSize)
+	{
+		ConstantAllocatorBlockData data = current;
+		if(data.IsFree() && data.GetBlockLength() >= minSize)
+		{
+			return current;
+		}
+
+		uint offset = this.GetRawBlock(current);
+		offset += data.GetBlockLength();
+		return this.FindFree(offset, minSize);
+	}
+
+	public override uint Allocate(uint size)
+	{
+		uint start = this.m_MemoryStart;
+		uint next = this.FindFree(start, size);
+		if(next) //Found a Free Block, reusing..
+		{
+			uint ptr = this.GetRawBlock(next); //Get Offset to the Actual Memory Block
+
+			ConstantAllocatorBlockData data = next;
+			uint actualSize = data.GetBlockLength();
+
+			if(size < actualSize) //Block is to big, split it
+			{
+				data.SetData(0, size);
+
+				ConstantAllocatorBlockData nextData = this.GetNext(next);
+
+				uint blockLength = actualSize - size + size_of(ConstantAllocatorBlockData);
+
+				nextData.SetData(1, blockLength);
+			}
+
+			return ptr;
+		}
+		interrupt(1);
+	}
+
+	public override uint Free(uint ptr)
+	{
+		ConstantAllocatorBlockData data = this.GetDataFromBlock(ptr);
+
+		if(data.IsFree())
+		{
+			interrupt(1);
+		}
+
+		data.SetFree(1);
+
+		this.OptimizeBlocks(); //Merge free Blocks
+	}
+
+	public void WriteDebugData()
+	{
+		string s_TableTitle = "Allocation Table: [Index, P = Pointer, S = Size, F = IsFree]";
+		uint s_TitleInstance = String(&s_TableTitle, size_of(s_TableTitle));
+
+		string EXAMPLE_LOG_TAG = "[Constant Allocator]";
+		String loggerTag = String(&EXAMPLE_LOG_TAG, size_of(EXAMPLE_LOG_TAG));
+		Logger logger = Logger(&loggerTag);
+
+		uint len = this.m_MemoryLength;
+		uint max = this.m_MemoryStart;
+		max += len;
+
+		uint ptr = this.m_MemoryStart;
+
+		uint cout = 0xFFFF1001;
+
+		logger.WriteLine(s_TitleInstance);
+
+		uint count = 0;
+
+		while(ptr < max)
+		{
+			ConstantAllocatorBlockData data = ptr;
+
+			logger.WriteNumber(count);
+			logger.AppendCharacter('\t');
+			logger.AppendCharacter('P');
+			logger.AppendCharacter(':');
+			logger.AppendNumber(ptr);
+			logger.AppendCharacter('\t');
+			logger.AppendCharacter('S');
+			logger.AppendCharacter(':');
+			logger.AppendNumber(data.GetBlockLength());
+			logger.AppendCharacter('\t');
+			logger.AppendCharacter('F');
+			logger.AppendCharacter(':');
+			logger.AppendNumberLine(data.IsFree());
+
+			ptr = this.GetNext(data);
+			count++;
+		}
+		logger.AppendCharacter('\n');
+	}
+
+
+	private void OptimizeBlocks()
+	{
+		uint optLevel = this.m_OptimizationLevel;
+		if(!optLevel)
+		{
+			return;
+		}
+		uint len = this.m_MemoryLength;
+		uint max = this.m_MemoryStart;
+		max += len;
+
+		uint ptr = this.m_MemoryStart;
+
+		uint last = 0;
+
+		uint optimized = 0;
+
+		while(ptr < max)
+		{
+			ConstantAllocatorBlockData data = ptr;
+
+			if(last)
+			{
+				ConstantAllocatorBlockData lastData = last;
+
+				if(lastData.IsFree() && data.IsFree())
+				{
+					lastData.SetData(1,  //Set Free
+						lastData.GetBlockLength() + //Current Size
+						data.GetBlockLength() +
+						size_of(ConstantAllocatorBlockData)); //Offset to acount for the now unused Data Structure
+					optimized = 1;
+				}
+			}
+			last = ptr;
+			ptr = this.GetNext(data);
+		}
+
+		if(optLevel >= 2 && optimized)
+		{
+			this.OptimizeBlocks();
+		}
+	}
+
+	public override Collection GetTypeString()
+	{
+		string STACK_TYPE_STR = "ConstantAllocator";
+		return String(&STACK_TYPE_STR, size_of(STACK_TYPE_STR));
+	}
+}

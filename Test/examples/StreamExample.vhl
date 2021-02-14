@@ -2,6 +2,9 @@ public class StreamExample : Example
 {
 	public override void RunExample()
 	{
+		string EXAMPLE_LOG_TAG = "[Stream Example]";
+		String loggerTag = String(&EXAMPLE_LOG_TAG, size_of(EXAMPLE_LOG_TAG));
+		Logger exampleLogger = Logger(&loggerTag);
 		string TXT_RESULT_STR = "String Content: ";
 		String StringContentText = String(&TXT_RESULT_STR, size_of(TXT_RESULT_STR)); 
 
@@ -17,8 +20,8 @@ public class StreamExample : Example
 		stream.Write('L');
 
 		//Print Info
-		Console.Write(StringContentText);
-		Console.WriteLine(array);
+		exampleLogger.Write(StringContentText);
+		exampleLogger.AppendLine(array);
 	}
 
 	public override Collection GetTypeString()

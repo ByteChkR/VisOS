@@ -2,6 +2,9 @@ public class ParseNumberExample : Example
 {
 	public override void RunExample()
 	{
+		string EXAMPLE_LOG_TAG = "[Parse Number Example]";
+		String loggerTag = String(&EXAMPLE_LOG_TAG, size_of(EXAMPLE_LOG_TAG));
+		Logger exampleLogger = Logger(&loggerTag);
 
 		string STR_NUMBER = "123";
 		String NUMBER_STRING = String(&STR_NUMBER, size_of(STR_NUMBER));
@@ -12,14 +15,14 @@ public class ParseNumberExample : Example
 		string TXT_ORIGINAL_NUM_STR = "Original Number: ";
 		String OriginalNumberText = String(&TXT_ORIGINAL_NUM_STR, size_of(TXT_ORIGINAL_NUM_STR));
 
-		Console.Write(OriginalNumberText);
-		Console.WriteLine(NUMBER_STRING);
+		exampleLogger.Write(OriginalNumberText);
+		exampleLogger.AppendLine(NUMBER_STRING);
 		//Parse String "123" into number
 		uint v = Convert.ParseNumber(NUMBER_STRING, 10);
 
 		//Write String Buffer with new Length;
-		Console.Write(ParsedNumberText);
-		Console.WriteNumberLine(v);
+		exampleLogger.Write(ParsedNumberText);
+		exampleLogger.AppendNumberLine(v);
 	}
 
 	public override Collection GetTypeString()

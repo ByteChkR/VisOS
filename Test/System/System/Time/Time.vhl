@@ -1,0 +1,25 @@
+private uint s_Provider;
+public class Time
+{
+	private static void SetDefault()
+	{
+		Time.SetProvider(DefaultTimeProvider(0xFFFF5001));
+	}
+
+	public static void SetProvider(TimeProvider provider)
+	{
+		s_Provider = provider;
+	}
+
+	public static uint GetSystemSeconds()
+	{
+		if(!s_Provider)
+		{	
+			Time.SetDefault();
+		}
+
+		TimeProvider provider = s_Provider;
+		uint v = provider.GetSystemSeconds();
+		return v;
+	}
+}

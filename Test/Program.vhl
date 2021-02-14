@@ -7,7 +7,6 @@
 #include "System/System.Collections.vhl"
 #include "System/System.IO.vhl"
 #include "System/System.Time.vhl"
-#include "System/System.Utils.vhl"
 
 
 //Include Examples
@@ -19,6 +18,8 @@
 #inline "Examples/ListExample.vhl"
 #inline "Examples/ParseNumberExample.vhl"
 #inline "Examples/TimeProviderExample.vhl"
+#inline "Examples/StackExample.vhl"
+#inline "Examples/AllocatorExample.vhl"
 
 private static void Initialize()
 {
@@ -42,38 +43,30 @@ private static void Initialize()
 	Console.Clear();
 }
 
-private static void RunExample(Example example)
-{
-	//Allocate String Data
-	string STR_RUN_EXAMPLE = "Running Example: ";
-	String RunExampleText = String(&STR_RUN_EXAMPLE, size_of(STR_RUN_EXAMPLE));
-
-	//Get Type String of Example
-	String s = example.GetTypeString();
-	Console.Write(RunExampleText);
-	Console.WriteLine(s);
-
-	example.RunExample();
-
-	Console.WriteCharacter('\n');
-}
-
 Initialize(); //Initialize Console
 
+
+//Run Examples
 ArrayExample arrExample = ArrayExample();
-RunExample(arrExample);
+arrExample.RunExample();
 
 TypeStringExample tsExample = TypeStringExample();
-RunExample(tsExample);
+tsExample.RunExample();
 
 StreamExample sExample = StreamExample();
-RunExample(sExample);
+sExample.RunExample();
 
 ListExample lExample = ListExample();
-RunExample(lExample);
+lExample.RunExample();
 
 ParseNumberExample pExample = ParseNumberExample();
-RunExample(pExample);
+pExample.RunExample();
 
 TimeProviderExample tExample = TimeProviderExample();
-RunExample(tExample);
+tExample.RunExample();
+
+StackExample stExample = StackExample();
+stExample.RunExample();
+
+AllocatorExample aExample = AllocatorExample();
+aExample.RunExample();

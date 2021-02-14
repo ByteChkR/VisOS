@@ -1,4 +1,5 @@
 #include "System.Base.vhl"
 
-#inline "System/Time/DefaultTimeProvider.vhl"
 #inline "System/Time/DateTime.vhl"
+#inline "System/Time/Time.vhl"
+#inline "System/Time/DefaultTimeProvider.vhl"

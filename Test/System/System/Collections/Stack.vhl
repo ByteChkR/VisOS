@@ -1,0 +1,47 @@
+public class Stack : Object
+{
+	private uint m_Buffer;
+	public static Stack(List buffer)
+	{
+		this.m_Buffer = buffer;
+	}
+
+	public List GetBuffer()
+	{
+		List lst = this.m_Buffer;
+		return lst;
+	}
+
+	public uint GetLength()
+	{
+		List lst = this.m_Buffer;
+		return lst.GetLength();
+	}
+
+	public uint Peek()
+	{
+		List lst = this.m_Buffer;
+		uint elem = lst.GetElementAt(this.GetLength() - 1);
+		return elem;
+	}
+
+	public uint Pop()
+	{
+		uint item = this.Peek();
+		List lst = this.m_Buffer;
+		lst.RemoveAt(this.GetLength() - 1);
+		return item;
+	}
+
+	public void Push(uint data)
+	{
+		List lst = this.m_Buffer;
+		lst.Add(data);
+	}
+
+	public override Collection GetTypeString()
+	{
+		string STACK_TYPE_STR = "Stack";
+		return String(&STACK_TYPE_STR, size_of(STACK_TYPE_STR));
+	}
+}

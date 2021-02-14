@@ -1,0 +1,35 @@
+public class StackExample : Example
+{
+	public override void RunExample()
+	{
+		string EXAMPLE_LOG_TAG = "[Stack Example]";
+		String loggerTag = String(&EXAMPLE_LOG_TAG, size_of(EXAMPLE_LOG_TAG));
+		Logger exampleLogger = Logger(&loggerTag);
+
+		string TXT_RESULT_STR = "Stack Content: ";
+		String StackContentText = String(&TXT_RESULT_STR, size_of(TXT_RESULT_STR)); 
+
+		uint RAW_ARRAY[4];
+		Array array = Array(&RAW_ARRAY, size_of(RAW_ARRAY));
+
+
+		//Double Wrap into Array List into Stack
+		Stack stack = Stack(&ArrayList(&array));
+
+		stack.Push('Y');
+		stack.Push('E');
+		stack.Push('E');
+		stack.Push('T');
+
+		//Print Info
+		exampleLogger.Write(StackContentText);
+		exampleLogger.AppendLine(array);
+		
+	}
+
+	public override Collection GetTypeString()
+	{
+		string ARRAY_EXAMPLE_TYPE_STR = "StackExample";
+		return String(&ARRAY_EXAMPLE_TYPE_STR, size_of(ARRAY_EXAMPLE_TYPE_STR));
+	}
+}

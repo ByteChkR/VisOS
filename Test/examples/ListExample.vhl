@@ -2,6 +2,10 @@ public class ListExample : Example
 {
 	public override void RunExample()
 	{
+		string EXAMPLE_LOG_TAG = "[List Example]";
+		String loggerTag = String(&EXAMPLE_LOG_TAG, size_of(EXAMPLE_LOG_TAG));
+		Logger exampleLogger = Logger(&loggerTag);
+
 		string TXT_RESULT_STR = "List Content: ";
 		String ListContentText = String(&TXT_RESULT_STR, size_of(TXT_RESULT_STR)); 
 
@@ -17,8 +21,8 @@ public class ListExample : Example
 		list.Add('T');
 
 		//Print Info
-		Console.Write(ListContentText);
-		Console.WriteLine(array);
+		exampleLogger.Write(ListContentText);
+		exampleLogger.AppendLine(array);
 	}
 
 	public override Collection GetTypeString()
