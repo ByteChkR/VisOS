@@ -1,0 +1,80 @@
+public static string MEMORY_STREAM_TYPE_STR = "MemoryStream";
+
+public class MemoryStream : Stream
+{
+	private uint m_CollectionPointer;
+	private uint m_Position;
+	public static MemoryStream(Collection coll)
+	{
+		this.m_CollectionPointer = coll;
+		this.m_Position = 0;
+	}
+
+	public override uint CanRead()
+	{
+		return 1;
+	}
+
+	public override uint Read()
+	{
+		uint i = this.m_Position;
+		Collection coll = this.m_CollectionPointer;
+		uint ret = coll.GetElementAt(i);
+		i++;
+		this.m_Position = i;
+		return ret;
+	}
+
+	public override uint CanWrite()
+	{
+		return 1;
+	}
+
+	public override void Write(uint data)
+	{
+		uint i = this.m_Position;
+		Collection coll = this.m_CollectionPointer;
+		coll.SetElementAt(i, data);
+		i++;
+		this.m_Position = i;
+	}
+
+	public override uint HasPosition()
+	{
+		return 1;
+	}
+
+
+	public override uint CanSetPosition()
+	{
+		return 1;
+	}
+
+	public override uint GetPosition()
+	{
+		uint i = this.m_Position;
+		return i;
+	}
+
+	public override void SetPosition(uint position)
+	{
+		this.m_Position = position;
+	}
+
+	public override uint HasLength()
+	{
+		return 1;
+	}
+
+	public override uint GetLength()
+	{
+		Collection coll = this.m_CollectionPointer;
+		return coll.GetCapacity();
+	}
+
+
+	public override Collection GetTypeString()
+	{
+		return String(&MEMORY_STREAM_TYPE_STR, size_of(MEMORY_STREAM_TYPE_STR));
+	}
+}

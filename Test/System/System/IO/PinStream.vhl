@@ -1,0 +1,104 @@
+private static string PIN_STREAM_TYPE_STR = "PinStream";
+
+public class PinStream : Stream
+{
+	private uint m_Pin;
+	private uint m_CanRead;
+	private uint m_CanWrite;
+	public static PinStream(uint pin, uint canRead, uint canWrite)
+	{
+		this.m_Pin = pin;
+		this.m_CanRead = canRead;
+		this.m_CanWrite = canWrite;
+	}
+
+	public override uint CanRead()
+	{
+		uint v = this.m_CanRead;
+		return v;
+	}
+
+	public override uint Read()
+	{
+		if(this.CanRead())
+		{
+			uint v = this.m_Pin;
+			return *v;
+		}
+		else
+		{
+			string funcName = "Read";
+			String str = String(&funcName, size_of(funcName));
+			Exception ex = NotSupportedException(this.GetTypeString(), str);
+			ex.Throw();
+		}
+		
+	}
+
+	public override uint CanWrite()
+	{
+		uint v = this.m_CanWrite;
+		return v;
+	}
+
+	public override void Write(uint data)
+	{
+		if(this.CanWrite())
+		{
+			uint v = this.m_Pin;
+			v[0] = data;
+		}
+		else
+		{
+			string funcName = "Write";
+
+			String str = String(&funcName, size_of(funcName));
+			Exception ex = NotSupportedException(this.GetTypeString(), str);
+			ex.Throw();
+		}
+	}
+
+	public override uint HasPosition()
+	{
+		return 0;
+	}
+
+	public override uint GetPosition()
+	{
+		string funcName = "GetPosition";
+		String str = String(&funcName, size_of(funcName));
+		Exception ex = NotSupportedException(this.GetTypeString(), str);
+		ex.Throw();
+	}
+
+	public override uint CanSetPosition()
+	{
+		return 0;
+	}
+
+	public override void SetPosition(uint position)
+	{
+		string funcName = "SetPosition";
+		String str = String(&funcName, size_of(funcName));
+		Exception ex = NotSupportedException(this.GetTypeString(), str);
+		ex.Throw();
+	}
+
+	public override uint HasLength()
+	{
+		return 0;
+	}
+
+	public override uint GetLength()
+	{
+		string funcName = "GetLength";
+		String str = String(&funcName, size_of(funcName));
+		Exception ex = NotSupportedException(this.GetTypeString(), str);
+		ex.Throw();
+	}
+
+	public override Collection GetTypeString()
+	{
+		return String(&PIN_STREAM_TYPE_STR, size_of(PIN_STREAM_TYPE_STR));
+	}
+}

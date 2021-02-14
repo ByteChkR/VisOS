@@ -1,0 +1,7 @@
+public class Exception : Object
+{
+	public virtual void Throw()
+	{
+		interrupt(1);
+	}
+}

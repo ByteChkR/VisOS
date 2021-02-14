@@ -1,0 +1,43 @@
+public class Stream : Object
+{
+	public abstract uint CanRead();
+	public abstract uint Read();
+
+	public abstract uint CanWrite();
+	public abstract void Write(uint data);
+
+	public abstract uint HasPosition();
+	public abstract uint GetPosition();
+	public abstract uint CanSetPosition();
+	public abstract void SetPosition(uint position);
+
+	public abstract uint HasLength();
+	public abstract uint GetLength();
+
+	public virtual void WriteEnumerator(Enumerator enumerator)
+	{
+		while(enumerator.HasNext())
+		{
+			this.Write(enumerator.GetNext());
+		}
+	}
+
+	public virtual void WriteCollection(Collection collection)
+	{
+		uint len = collection.GetCapacity();
+		for(uint i = 0; i < len; i++)
+		{
+			this.Write(collection.GetElementAt(i));
+		}
+	}
+
+	public virtual void ReadBuffer(Collection collection, uint start, uint length)
+	{
+		uint end = start + length;
+		for(uint i = start; i < end; i++)
+		{
+			collection.SetElementAt(i, this.Read());
+		}
+	}
+
+}

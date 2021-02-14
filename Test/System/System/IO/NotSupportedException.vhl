@@ -1,0 +1,22 @@
+private static string TYPE_STR_NOT_SUPPORTED_EXCEPTION = "NotSupportedException";
+
+public class NotSupportedException : Exception
+{
+	private uint m_FunctionName;
+	private uint m_TypeName;
+	public static NotSupportedException(String typeName, String functionName)
+	{
+		this.m_TypeName = typeName;
+		this.m_FunctionName = functionName;
+	}
+
+	public override Collection GetTypeString()
+	{
+		return String(&TYPE_STR_NOT_SUPPORTED_EXCEPTION, size_of(TYPE_STR_NOT_SUPPORTED_EXCEPTION));
+	}
+
+	public override void Throw()
+	{
+		Exception.Throw(this);
+	}
+}

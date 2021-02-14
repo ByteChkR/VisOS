@@ -1,12 +1,7 @@
 {
   "ProjectName": "Test",
   "ProjectVersion": "0.0.0.1",
-  "Dependencies": [
-    {
-      "ProjectName": "VisOS.Driver",
-      "ProjectVersion": "ANY"
-    }
-  ],
+  "Dependencies": [],
   "DefaultTarget": "Debug",
   "BuildTargets": {
     "Debug": {
@@ -75,7 +70,8 @@
           "BuildJobRunner": "merged",
           "Arguments": {
             "merge:include": "%VISDIR%common/jobs/release_build.json",
-            "build:input": "Program.vhl"
+            "build:input": "Program.vhl",
+            "assembler:format": "v1"
           }
         }
       ]

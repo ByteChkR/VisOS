@@ -1,0 +1,4 @@
+public class Example : Object
+{
+	public abstract void RunExample();
+}

@@ -1,0 +1,4 @@
+public class TimeProvider : Object
+{
+	public abstract uint GetSystemSeconds();
+}

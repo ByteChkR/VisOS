@@ -1,0 +1,17 @@
+public class TypeStringExample : Example
+{
+	public override void RunExample()
+	{
+	String type = this.GetTypeString();
+		string TXT_TYPE_STR = "Example Type String: ";
+		String TypeStringText = String(&TXT_TYPE_STR, size_of(TXT_TYPE_STR)); 
+		Console.Write(TypeStringText);
+		Console.WriteLine(type);
+	}
+	
+	public override Collection GetTypeString()
+	{
+		string TYPE_STRING_EXAMPLE_TYPE_STR = "TypeStringExample";
+		return String(&TYPE_STRING_EXAMPLE_TYPE_STR, size_of(TYPE_STRING_EXAMPLE_TYPE_STR));
+	}
+}

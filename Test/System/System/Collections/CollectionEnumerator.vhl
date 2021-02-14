@@ -1,0 +1,36 @@
+private static string COLLECTION_ENUMERATOR_TYPE_STR = "CollectionEnumerator";
+
+public class CollectionEnumerator : Enumerator
+{
+	private uint m_Buffer;
+	private uint m_Current;
+	public static CollectionEnumerator(Collection buffer)
+	{
+		this.m_Buffer = buffer;
+		this.m_Current = 0;
+	}
+
+
+	public override uint HasNext()
+	{
+		Collection c = this.m_Buffer;
+		uint max = c.GetCapacity();
+		uint cur = this.m_Current;
+		return cur < max;
+	}
+	
+	public override uint GetNext()
+	{
+		Collection c = this.m_Buffer;
+		uint cur = this.m_Current;
+		uint value = c.GetElementAt(cur);
+		cur++;
+		this.m_Current = cur;
+		return value;
+	}
+
+	public override Collection GetTypeString()
+	{
+		return String(&COLLECTION_ENUMERATOR_TYPE_STR, size_of(COLLECTION_ENUMERATOR_TYPE_STR));
+	}
+}

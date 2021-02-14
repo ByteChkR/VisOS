@@ -1,0 +1,78 @@
+private static string NUM_CHARS = "0123456789abcdef";
+private static uint PARSE_BUF[30];
+public class Convert
+{
+
+	private static void Copy(uint source, uint length, Collection destination)
+	{
+		uint i = length;
+		while(i)
+		{
+			i--;
+			uint temp = source[i];
+			destination.SetElementAt(i, temp);
+		}
+		return;
+	}
+
+	public static uint ToString(uint value, uint baseSystem, Collection ptr)
+	{
+		if(!value)
+		{
+			ptr.SetElementAt(0, '0');
+			return 1;
+		}
+
+		uint size = size_of(PARSE_BUF);
+		uint start = size;
+		while(value && start)
+		{
+			start--;
+			uint idx = value % baseSystem;
+
+			uint tempPtr = &NUM_CHARS;
+			uint chr = tempPtr[idx];
+
+			PARSE_BUF[start] = chr;
+			value /= baseSystem;
+			if(!value)
+			{
+				start++;
+			}
+		}
+		uint read = size - start - 1;
+		if(value)
+		{
+			read = size;
+		}
+
+		Convert.Copy(&PARSE_BUF + start - 1, read, ptr); 
+
+		return read;
+	}
+
+	public static uint ParseNumber(Collection str, uint baseSystem)
+	{
+		uint i = str.GetCapacity();
+		uint charOffset = 0x30;
+		uint charMax = charOffset + baseSystem;
+		uint result = 0;
+		uint position = 1;
+		while(i)
+		{
+			i--;
+
+			uint rawValue = str.GetElementAt(i);
+			if(rawValue < charOffset || rawValue > charMax)
+			{
+				interrupt(1);
+				return 0;
+			}
+			uint current = rawValue - charOffset;
+		
+			result += current * position;
+			position *= baseSystem;
+		}
+		return result;
+	}
+}

@@ -1,0 +1,14 @@
+private static string STR_TYPE_STR = "String";
+
+public class String : Array
+{
+	public static String(uint ptr, uint len)
+	{
+		Array.new(this, ptr, len);
+	}
+
+	public override String GetTypeString()
+	{
+		return String(&STR_TYPE_STR, size_of(STR_TYPE_STR));
+	}
+}

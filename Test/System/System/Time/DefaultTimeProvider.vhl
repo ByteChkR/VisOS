@@ -1,0 +1,15 @@
+private const uint TIME_PIN = 0xFFFF5001;
+
+public class DefaultTimeProvider : TimeProvider
+{
+	public override uint GetSystemSeconds()
+	{
+		return TIME_PIN;
+	}
+	
+	public override Collection GetTypeString()
+	{
+		string TIME_PROVIDER_TYPE_STR = "DefaultTimeProvider";
+		return String(&TIME_PROVIDER_TYPE_STR, size_of(TIME_PROVIDER_TYPE_STR));
+	}
+}

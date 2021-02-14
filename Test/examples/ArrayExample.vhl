@@ -1,0 +1,23 @@
+public class ArrayExample : Example
+{
+	public override void RunExample()
+	{
+		//Text
+		string TXT_ARR_LEN_STR = "Collection Capacity: ";
+		String ArrayLengthText = String(&TXT_ARR_LEN_STR, size_of(TXT_ARR_LEN_STR)); 
+
+		uint RAW_ARR[100];
+		Array MyArray = Array(&RAW_ARR, size_of(RAW_ARR));
+
+		//Print Info
+		Console.Write(ArrayLengthText);
+		Console.WriteNumber(MyArray.GetCapacity());
+		Console.WriteCharacter('\n');
+	}
+
+	public override Collection GetTypeString()
+	{
+		string ARRAY_EXAMPLE_TYPE_STR = "ArrayExample";
+		return String(&ARRAY_EXAMPLE_TYPE_STR, size_of(ARRAY_EXAMPLE_TYPE_STR));
+	}
+}

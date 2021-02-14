@@ -1,0 +1,29 @@
+public class StreamExample : Example
+{
+	public override void RunExample()
+	{
+		string TXT_RESULT_STR = "String Content: ";
+		String StringContentText = String(&TXT_RESULT_STR, size_of(TXT_RESULT_STR)); 
+
+		uint RAW_ARRAY[3];
+		Array array = Array(&RAW_ARRAY, size_of(RAW_ARRAY));
+
+		
+		Stream stream = MemoryStream(&array);
+
+		//Write Data
+		stream.Write('L');
+		stream.Write('O');
+		stream.Write('L');
+
+		//Print Info
+		Console.Write(StringContentText);
+		Console.WriteLine(array);
+	}
+
+	public override Collection GetTypeString()
+	{
+		string ARRAY_EXAMPLE_TYPE_STR = "StreamExample";
+		return String(&ARRAY_EXAMPLE_TYPE_STR, size_of(ARRAY_EXAMPLE_TYPE_STR));
+	}
+}

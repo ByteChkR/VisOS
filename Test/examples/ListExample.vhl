@@ -1,0 +1,29 @@
+public class ListExample : Example
+{
+	public override void RunExample()
+	{
+		string TXT_RESULT_STR = "List Content: ";
+		String ListContentText = String(&TXT_RESULT_STR, size_of(TXT_RESULT_STR)); 
+
+		uint RAW_ARRAY[4];
+		Array array = Array(&RAW_ARRAY, size_of(RAW_ARRAY));
+
+
+		List list = ArrayList(&array);
+
+		list.Add('Y');
+		list.Add('E');
+		list.Add('E');
+		list.Add('T');
+
+		//Print Info
+		Console.Write(ListContentText);
+		Console.WriteLine(array);
+	}
+
+	public override Collection GetTypeString()
+	{
+		string ARRAY_EXAMPLE_TYPE_STR = "ListExample";
+		return String(&ARRAY_EXAMPLE_TYPE_STR, size_of(ARRAY_EXAMPLE_TYPE_STR));
+	}
+}

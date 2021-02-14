@@ -1,0 +1,20 @@
+
+public class List : Collection
+{
+	public abstract void InsertAt(uint index, uint data);
+	public abstract void RemoveAt(uint index);
+	public abstract uint GetLength();
+
+	public void Clear()
+	{
+		while(this.GetLength())
+		{
+			this.RemoveAt(0);
+		}
+	}
+
+	public void Add(uint data)
+	{
+		this.InsertAt(this.GetLength(), data);
+	}
+}

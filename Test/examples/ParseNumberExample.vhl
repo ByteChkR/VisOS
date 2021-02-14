@@ -1,0 +1,30 @@
+public class ParseNumberExample : Example
+{
+	public override void RunExample()
+	{
+
+		string STR_NUMBER = "123";
+		String NUMBER_STRING = String(&STR_NUMBER, size_of(STR_NUMBER));
+
+		string TXT_PARSED_NUM_STR = "Parsed Number: ";
+		String ParsedNumberText = String(&TXT_PARSED_NUM_STR, size_of(TXT_PARSED_NUM_STR));
+
+		string TXT_ORIGINAL_NUM_STR = "Original Number: ";
+		String OriginalNumberText = String(&TXT_ORIGINAL_NUM_STR, size_of(TXT_ORIGINAL_NUM_STR));
+
+		Console.Write(OriginalNumberText);
+		Console.WriteLine(NUMBER_STRING);
+		//Parse String "123" into number
+		uint v = Convert.ParseNumber(NUMBER_STRING, 10);
+
+		//Write String Buffer with new Length;
+		Console.Write(ParsedNumberText);
+		Console.WriteNumberLine(v);
+	}
+
+	public override Collection GetTypeString()
+	{
+		string ARRAY_EXAMPLE_TYPE_STR = "ParseNumberExample";
+		return String(&ARRAY_EXAMPLE_TYPE_STR, size_of(ARRAY_EXAMPLE_TYPE_STR));
+	}
+}

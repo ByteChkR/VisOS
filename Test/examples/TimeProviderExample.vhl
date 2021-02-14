@@ -1,0 +1,25 @@
+
+public class TimeProviderExample : Example
+{
+	public override void RunExample()
+	{
+		TimeProvider time = DefaultTimeProvider();
+		DateTime instance = DateTime(time.GetSystemSeconds());
+
+		string TXT_TIME_STR = "Current Time: ";
+		String TimeStringText = String(&TXT_TIME_STR, size_of(TXT_TIME_STR)); 
+		
+		Console.Write(TimeStringText);
+		Console.WriteNumber(instance.Hours());
+		Console.WriteCharacter(':');
+		Console.WriteNumber(instance.Minutes());
+		Console.WriteCharacter(':');
+		Console.WriteNumberLine(instance.Seconds());
+	}
+	
+	public override Collection GetTypeString()
+	{
+		string TIME_PROVIDER_EXAMPLE_TYPE_STR = "TimeProviderExample";
+		return String(&TIME_PROVIDER_EXAMPLE_TYPE_STR, size_of(TIME_PROVIDER_EXAMPLE_TYPE_STR));
+	}
+}

@@ -1,0 +1,24 @@
+private static string TYPE_STR_INDEX_OUT_OF_BOUNDS_EXCEPTION = "IndexOutOfBoundsException";
+
+public class IndexOutOfBoundsException : Exception
+{
+	private uint m_Index;
+	private uint m_CollectionPointer;
+	public static IndexOutOfBoundsException(Collection collection, uint index)
+	{
+		this.m_Index = index;
+		this.m_CollectionPointer = collection;
+	}
+
+	
+	
+	public override String GetTypeString()
+	{
+		return String(&TYPE_STR_INDEX_OUT_OF_BOUNDS_EXCEPTION, size_of(TYPE_STR_INDEX_OUT_OF_BOUNDS_EXCEPTION));
+	}
+
+	public override void Throw()
+	{
+		Exception.Throw(this);
+	}
+}

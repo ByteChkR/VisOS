@@ -1,0 +1,56 @@
+private static string ARR_TYPE_STR = "Array";
+public class Array : Collection
+{
+	private uint m_Pointer;
+	private uint m_Length;
+	public static Array(uint ptr, uint len)
+	{
+		this.m_Pointer = ptr;
+		this.m_Length = len;
+	}
+
+	public uint GetRaw()
+	{
+		uint v = this.m_Pointer;
+		return v;
+	}
+
+	public override uint GetCapacity()
+	{
+		uint v = this.m_Length;
+		return v;
+	}
+
+	public override uint GetElementAt(uint index)
+	{
+		uint length = this.m_Length;
+		if(index < length)
+		{
+			uint v = this.m_Pointer;
+			uint val = v[index];
+			return val;
+		}
+
+		IndexOutOfBoundsException ex = IndexOutOfBoundsException(this, index);
+		ex.Throw();
+	}
+
+	public override void SetElementAt(uint index, uint data)
+	{
+		uint length = this.m_Length;
+		if(index < length)
+		{
+			uint v = this.m_Pointer;
+			v[index] = data;
+			return;
+		}
+
+		IndexOutOfBoundsException ex = IndexOutOfBoundsException(this, index);
+		ex.Throw();
+	}
+	
+	public override String GetTypeString()
+	{
+		return String(&ARR_TYPE_STR, size_of(ARR_TYPE_STR));
+	}
+}

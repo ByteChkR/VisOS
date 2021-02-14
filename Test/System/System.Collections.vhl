@@ -1,0 +1,7 @@
+#include "System.Base.vhl"
+
+#inline "System/Collections/List.vhl"
+#inline "System/Collections/ArrayList.vhl"
+#inline "System/Collections/LinkedList.vhl"
+#inline "System/Collections/Stack.vhl"
+#inline "System/Collections/CollectionEnumerator.vhl"

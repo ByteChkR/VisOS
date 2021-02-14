@@ -1,0 +1,117 @@
+public class DateTime : Object
+{
+	private uint m_UnixSeconds;
+	public static DateTime(uint unixSeconds)
+	{
+		this.m_UnixSeconds = unixSeconds;
+	}
+
+	public uint SystemDays()
+	{
+		return this.SystemSeconds() / 3600 * 24;	
+	}
+
+	public uint SystemHours()
+	{
+		return this.SystemSeconds() / 3600;
+	}
+
+	public uint SystemMinutes()
+	{
+		return this.SystemSeconds() / 60;
+	}
+
+	public uint SystemSeconds()
+	{	
+		uint v = this.m_UnixSeconds;
+		return v;
+	}
+
+
+	public uint Hours()
+	{
+		return this.SystemHours() % 24;
+	}
+
+	public uint MinutesToday()
+	{
+		return this.SystemMinutes() % (60 * 24);
+	}
+
+	public uint SecondsToday()
+	{
+		return this.SystemSeconds() % (3600 * 24);
+	}
+
+	public uint Minutes()
+	{
+		return this.MinutesToday() % 60;
+	}
+
+	public uint Seconds()
+	{
+		return this.SecondsToday() % 60;
+	}
+
+	public void AddSeconds(uint amount)
+	{
+		uint v = this.m_UnixSeconds;
+		v += amount;
+		this.m_UnixSeconds = v;
+	}
+
+	public void RemoveSeconds(uint amount)
+	{
+		uint v = this.m_UnixSeconds;
+		v -= amount;
+		this.m_UnixSeconds = v;
+	}
+
+	public void AddMinutes(uint amount)
+	{
+		uint v = this.m_UnixSeconds;
+		v += (amount * 60);
+		this.m_UnixSeconds = v;
+	}
+
+	public void RemoveMinutes(uint amount)
+	{
+		uint v = this.m_UnixSeconds;
+		v -= (amount * 60);
+		this.m_UnixSeconds = v;
+	}
+
+	public void AddHours(uint amount)
+	{
+		uint v = this.m_UnixSeconds;
+		v += (amount * 3600);
+		this.m_UnixSeconds = v;
+	}
+
+	public void RemoveHours(uint amount)
+	{
+		uint v = this.m_UnixSeconds;
+		v -= (amount * 3600);
+		this.m_UnixSeconds = v;
+	}
+
+	public void AddDays(uint amount)
+	{
+		uint v = this.m_UnixSeconds;
+		v += (amount * 3600 * 24);
+		this.m_UnixSeconds = v;
+	}
+
+	public void RemoveDays(uint amount)
+	{
+		uint v = this.m_UnixSeconds;
+		v -= (amount * 3600 * 24);
+		this.m_UnixSeconds = v;
+	}
+
+	public override Collection GetTypeString()
+	{
+		string DATE_TIME_TYPE_STR = "DateTime";
+		return String(&DATE_TIME_TYPE_STR, size_of(DATE_TIME_TYPE_STR));
+	}
+}

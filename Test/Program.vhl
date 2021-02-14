@@ -1,31 +1,79 @@
-#include "VisOS.Driver/console.vhl"
 
-public class Test
+//Include System Library
+
+//Included by other System Libs below
+//#include "System/System.Base.vhl"
+
+#include "System/System.Collections.vhl"
+#include "System/System.IO.vhl"
+#include "System/System.Time.vhl"
+#include "System/System.Utils.vhl"
+
+
+//Include Examples
+//Using Inline to skip Including System Lib in each example
+#inline "Examples/Example.vhl"
+#inline "Examples/ArrayExample.vhl"
+#inline "Examples/TypeStringExample.vhl"
+#inline "Examples/StreamExample.vhl"
+#inline "Examples/ListExample.vhl"
+#inline "Examples/ParseNumberExample.vhl"
+#inline "Examples/TimeProviderExample.vhl"
+
+private static void Initialize()
 {
-	public Test(uint a, uint b)
-	{
-		this.MyVar1 = a;
-		this.MyVar2 = b;
-	}
-	public uint MyVar1;
-	public uint MyVar2;
-	public uint MyFunction1()
-	{
-		return this.MyVar1;
-	}
-	public uint MyFunction2()
-	{
-		return this.MyVar2;
-	}
+	//Set Device Clear Pin
+	Console.SetConsoleClearPin(0xFFFF1005);
+
+	//Create and Set Parse Buffer
+	//Used when Calling Console.WriteNumber or Console.WriteNumberLine
+	uint raw_buffer[30];
+	Array parse_buffer = Array(&raw_buffer, size_of(raw_buffer));
+	Console.SetConsoleParseBuffer(parse_buffer);
+
+	//Create/Set Output Stream
+	PinStream OutStream = PinStream(0xFFFF1001, 0, 1);
+	Console.SetConsoleOutput(OutStream);
+
+	//Create/Set Console Input Stream
+	PinStream InStream = PinStream(0xFFFF1004, 1, 0);
+	Console.SetConsoleInput(InStream);
+
+	Console.Clear();
 }
 
-private static string tAddr = "Address: ";
-private static string tVal = "Value: ";
-private static string tNum = "Number: ";
+private static void RunExample(Example example)
+{
+	//Allocate String Data
+	string STR_RUN_EXAMPLE = "Running Example: ";
+	String RunExampleText = String(&STR_RUN_EXAMPLE, size_of(STR_RUN_EXAMPLE));
 
-private static Test instance = Test(123,321);
-private static uint var1 = instance.MyVar1;
-private static uint var2 = instance.MyVar2;
+	//Get Type String of Example
+	String s = example.GetTypeString();
+	Console.Write(RunExampleText);
+	Console.WriteLine(s);
 
-Console.WriteNumberLine(var1);
-Console.WriteNumberLine(var2);
+	example.RunExample();
+
+	Console.WriteCharacter('\n');
+}
+
+Initialize(); //Initialize Console
+
+ArrayExample arrExample = ArrayExample();
+RunExample(arrExample);
+
+TypeStringExample tsExample = TypeStringExample();
+RunExample(tsExample);
+
+StreamExample sExample = StreamExample();
+RunExample(sExample);
+
+ListExample lExample = ListExample();
+RunExample(lExample);
+
+ParseNumberExample pExample = ParseNumberExample();
+RunExample(pExample);
+
+TimeProviderExample tExample = TimeProviderExample();
+RunExample(tExample);

@@ -1,0 +1,88 @@
+
+private static uint s_OutputStream;
+private static uint s_InputStream;
+private static uint s_ConsoleClear;
+private static uint s_NumberParseBuffer;
+
+public class Console
+{
+	
+	public static void SetConsoleClearPin(uint func)
+	{
+		s_ConsoleClear = func;
+	}
+
+	public static void SetConsoleParseBuffer(Collection buffer)
+	{
+		s_NumberParseBuffer = buffer;
+	}
+
+	public static void SetConsoleOutput(Stream outputStream)
+	{
+		s_OutputStream = outputStream;
+	}
+	
+	public static void SetConsoleInput(Stream inputStream)
+	{
+		s_InputStream = inputStream;
+	}
+
+	public static void WriteCharacter(uint data)
+	{
+		if(!s_OutputStream)
+		{
+			interrupt(1);
+		}
+		Stream s = s_OutputStream;
+		s.Write(data);
+	}
+
+
+	public static void Clear()
+	{
+		if(!s_ConsoleClear)
+		{
+			interrupt(1);
+		}
+		s_ConsoleClear[0] = 1;
+	}
+
+	public static void Write(Collection data)
+	{
+		if(!s_OutputStream)
+		{
+			interrupt(1);
+		}
+		Stream s = s_OutputStream;
+		s.WriteCollection(data);
+	}
+
+	public static void WriteLine(Collection data)
+	{
+		if(!s_OutputStream)
+		{
+			interrupt(1);
+		}
+		Stream s = s_OutputStream;
+		s.WriteCollection(data);
+		s.Write('\n');
+	}
+	
+
+	public static void WriteNumber(uint number)
+	{
+		Collection c = s_NumberParseBuffer;
+		uint len = Convert.ToString(number, 10, c);
+
+		for(uint i = 0; i < len; i++)
+		{
+			Console.WriteCharacter(c.GetElementAt(i));
+		}
+	}
+
+	public static void WriteNumberLine(uint number)
+	{
+		Console.WriteNumber(number);
+		Console.WriteCharacter('\n');
+	}
+}

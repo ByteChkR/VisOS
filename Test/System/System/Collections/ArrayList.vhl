@@ -1,0 +1,111 @@
+private static string ARRAY_LIST_TYPE_STR = "ArrayList";
+public class ArrayList : List
+{
+	private uint m_ArrayBuffer;
+	private uint m_Count;
+	public static ArrayList(Array buffer)
+	{
+		this.m_ArrayBuffer = buffer;
+		this.m_Count = 0;
+	}
+
+	public Array GetBuffer()
+	{
+		Array a = this.m_ArrayBuffer;
+		return a;
+	}
+
+	public override void InsertAt(uint index, uint data)
+	{
+		uint len = this.GetLength();
+		if(index > len)
+		{
+			IndexOutOfBoundsException ex = IndexOutOfBoundsException(this, index);
+			ex.Throw();
+			return;
+		}
+		this.MoveUp(index, 1);
+		this.SetElementAt(index, data);
+		uint v = this.m_Count;
+		this.m_Count = v + 1;
+	}
+
+	public override uint GetLength()
+	{
+		uint v = this.m_Count;
+		return v;
+	}
+
+	public override void RemoveAt(uint index)
+	{
+		uint len = this.GetLength();
+		if(index >= len)
+		{
+			IndexOutOfBoundsException ex = IndexOutOfBoundsException(this, index);
+			ex.Throw();
+			return;
+		}
+		this.MoveDown(index+1, 1);
+		uint v = this.m_Count;
+		this.m_Count = v - 1;
+	}
+
+	public override uint GetElementAt(uint index)
+	{
+		Array a = this.m_ArrayBuffer;
+		return a.GetElementAt(index);
+	}
+
+	public override void SetElementAt(uint index, uint data)
+	{
+		Array a = this.m_ArrayBuffer;
+		a.SetElementAt(index, data);
+	}
+
+	public override uint GetCapacity()
+	{
+		Array a = this.m_ArrayBuffer;
+		return a.GetCapacity();
+	}
+
+	public override Collection GetTypeString()
+	{
+		return String(&ARRAY_LIST_TYPE_STR, size_of(ARRAY_LIST_TYPE_STR));
+	}
+
+	private void MoveUp(uint start, uint amount)
+	{
+		Array a = this.m_ArrayBuffer;
+		uint end = this.GetLength();
+		if(!end || start >= end)
+		{
+			return;
+		}
+		end--;
+		for(uint i = end; i != start - 1; i--)
+		{
+			uint newIndex = i + amount;
+			uint v = a.GetElementAt(i);
+
+			a.SetElementAt(newIndex, v);
+		}
+	}
+
+	private void MoveDown(uint start, uint amount)
+	{
+		Array a = this.m_ArrayBuffer;
+		uint end = this.GetLength();
+		uint minStart = amount;
+		if(minStart > start)
+		{
+			return;
+		}
+		for(uint i = start; i < end; i++)
+		{
+			uint newIndex = i - amount;
+			uint v = a.GetElementAt(i);
+			a.SetElementAt(newIndex, v);
+		}
+	}
+
+}

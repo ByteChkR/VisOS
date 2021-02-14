@@ -1,0 +1,6 @@
+#include "System.Base.vhl"
+
+#inline "System/IO/MemoryStream.vhl"
+#inline "System/IO/PinStream.vhl"
+#inline "System/IO/NotImplementedException.vhl"
+#inline "System/IO/NotSupportedException.vhl"

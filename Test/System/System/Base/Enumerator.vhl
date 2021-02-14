@@ -1,0 +1,12 @@
+public class Enumerator : Object
+{
+	public abstract uint HasNext();
+	public abstract uint GetNext();
+	public virtual void Skip(uint count)
+	{
+		for(uint i = 0; i < count; i++)
+		{
+			this.GetNext();
+		}
+	}
+}
