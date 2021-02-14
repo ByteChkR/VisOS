@@ -26,11 +26,6 @@ public class Logger : Object
 		Console.WriteCharacter(value);
 	}
 
-	public void AppendNumber(uint data)
-	{
-		Console.WriteNumber(data);
-	}
-
 	public void AppendNumberLine(uint data)
 	{
 		Console.WriteNumberLine(data);
