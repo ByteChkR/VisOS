@@ -1,4 +1,4 @@
-public class Example : Object
+public abstract class Example : Object
 {
 	public abstract void RunExample();
 }

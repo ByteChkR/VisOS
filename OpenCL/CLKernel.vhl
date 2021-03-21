@@ -1,0 +1,30 @@
+public class CLKernel : CLHandleItem
+{
+
+	private uint m_ArgumentCount;
+	public uint GetArgumentCount()
+	{
+		uint v = this.m_ArgumentCount;
+		return v;
+	}
+
+	public void SetArgument(uint index, uint ptr)
+	{
+		//TODO: Write kernel argument to device
+	}
+
+	public void SetBuffer(uint index, CLBuffer buffer)
+	{
+		this.SetArgument(index, buffer.GetHandle()); //Set the Buffer handle as argument
+	}
+
+	public void Run()
+	{
+		//TODO: Tell device to run command
+	}
+
+	public override void Dispose()
+	{
+		//TODO: Dispose this Kernel
+	}
+}

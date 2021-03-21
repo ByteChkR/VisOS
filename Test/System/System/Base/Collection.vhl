@@ -1,4 +1,4 @@
-public class Collection : Object
+public abstract class Collection : Object
 {
 	public abstract uint GetElementAt(uint index);
 	public abstract void SetElementAt(uint index, uint data);

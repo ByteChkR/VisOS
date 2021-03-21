@@ -1,0 +1,31 @@
+public class CLPlatform : CLHandleItem
+{
+	public static CLPlatform(uint handle)
+	{
+		Console.WriteCharacter('P');
+		CLHandleItem.CLHandleItem(this, handle);
+	}
+
+	public uint GetDeviceCount()
+	{
+		uint data = this.Write1ThenRead(&CL_DEVICE_COUNT, this.GetHandle());
+		return data;
+	}
+
+	public CLDevice GetDevice(uint index)
+	{
+		uint data = this.Write2ThenRead(&CL_DEVICE, index, this.GetHandle());
+		Allocator alloc = s_CLAlloc;
+		uint ptr = alloc.Allocate(size_of(CLDevice));
+		Console.WriteCharacter('D');
+		Console.WriteNumberLine(ptr);
+		CLDevice.new(ptr, data);
+		return ptr;
+	}
+
+	public override Collection GetTypeString()
+	{
+		string CL_PLATFORM_TYPE_STR = "CLPlatform";
+		return String(&CL_PLATFORM_TYPE_STR, size_of(CL_PLATFORM_TYPE_STR));
+	}
+}

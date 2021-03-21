@@ -1,0 +1,75 @@
+public abstract class CLBase : Object
+{
+	public abstract void Dispose();
+
+	public void Write(uint pin, uint data)
+	{
+		pin[0] = data;
+	}
+
+	public void WriteMany(uint pin, uint ptr, uint len)
+	{
+		for(uint i = 0; i < len; i++)
+		{
+			uint v = ptr[i];
+			this.Write(pin, v);
+		}
+
+	}
+	public void ReadMany(uint pin, uint ptr, uint len)
+	{
+		for(uint i = 0; i < len; i++)
+		{
+			uint v = pin[0];
+			ptr[i] = v;
+		}
+
+	}
+
+	public uint Write1ThenRead(uint pin, uint data1)
+	{
+		this.Write(pin, data1);
+		uint v = pin[0];
+		return v;
+	}
+
+	public uint Write2ThenRead(uint pin, uint data1, uint data2)
+	{
+		this.Write(pin, data1);
+		this.Write(pin, data2);
+		uint v = pin[0];
+		return v;
+	}
+	public uint Write3ThenRead(uint pin, uint data1, uint data2, uint data3)
+	{
+		this.Write(pin, data1);
+		this.Write(pin, data2);
+		this.Write(pin, data3);
+		uint v = pin[0];
+		return v;
+	}
+
+	public uint WriteManyThenRead(uint pin, uint ptr, uint len)
+	{
+		this.WriteMany(pin, ptr, len);
+		uint v = pin[0];
+		return v;
+	}
+
+
+
+	public void WriteManyStopThenReadMany(uint pin, uint srcPtr, uint srcLen, uint dstPtr, uint dstLen, uint stopValue)
+	{
+		this.WriteMany(pin, srcPtr, srcLen);
+		pin[0] = stopValue;
+		this.ReadMany(pin, dstPtr, dstLen);
+	}
+
+	public void WriteManyThenReadMany(uint pin, uint srcPtr, uint srcLen, uint dstPtr, uint dstLen)
+	{
+		this.WriteMany(pin, srcPtr, srcLen);
+		this.ReadMany(pin, dstPtr, dstLen);
+	}
+
+	
+}

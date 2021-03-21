@@ -4,6 +4,7 @@
 #inline "System/Base/Implementations/String.vhl"
 #inline "System/Base/Implementations/Array.vhl"
 #inline "System/Base/Logging/Logger.vhl"
+#inline "System/Base/SystemInternal.vhl"
 #inline "System/Base/Implementations/IndexOutOfBoundsException.vhl"
 #inline "System/Base/Implementations/ConstantAllocator.vhl"
 #inline "System/Base/Object.vhl"

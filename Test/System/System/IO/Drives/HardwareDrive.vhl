@@ -1,0 +1,147 @@
+private static uint HWDRIVE_PRESENT_PIN;
+
+public class HardwareDrive : Drive
+{
+	private uint m_EnableDebug;
+
+	public static HardwareDrive()
+	{
+		this.m_EnableDebug = 0;
+		HWDRIVE_PRESENT_PIN = 0xFFFF6000;
+		uint v = HWDRIVE_PRESENT_PIN[0];
+		if(!v)
+		{
+			interrupt(1);
+		}
+	}
+
+	public void EnableDebug(uint enable)
+	{
+		this.m_EnableDebug = enable;
+	}
+
+	public override uint GetSize()
+	{
+		uint v = HWDRIVE_PRESENT_PIN[1];
+		uint dbg = this.m_EnableDebug;
+		if(dbg)
+		{
+			string DEBUG_LINE = "Get Size: ";
+			String str = String(&DEBUG_LINE, size_of(DEBUG_LINE));
+			Console.Write(str);
+			Console.WriteNumberLine(v);
+		}
+		return v;
+	}
+
+	public override void Write(uint address, uint data)
+	{
+		HWDRIVE_PRESENT_PIN[2] = address;
+		HWDRIVE_PRESENT_PIN[2] = data;
+
+		uint dbg = this.m_EnableDebug;
+		if(dbg)
+		{
+			string DEBUG_LINE = "Write Single: ";
+			String str = String(&DEBUG_LINE, size_of(DEBUG_LINE));
+			Console.Write(str);
+			Console.WriteCharacter('A');
+			Console.WriteCharacter(':');
+			Console.WriteNumber(address);
+			Console.WriteCharacter('\t');
+			Console.WriteCharacter('D');
+			Console.WriteCharacter(':');
+			Console.WriteNumberLine(data);
+		}
+	}
+
+	public override void WriteBuffer(uint address, Array array, uint start, uint length)
+	{
+		uint dbg = this.m_EnableDebug;
+		if(dbg)
+		{
+			string DEBUG_LINE = "Write Buffer: ";
+			String str = String(&DEBUG_LINE, size_of(DEBUG_LINE));
+			Console.Write(str);
+			Console.WriteCharacter('A');
+			Console.WriteCharacter(':');
+			Console.WriteNumber(address);
+			Console.WriteCharacter('\t');
+			Console.WriteCharacter('D');
+			Console.WriteCharacter(':');
+			Console.WriteNumber(array.GetRaw());
+			Console.WriteCharacter('\t');
+			Console.WriteCharacter('S');
+			Console.WriteCharacter(':');
+			Console.WriteNumber(start);
+			Console.WriteCharacter('\t');
+			Console.WriteCharacter('L');
+			Console.WriteCharacter(':');
+			Console.WriteNumberLine(length);
+		}
+		HWDRIVE_PRESENT_PIN[3] = address;
+		HWDRIVE_PRESENT_PIN[3] = array.GetRaw();
+		HWDRIVE_PRESENT_PIN[3] = start;
+		HWDRIVE_PRESENT_PIN[3] = length;
+	}
+
+	public override uint Read(uint address)
+	{
+		
+		HWDRIVE_PRESENT_PIN[4] = address;
+		uint v = HWDRIVE_PRESENT_PIN[4];
+
+		uint dbg = this.m_EnableDebug;
+		if(dbg)
+		{
+			string DEBUG_LINE = "Read Single: ";
+			String str = String(&DEBUG_LINE, size_of(DEBUG_LINE));
+			Console.Write(str);
+			Console.WriteCharacter('A');
+			Console.WriteCharacter(':');
+			Console.WriteNumber(address);
+			Console.WriteCharacter('\t');
+			Console.WriteCharacter('D');
+			Console.WriteCharacter(':');
+			Console.WriteNumberLine(v);
+		}
+		return v;
+	}
+
+	public override void ReadBuffer(uint address, Array array, uint start, uint length)
+	{
+		uint dbg = this.m_EnableDebug;
+		if(dbg)
+		{
+			string DEBUG_LINE = "Read Buffer: ";
+			String str = String(&DEBUG_LINE, size_of(DEBUG_LINE));
+			Console.Write(str);
+			Console.WriteCharacter('A');
+			Console.WriteCharacter(':');
+			Console.WriteNumber(address);
+			Console.WriteCharacter('\t');
+			Console.WriteCharacter('D');
+			Console.WriteCharacter(':');
+			Console.WriteNumber(array.GetRaw());
+			Console.WriteCharacter('\t');
+			Console.WriteCharacter('S');
+			Console.WriteCharacter(':');
+			Console.WriteNumber(start);
+			Console.WriteCharacter('\t');
+			Console.WriteCharacter('L');
+			Console.WriteCharacter(':');
+			Console.WriteNumberLine(length);
+		}
+		HWDRIVE_PRESENT_PIN[5] = address;
+		HWDRIVE_PRESENT_PIN[5] = array.GetRaw();
+		HWDRIVE_PRESENT_PIN[5] = start;
+		HWDRIVE_PRESENT_PIN[5] = length;
+	}
+
+	public override String GetTypeString()
+	{
+		string HARDWARE_DRIVE_TYPE_STR = "HardwareDrive";
+		return String(&HARDWARE_DRIVE_TYPE_STR, size_of(HARDWARE_DRIVE_TYPE_STR));
+	}
+
+}

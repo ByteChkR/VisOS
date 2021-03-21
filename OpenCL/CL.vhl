@@ -1,0 +1,58 @@
+private static uint s_CLAlloc;
+
+public class CL : CLBase
+{
+	public static CL(Allocator alloc)
+	{
+		s_CLAlloc = alloc;
+	}
+
+	public override void Dispose()
+	{
+		s_CLAlloc = 0;
+	}
+
+	public uint GetPlatformCount()
+	{
+		return CL_PLATFORM_COUNT;
+	}
+
+	public CLPlatform GetPlatform(uint index)
+	{
+		uint data = this.Write1ThenRead(&CL_PLATFORM, index);
+		Allocator alloc = s_CLAlloc;
+		uint ptr = alloc.Allocate(size_of(CLPlatform));
+		Console.WriteCharacter('P');
+		Console.WriteNumberLine(ptr);
+		CLPlatform.new(ptr, data);
+		return ptr;
+	}
+
+	public CLContext CreateContext(CLDevice device)
+	{
+		uint data = this.Write1ThenRead(&CL_CREATE_CONTEXT, device.GetHandle());
+		Allocator alloc = s_CLAlloc;
+		uint ptr = alloc.Allocate(size_of(CLContext));
+		Console.WriteCharacter('C');
+		Console.WriteNumberLine(ptr);
+		CLContext.new(ptr, data);
+		return ptr;
+	}
+
+	public CLCommandQueue CreateQueue(CLContext context, CLDevice device)
+	{
+		uint data = this.Write2ThenRead(&CL_CREATE_COMMAND_QUEUE, context.GetHandle(), device.GetHandle());
+		Allocator alloc = s_CLAlloc;
+		uint ptr = alloc.Allocate(size_of(CLCommandQueue));
+		Console.WriteCharacter('Q');
+		Console.WriteNumberLine(ptr);
+		CLCommandQueue.new(ptr, data);
+		return ptr;
+	}
+
+	public override Collection GetTypeString()
+	{
+		string CL_TYPE_STR = "CL";
+		return String(&CL_TYPE_STR, size_of(CL_TYPE_STR));
+	}
+}

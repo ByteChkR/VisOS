@@ -1,0 +1,12 @@
+public class CLProgram : CLHandleItem
+{
+	public CLKernel GetKernel(String name)
+	{
+		//TODO: Get Kernel Handle ID from Driver(using the CLProgram Handle + the kernel name)
+	}
+
+	public override void Dispose()
+	{
+		//TODO: Dispose this Program(and all contained kernels)
+	}
+}

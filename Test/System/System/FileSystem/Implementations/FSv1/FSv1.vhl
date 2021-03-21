@@ -1,0 +1,192 @@
+
+public class FSv1 : FileSystem
+{
+	private uint m_Drive;
+	private uint m_Allocator;
+
+	public static FSv1(Drive drive, Allocator streamAllocator)
+	{
+		this.m_Drive = drive;
+		this.m_Allocator = streamAllocator;
+	}
+
+	private uint FindFree(uint nameSize, uint fileSize)
+	{
+		Drive d = this.m_Drive;
+		uint current = 0;
+		uint max = d.GetSize();
+		uint last = 0-1;
+		uint minSize = nameSize+fileSize+3;
+		while(current < max)
+		{
+			uint deleted = FSv1Helper.IsDeleted(d, current);
+			uint sizeFits = minSize <= FSv1Helper.GetNext(d, current);
+			if(deleted && sizeFits)
+			{
+				return current;
+			}
+			last = current;
+			current = FSv1Helper.GetNext(d, current);
+			if(current == max)
+			{
+				if(last == 0-1)
+				{
+					return 0;
+				}
+				return last;
+			}
+		}
+		interrupt(1);
+	}
+
+	private uint Find(String name)
+	{
+		Drive d = this.m_Drive;
+		uint current = 0;
+		uint max = d.GetSize();
+		while(current < max)
+		{
+			uint found = FSv1Helper.CompareNames(d, current, name);
+			uint deleted = FSv1Helper.IsDeleted(d, current);
+			if(found && !deleted)
+			{
+				return current;
+			}
+			current = FSv1Helper.GetNext(d, current);
+			if(current >= max)
+			{
+				return current;
+			}
+		}
+		interrupt(1);
+	}
+
+	public override uint GetFragmentCount()
+	{
+		Drive d = this.m_Drive;
+		uint current = 0;
+		uint max = d.GetSize();
+		uint count = 1;
+		while(current < max)
+		{
+			uint deleted = FSv1Helper.IsDeleted(d, current);
+			if(deleted)
+			{
+				count++;
+			}
+			current = FSv1Helper.GetNext(d, current);
+		}
+		return count;
+	}
+
+	public override uint GetUsedSize()
+	{
+		Drive d = this.m_Drive;
+		uint current = 0;
+		uint max = d.GetSize();
+		uint allocated = 1;
+		while(current < max)
+		{
+			uint deleted = FSv1Helper.IsDeleted(d, current);
+			if(!deleted)
+			{
+				uint size = FSv1Helper.FullSize(d, current);
+				allocated+=size;
+			}
+			current = FSv1Helper.GetNext(d, current);
+		}
+
+		return allocated;
+	}
+
+
+	public override uint GetRemainingSize()
+	{
+		Drive d = this.m_Drive;
+		uint current = 0;
+		uint max = d.GetSize();
+		uint count = 1;
+		uint last = 0;
+		while(current < max)
+		{
+			uint deleted = FSv1Helper.IsDeleted(d, current);
+			if(deleted)
+			{
+				uint size = FSv1Helper.FullSize(d, current);
+				count+=size;
+			}
+			last = current;
+			current = FSv1Helper.GetNext(d, current);
+		}
+
+		uint unallocated = max - (last + FSv1Helper.FullSize(d, current))
+		unallocated+=count;
+		return unallocated;
+	}
+
+
+	public override Stream OpenRead(String path)
+	{
+		uint addr = this.Find(path);
+		Drive d = this.m_Drive;
+
+		uint strLen = d.Read(addr);
+		uint dataLen = d.Read(addr+1);
+		uint dataStart = addr+strLen+3;
+
+		Allocator alloc = this.m_Allocator;
+		FSv1FileStream fs = alloc.Allocate(size_of(FSv1FileStream));
+		FSv1FileStream.new(fs, &d, dataStart, 1, 0, dataLen);
+		return fs;
+	}
+	public override Stream OpenWrite(String path)
+	{
+		uint addr = this.Find(path);
+		Drive d = this.m_Drive;
+
+		uint strLen = d.Read(addr);
+		uint dataLen = d.Read(addr+1);
+		uint dataStart = addr+strLen+3;
+
+		Allocator alloc = this.m_Allocator;
+		FSv1FileStream fs = alloc.Allocate(size_of(FSv1FileStream));
+		FSv1FileStream.new(fs, &d, dataStart, 0, 1, dataLen);
+		return fs;
+	}
+
+	public override Stream OpenCreate(String path, uint size)
+	{
+		uint addr = this.FindFree(path, size);
+		Drive d = this.m_Drive;
+
+		d.Write(addr, path.GetCapacity());
+		d.WriteBuffer(addr+3, path, 0, path.GetCapacity());
+		d.Write(addr+1, size);
+		d.Write(addr+2, 0);
+		uint dataStart = addr+path.GetCapacity()+3;
+
+
+		Allocator alloc = this.m_Allocator;
+		FSv1FileStream fs = alloc.Allocate(size_of(FSv1FileStream));
+		FSv1FileStream.new(fs, &d, dataStart, 0, 1, size);
+		return fs;
+	}
+	public override void Delete(String path)
+	{
+		uint addr = this.Find(path);
+		Drive d = this.m_Drive;
+		FSv1Helper.SetDeleted(d, addr);
+	}
+	public override uint FileExists(String path)
+	{
+		uint addr = this.Find(path);
+		Drive d = this.m_Drive;
+		uint max =  d.GetSize();
+		return addr < max;
+	}
+	public override Collection GetTypeString()
+	{
+		string STACK_TYPE_STR = "FSv1";
+		return String(&STACK_TYPE_STR, size_of(STACK_TYPE_STR));
+	}
+}

@@ -1,4 +1,6 @@
+//#import "CL ./kernel"
 
+//#include "src.vhl"
 //Include System Library
 
 //Included by other System Libs below
@@ -7,6 +9,7 @@
 #include "System/System.Collections.vhl"
 #include "System/System.IO.vhl"
 #include "System/System.Time.vhl"
+#include "System/System.FileSystem.V1.vhl"
 
 
 //Include Examples
@@ -40,7 +43,7 @@ private static void Initialize()
 	PinStream InStream = PinStream(0xFFFF1004, 1, 0);
 	Console.SetConsoleInput(InStream);
 
-	Console.Clear();
+	//Console.Clear();
 }
 
 Initialize(); //Initialize Console
@@ -70,3 +73,161 @@ stExample.RunExample();
 
 AllocatorExample aExample = AllocatorExample();
 aExample.RunExample();
+
+HardwareDrive hwDrive = HardwareDrive();
+private static uint CHRPack(uint input, uint value, uint count)
+{
+	uint val = value << count;
+	return input | val;
+}
+
+private static uint CHRUnPack(uint value, uint count)
+{
+	uint mask = 0xFF;
+	uint val = value >> count;
+	return mask & val;
+}
+
+//Writes all zeros to the disk in sequence
+private static void SlowFormat()
+{
+	uint hwSize = hwDrive.GetSize();
+	string TXT_SPERC = "[SLOW]Format Progress: "; //Format Harddrive
+	String spercentageText = String(&TXT_SPERC, size_of(TXT_SPERC));
+	for(uint i = 0; i < hwSize; i++)
+	{
+		if(i % (1024*10) == 0)
+		{
+			Console.Write(spercentageText);
+			uint p= (i*1000)/hwSize;
+			Console.WriteNumber(p/10);
+			Console.WriteCharacter('.');
+			Console.WriteNumber(p % 10);
+			Console.WriteCharacter('%');
+			Console.WriteCharacter('\n');
+		}
+		hwDrive.Write(i, 0); //write 0
+	}
+}
+
+//Uses the Drive DMA Capabilities to copy a chunk of memory
+private static void FastFormat()
+{
+	uint hwSize = hwDrive.GetSize();
+	string TXT_FPERC = "[FAST]Format Progress: "; //Format Harddrive
+	String fpercentageText = String(&TXT_FPERC, size_of(TXT_FPERC));
+
+	uint blockSize = 0x1000;
+	uint emptyStart = 0x9000;
+	Array emptyArr = Array(emptyStart, blockSize);
+	uint current = 0;
+	while(current < hwSize)
+	{
+		
+		Console.Write(fpercentageText);
+		uint p= (current*1000)/hwSize;
+		Console.WriteNumber(p/10);
+		Console.WriteCharacter('.');
+		Console.WriteNumber(p % 10);
+		Console.WriteCharacter('%');
+		Console.WriteCharacter('\n');
+		
+		uint left = hwSize-current;
+		if(left >= blockSize)
+		{
+			left = blockSize;
+		}
+		hwDrive.WriteBuffer(current, emptyArr, 0, left); //write 0 with DMA
+		current+=left;
+	}
+}
+
+uint run;
+run %= 2;
+if(!run)
+{
+	SlowFormat();
+	FastFormat();
+}
+run++;
+
+
+ConstantAllocator calloc = ConstantAllocator(0x8FFF, 0x1000);
+calloc.SetOptimizationLevel(2);
+
+FSv1 cfs = FSv1(&hwDrive, &calloc);
+
+string TEST_FILECREATE_STR = "Creating File: ";
+String testFileCreateText = String(&TEST_FILECREATE_STR, size_of(TEST_FILECREATE_STR));
+
+string TEST_FILE_STR = "test.txt";
+String testFile = String(&TEST_FILE_STR, size_of(TEST_FILE_STR));
+
+string dTEST_FILE_STR = "testd.txt";
+String dtestFile = String(&dTEST_FILE_STR, size_of(dTEST_FILE_STR));
+
+if(!cfs.FileExists(testFile)) //Create Files on HDD with FSv1 FileSystem
+{
+	Console.Write(testFileCreateText);
+	Console.WriteLine(testFile);
+	Stream wfs = cfs.OpenCreate(testFile, 10);
+
+	for(uint i = 0; i < 10; i++)
+	{
+		uint chr = 0;
+		chr = CHRPack(chr, 'L', 0);
+		chr = CHRPack(chr, 'O', 8);
+		chr = CHRPack(chr, 'L', 16);
+		chr = CHRPack(chr, '\n', 24);
+		wfs.Write(chr);
+	}
+	calloc.Free(wfs);
+}
+
+
+if(!cfs.FileExists(dtestFile))
+{
+	Console.Write(testFileCreateText);
+	Console.WriteLine(dtestFile);
+	Stream dwfs = cfs.OpenCreate(dtestFile, 10);
+
+	for(uint i = 9; i < 10; i--)
+	{
+		uint chr = 0;
+		chr = CHRPack(chr, 'L', 0);
+		chr = CHRPack(chr, 'O', 8);
+		chr = CHRPack(chr, 'L', 16);
+		chr = CHRPack(chr, '\n', 24);
+		dwfs.Write(chr);
+	}
+	calloc.Free(dwfs);
+}
+
+Stream rfs = cfs.OpenRead(testFile);
+
+for(uint i = 0; i < 10; i++)
+{
+	uint val = rfs.Read();
+	Console.WriteNumber(val);
+	Console.WriteCharacter('\t');
+}
+Console.WriteCharacter('\n');
+Stream drfs = cfs.OpenRead(dtestFile);
+
+for(uint i = 0; i < 10; i++)
+{
+	uint val = drfs.Read();
+	Console.WriteNumber(val);
+	Console.WriteCharacter('\t');
+}
+Console.WriteCharacter('\n');
+
+calloc.Free(rfs);
+calloc.Free(drfs);
+
+calloc.WriteDebugData();
+
+#import "vasm-bridge JREF"
+uint start = 0;
+I1_JREF(&start);
+	

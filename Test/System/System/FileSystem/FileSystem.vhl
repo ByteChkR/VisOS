@@ -1,0 +1,16 @@
+
+public abstract class FileSystem : Object
+{
+	public abstract Stream OpenRead(String path);
+	public abstract Stream OpenWrite(String path);
+	public abstract Stream OpenCreate(String path, uint size);
+	public abstract void Delete(String path);
+	public abstract uint FileExists(String path);
+	public abstract uint GetUsedSize();
+	public abstract uint GetFragmentCount();
+	public abstract uint GetRemainingSize();
+}
+
+
+
+

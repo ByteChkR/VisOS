@@ -1,0 +1,15 @@
+
+public class CLDevice : CLHandleItem
+{
+	public static CLDevice(uint handle)
+	{
+		Console.WriteCharacter('D');
+		CLHandleItem.CLHandleItem(this, handle);
+	}
+
+	public override Collection GetTypeString()
+	{
+		string CL_DEVICE_TYPE_STR = "CLDevice";
+		return String(&CL_DEVICE_TYPE_STR, size_of(CL_DEVICE_TYPE_STR));
+	}
+}

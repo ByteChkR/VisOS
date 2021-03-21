@@ -1,4 +1,4 @@
-public class Enumerator : Object
+public abstract class Enumerator : Object
 {
 	public abstract uint HasNext();
 	public abstract uint GetNext();

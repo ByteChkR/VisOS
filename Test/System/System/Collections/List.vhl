@@ -1,5 +1,5 @@
 
-public class List : Collection
+public abstract class List : Collection
 {
 	public abstract void InsertAt(uint index, uint data);
 	public abstract void RemoveAt(uint index);

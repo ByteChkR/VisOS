@@ -1,0 +1,13 @@
+public class CLContext : CLHandleItem
+{
+	public static CLContext(uint handle)
+	{
+		Console.WriteCharacter('C');
+		CLHandleItem.CLHandleItem(this, handle);
+	}
+	public override Collection GetTypeString()
+	{
+		string CL_CONTEXT_TYPE_STR = "CLContext";
+		return String(&CL_CONTEXT_TYPE_STR, size_of(CL_CONTEXT_TYPE_STR));
+	}
+}

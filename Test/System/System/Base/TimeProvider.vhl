@@ -1,4 +1,4 @@
-public class TimeProvider : Object
+public abstract class TimeProvider : Object
 {
 	public abstract uint GetSystemSeconds();
 }

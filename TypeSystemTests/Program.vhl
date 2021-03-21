@@ -1,0 +1,17 @@
+#inline "A.vhl"
+#inline "B.vhl"
+
+private const uint C_OUT = 0xFFFF1001;
+
+//Entry Point of Project
+
+
+private static A s_Instance;
+
+s_Instance = B();
+C_OUT = s_Instance.F();
+C_OUT = '\n';
+
+s_Instance = C();
+C_OUT = s_Instance.F();
+C_OUT = '\n';

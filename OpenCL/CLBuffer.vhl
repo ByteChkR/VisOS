@@ -1,0 +1,14 @@
+public class CLBuffer : CLHandleItem
+{
+	private uint m_Size;
+	public uint GetSize()
+	{
+		uint v = this.m_Size;
+		return v;
+	}
+
+	public override void Dispose()
+	{
+		//TODO: Dispose the Buffer
+	}
+}

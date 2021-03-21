@@ -1,4 +1,4 @@
-public class Exception : Object
+public abstract class Exception : Object
 {
 	public virtual void Throw()
 	{

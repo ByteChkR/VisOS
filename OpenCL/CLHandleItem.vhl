@@ -1,0 +1,26 @@
+public abstract class CLHandleItem : CLBase
+{
+	private uint m_Handle;
+	public static CLHandleItem(uint handle)
+	{
+		Console.WriteCharacter('H');
+		Console.WriteNumberLine(handle);
+		this.m_Handle = handle;
+	}
+
+	public uint GetHandle()
+	{
+		uint v = this.m_Handle;
+		return v;
+	}
+
+	public override void Dispose()
+	{
+		//TODO: Release Handle
+
+		
+		Allocator alloc = s_CLAlloc;
+		alloc.Free(this);
+	}
+
+}

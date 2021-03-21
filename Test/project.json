@@ -20,7 +20,8 @@
           "BuildJobRunner": "merged",
           "Arguments": {
             "merge:include": "%VISDIR%common/jobs/debug_build.json",
-            "build:input": "Program.vhl"
+            "build:input": "Program.vhl",
+            "compiler:constructor-prolog-mode": "Outline",
           }
         }
       ]
@@ -71,7 +72,8 @@
           "Arguments": {
             "merge:include": "%VISDIR%common/jobs/release_build.json",
             "build:input": "Program.vhl",
-            "assembler:format": "v1"
+            "assembler:format": "v1",
+            "compiler:constructor-prolog-mode": "Inline",
           }
         }
       ]

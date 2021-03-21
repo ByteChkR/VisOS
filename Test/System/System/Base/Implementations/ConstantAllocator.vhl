@@ -142,7 +142,7 @@ public class ConstantAllocator : Allocator
 
 		string EXAMPLE_LOG_TAG = "[Constant Allocator]";
 		String loggerTag = String(&EXAMPLE_LOG_TAG, size_of(EXAMPLE_LOG_TAG));
-		Logger logger = Logger(&loggerTag);
+		Logger logger = SystemDebug.GetLogger();
 
 		uint len = this.m_MemoryLength;
 		uint max = this.m_MemoryStart;

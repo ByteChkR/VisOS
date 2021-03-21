@@ -4,3 +4,6 @@
 #inline "System/IO/PinStream.vhl"
 #inline "System/IO/NotImplementedException.vhl"
 #inline "System/IO/NotSupportedException.vhl"
+#inline "System/IO/Drive.vhl"
+#inline "System/IO/Drives/HardwareDrive.vhl"
+#inline "System/IO/Drives/MemoryDrive.vhl"

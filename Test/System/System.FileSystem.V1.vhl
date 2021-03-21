@@ -1,0 +1,5 @@
+#include "System.FileSystem.vhl"
+
+#inline "System/FileSystem/Implementations/FSv1/FSv1.vhl"
+#inline "System/FileSystem/Implementations/FSv1/FSv1Helper.vhl"
+#inline "System/FileSystem/Implementations/FSv1/FSv1FileStream.vhl"

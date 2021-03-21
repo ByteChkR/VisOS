@@ -1,0 +1,8 @@
+public abstract class Drive : Object
+{
+	public abstract uint GetSize();
+	public abstract void Write(uint address, uint data);
+	public abstract void WriteBuffer(uint address, Array array, uint start, uint length);
+	public abstract uint Read(uint address);
+	public abstract void ReadBuffer(uint address, Array array, uint start, uint length);
+}

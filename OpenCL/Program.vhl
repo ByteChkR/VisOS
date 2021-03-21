@@ -1,0 +1,62 @@
+#include "../Test/System/System.IO.vhl"
+
+#inline "CLConstData.vhl"
+#inline "CLCommandQueue.vhl"
+#inline "CLDevice.vhl"
+#inline "CLPlatform.vhl"
+#inline "CLContext.vhl"
+#inline "CL.vhl"
+#inline "CLBase.vhl"
+#inline "CLHandleItem.vhl"
+
+private static void Initialize()
+{
+	//Set Device Clear Pin
+	Console.SetConsoleClearPin(0xFFFF1005);
+
+	//Create and Set Parse Buffer
+	//Used when Calling Console.WriteNumber or Console.WriteNumberLine
+	uint raw_buffer[30];
+	Array parse_buffer = Array(&raw_buffer, size_of(raw_buffer));
+	Console.SetConsoleParseBuffer(parse_buffer);
+
+	//Create/Set Output Stream
+	PinStream OutStream = PinStream(0xFFFF1001, 0, 1);
+	Console.SetConsoleOutput(OutStream);
+
+	//Create/Set Console Input Stream
+	PinStream InStream = PinStream(0xFFFF1004, 1, 0);
+	Console.SetConsoleInput(InStream);
+
+	//Console.Clear();
+}
+
+Initialize();
+
+//Setup Allocator Stack
+ConstantAllocator calloc = ConstantAllocator(0x8FFF, 0x1000);
+calloc.SetOptimizationLevel(2);
+
+//Create OpenCL Wrapper
+CL cl = CL(calloc);
+
+//Get Platform
+uint platformCount = cl.GetPlatformCount();
+CLPlatform platform = cl.GetPlatform(0);
+
+//Get Device
+uint deviceCount = platform.GetDeviceCount();
+CLDevice dev = platform.GetDevice(0);
+
+//Create Context
+CLContext context = cl.CreateContext(dev);
+
+//Create Command Queue
+CLCommandQueue cq = cl.CreateQueue(context, dev);
+
+calloc.WriteDebugData();
+
+Console.WriteNumberLine(platform.GetHandle());
+Console.WriteNumberLine(dev.GetHandle());
+Console.WriteNumberLine(context.GetHandle());
+Console.WriteNumberLine(cq.GetHandle());

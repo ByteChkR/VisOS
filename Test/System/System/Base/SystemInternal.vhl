@@ -1,0 +1,19 @@
+public class SystemDebug
+{
+	public static Logger GetLogger()
+	{
+		string SYSTEM_DEBUG_TAG = "[System]";
+		String loggerTag = String(&SYSTEM_DEBUG_TAG, size_of(SYSTEM_DEBUG_TAG));
+		uint ptr;
+		if(!ptr)
+		{
+			string L_CREATE = "System Logger Created..";
+			String loggerCreate = String(&L_CREATE, size_of(L_CREATE));
+
+			Logger l = Logger(&loggerTag);
+			l.WriteLine(loggerCreate);
+			ptr = l;
+		}
+		return ptr;
+	}
+}

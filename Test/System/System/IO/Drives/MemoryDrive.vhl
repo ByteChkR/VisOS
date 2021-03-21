@@ -1,0 +1,54 @@
+public class MemoryDrive : Drive
+{
+	private uint m_DriveMap;
+	public static MemoryDrive(Collection arr)
+	{
+		this.m_DriveMap = arr;
+	}
+	public override uint GetSize()
+	{
+		Collection arr = this.m_DriveMap;
+		return arr.GetCapacity();
+	}
+
+	public override void Write(uint address, uint data)
+	{
+		Collection arr = this.m_DriveMap;
+		arr.SetElementAt(address, data);
+	}
+
+	public override void WriteBuffer(uint address, Array array, uint start, uint length)
+	{
+		Collection arr = this.m_DriveMap;
+		for (uint i = 0; i < length; i++)
+		{
+			uint addr = address + i;
+			uint srcIdx = start + i;
+			arr.SetElementAt(addr, array.GetElementAt(srcIdx));
+		}
+	}
+
+	public override uint Read(uint address)
+	{
+		Collection arr = this.m_DriveMap;
+		return arr.GetElementAt(address);
+	}
+
+	public override void ReadBuffer(uint address, Array array, uint start, uint length)
+	{
+		Collection arr = this.m_DriveMap;
+		for (uint i = 0; i < length; i++)
+		{
+			uint addr = address + i;
+			uint srcIdx = start + i;
+			array.SetElementAt(addr, arr.GetElementAt(srcIdx));
+		}
+	}
+
+	public override String GetTypeString()
+	{
+		string MEMORY_DRIVE_TYPE_STR = "MemoryDrive";
+		return String(&MEMORY_DRIVE_TYPE_STR, size_of(MEMORY_DRIVE_TYPE_STR));
+	}
+
+}

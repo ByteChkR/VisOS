@@ -1,0 +1,14 @@
+public class CLCommandQueue : CLHandleItem
+{
+	public static CLCommandQueue(uint handle)
+	{
+		Console.WriteCharacter('Q');
+		CLHandleItem.CLHandleItem(this, handle);
+	}
+
+	public override Collection GetTypeString()
+	{
+		string CL_COMMAND_QUEUE_TYPE_STR = "CLCommandQueue";
+		return String(&CL_COMMAND_QUEUE_TYPE_STR, size_of(CL_COMMAND_QUEUE_TYPE_STR));
+	}
+}

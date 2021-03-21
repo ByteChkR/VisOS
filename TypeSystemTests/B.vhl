@@ -1,0 +1,24 @@
+public class B : A
+{
+	public static C()
+	{
+		A.A(this);
+	}
+
+	public override uint F()
+	{
+		return 'B';
+	}
+}
+public class C : A
+{
+	public static C()
+	{
+		A.base(this); //Access with base shorthand
+	}
+	
+	public override uint F()
+	{
+		return 'C';
+	}
+}

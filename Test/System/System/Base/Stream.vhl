@@ -1,4 +1,4 @@
-public class Stream : Object
+public abstract class Stream : Object
 {
 	public abstract uint CanRead();
 	public abstract uint Read();

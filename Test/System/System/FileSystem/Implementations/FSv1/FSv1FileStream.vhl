@@ -1,0 +1,85 @@
+public class FSv1FileStream : Stream
+{
+	private uint m_Drive;
+	private uint m_DriveOffset;
+	private uint m_CanRead;
+	private uint m_CanWrite;
+	private uint m_Length;
+	private uint m_Position;
+	public static FSv1FileStream(Drive drive, uint offset, uint canRead, uint canWrite, uint length)
+	{
+		this.m_Drive = drive;
+		this.m_Length = length;
+		this.m_Position = 0;
+		this.m_DriveOffset = offset;
+		this.m_CanRead = canRead;
+		this.m_CanWrite = canWrite;
+	}
+	public override uint CanRead()
+	{
+		uint v = this.m_CanRead;
+		return v;
+	}
+	public override uint Read()
+	{
+		uint p = this.m_Position;
+		Drive d = this.m_Drive;
+		uint off = this.m_DriveOffset;
+		off+=p;
+		p++;
+		this.m_Position =p;
+		uint ret = d.Read(off);
+		
+		return ret;
+	}
+
+	public override uint CanWrite()
+	{
+		uint v = this.m_CanWrite;
+		return v;
+	}
+	public override void Write(uint data)
+	{
+		uint p = this.m_Position;
+		Drive d = this.m_Drive;
+		uint off = this.m_DriveOffset;
+		off += p;
+		
+		p++;
+		this.m_Position = p;
+		d.Write(off, data);
+	}
+
+	public override uint HasPosition()
+	{
+		return 1;
+	}
+	public override uint GetPosition()
+	{
+		uint v = this.m_Position;
+		return v;
+	}
+	public override uint CanSetPosition()
+	{
+		return 1;
+	}
+	public override void SetPosition(uint position)
+	{
+		this.m_Position = position;
+	}
+
+	public override uint HasLength()
+	{
+		return 1;
+	}
+	public override uint GetLength()
+	{
+		uint v = this.m_Length;
+		return v;
+	}
+	public override Collection GetTypeString()
+	{
+		string STACK_TYPE_STR = "FSv1FileStream";
+		return String(&STACK_TYPE_STR, size_of(STACK_TYPE_STR));
+	}
+}

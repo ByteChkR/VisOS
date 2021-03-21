@@ -1,0 +1,8 @@
+private const uint CL_PRESENT = 0xFFFF7000;
+private const uint CL_PLATFORM_COUNT = 0xFFFF7001;
+private const uint CL_PLATFORM = 0xFFFF7002;
+private const uint CL_DEVICE_COUNT = 0xFFFF7003;
+private const uint CL_DEVICE = 0xFFFF7004;
+private const uint CL_CREATE_CONTEXT = 0xFFFF7005;
+private const uint CL_CREATE_COMMAND_QUEUE = 0xFFFF7006;
+
